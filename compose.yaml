@@ -6,6 +6,7 @@ services:
             args:
                 WWWGROUP: '${WWWGROUP}'
         image: 'sail-8.5/app'
+        container_name: '${APP_NAME:-yumz}_app'
         extra_hosts:
             - 'host.docker.internal:host-gateway'
         ports:
@@ -26,6 +27,7 @@ services:
             - redis
     pgsql:
         image: 'postgres:16'
+        container_name: '${DB_DATABASE}'
         ports:
             - '${FORWARD_DB_PORT:-5432}:5432'
         environment:
@@ -50,6 +52,7 @@ services:
             timeout: 5s
     redis:
         image: 'redis:alpine'
+        container_name: '${APP_NAME:-yumz}_redis'
         ports:
             - '${FORWARD_REDIS_PORT:-6379}:6379'
         volumes:
