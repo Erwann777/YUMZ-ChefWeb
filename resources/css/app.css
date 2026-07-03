@@ -1,0 +1,455 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+@theme {
+    --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+
+    /* CookSpace Custom Palette */
+    --color-cs-orange:          #C67C4E;
+    --color-cs-orange-hover:    #B06A3E;
+    --color-cs-orange-glow:     rgba(198, 124, 78, 0.10);
+    --color-cs-green:           #03ac0e;
+    --color-cs-green-hover:     #028f0c;
+    --color-cs-green-glow:      rgba(3, 172, 14, 0.08);
+    --color-cs-bg-primary:      #F5EFE6;
+    --color-cs-bg-secondary:    #ffffff;
+    --color-cs-border:          #E8DDD2;
+    --color-cs-text-primary:    #2C1810;
+    --color-cs-text-secondary:  #7A6248;
+    --color-cs-text-muted:      #B0A090;
+
+    /* Admin Custom Palette */
+    --color-admin-accent:       #03ac0e;
+    --color-admin-accent-glow:  rgba(3, 172, 14, 0.08);
+    --color-admin-bg:           #F5EFE6;
+    --color-admin-sidebar:      #ffffff;
+    --color-admin-card:         #ffffff;
+    --color-admin-border:       #E8DDD2;
+
+    /* Animation definition */
+    --animate-fadeInUp: fadeInUp 0.4s ease-out forwards;
+    --animate-float:    float 20s ease-in-out infinite;
+}
+
+/* ═══════════════════════════════════════════════
+   COOKSPACE WARM LIGHT THEME SYSTEM
+   ═══════════════════════════════════════════════ */
+
+/* ── Background page dengan gradient + texture ── */
+@utility cs-bg {
+    background-color: #F5EFE6;
+    background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E"),
+        radial-gradient(ellipse 80% 50% at 0% 0%, rgba(198, 124, 78, 0.12) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 100% 100%, rgba(198, 124, 78, 0.08) 0%, transparent 55%),
+        linear-gradient(160deg, #EDE3D6 0%, #F5EFE6 40%, #EFE8DC 100%);
+    background-attachment: fixed;
+}
+
+/* ── Card putih bersih ── */
+@utility cs-card {
+    background-color: #ffffff;
+    border: 1px solid #E8DDD2;
+    border-radius: 1rem;
+    box-shadow: 0 1px 3px rgba(44, 24, 16, 0.05);
+    transition: all 0.2s ease;
+}
+
+/* ── Card hover ── */
+@utility cs-card-hover {
+    &:hover {
+        border-color: rgba(198, 124, 78, 0.4);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(44, 24, 16, 0.08);
+    }
+}
+
+@utility cs-title   { color: #2C1810; }
+@utility cs-text    { color: #3D2B1A; }
+@utility cs-label   { color: #7A6248; }
+@utility cs-muted   { color: #B0A090; }
+@utility cs-divider { border-color: #E8DDD2; }
+
+@utility cs-row {
+    transition: background-color 0.15s ease;
+    &:hover { background-color: #FBF7F3; }
+}
+
+@utility cs-btn-secondary {
+    background-color: #ffffff;
+    border: 1px solid #D4C4B0;
+    color: #2C1810;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1.25rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    text-decoration: none;
+    &:hover {
+        background-color: #F5EFE6;
+        border-color: #C67C4E;
+    }
+}
+
+@utility cs-stat-card {
+    background-color: #ffffff;
+    border: 1px solid #E8DDD2;
+    border-radius: 1rem;
+    padding: 1.25rem;
+    box-shadow: 0 1px 3px rgba(44, 24, 16, 0.05);
+    transition: all 0.3s ease;
+    &:hover {
+        border-color: rgba(198, 124, 78, 0.4);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(44, 24, 16, 0.08);
+    }
+}
+
+@utility cs-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid #E8DDD2;
+}
+
+@utility cs-th {
+    padding: 0.75rem 1.25rem;
+    border-bottom: 1px solid #E8DDD2;
+    color: #7A6248;
+    font-weight: 500;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+@utility cs-td {
+    padding: 0.75rem 1.25rem;
+    border-bottom: 1px solid #E8DDD2;
+    color: #3D2B1A;
+}
+
+/* ═══════════════════════════════════════════════ */
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(15px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Admin Sidebar */
+.admin-sidebar.open    { transform: translateX(0) !important; }
+.sidebar-overlay.open  { display: block !important; }
+
+@keyframes float {
+    0%,  100% { transform: translate(0, 0) scale(1); }
+    25%        { transform: translate(30px, -30px) scale(1.05); }
+    50%        { transform: translate(-20px, 20px) scale(0.95); }
+    75%        { transform: translate(20px, 10px) scale(1.02); }
+}
+
+/* Dashboard Tabs */
+.tab-btn.active {
+    color: #C67C4E !important;
+    background-color: rgba(198, 124, 78, 0.08) !important;
+    font-weight: 600 !important;
+}
+.tab-content        { display: none; }
+.tab-content.active { display: block !important; }
+
+/* Shared Utilities */
+@utility admin-card {
+    background-color: var(--color-admin-card);
+    border: 1px solid var(--color-admin-border);
+    border-radius: 14px;
+    transition: all 0.2s ease;
+}
+
+@utility btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    gap: 0.4rem; padding: 0.5rem 1rem; font-size: 0.82rem; font-weight: 500;
+    border-radius: 8px; border: none; cursor: pointer;
+    transition: all 0.2s ease; text-decoration: none;
+}
+
+@utility btn-primary {
+    background: linear-gradient(135deg, #D4895A, #C67C4E);
+    color: white;
+    &:hover { transform: translateY(-1px); box-shadow: 0 4px 15px rgba(198, 124, 78, 0.3); }
+}
+
+@utility btn-ghost {
+    background: transparent;
+    color: var(--color-cs-text-secondary);
+    border: 1px solid var(--color-admin-border);
+    &:hover { background: rgba(44, 24, 16, 0.03); color: var(--color-cs-text-primary); }
+}
+
+@utility btn-danger {
+    background: rgba(248, 113, 113, 0.1);
+    color: #ef4444;
+    border: 1px solid rgba(248, 113, 113, 0.2);
+    &:hover { background: rgba(248, 113, 113, 0.2); }
+}
+
+@utility btn-sm { padding: 0.35rem 0.7rem; font-size: 0.78rem; }
+
+@utility role-badge {
+    font-size: 0.65rem; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.06em; padding: 0.2rem 0.6rem; border-radius: 99px; display: inline-flex;
+}
+@utility role-badge-customer { background: rgba(96, 165, 250, 0.15); color: #1d4ed8; border: 1px solid rgba(96, 165, 250, 0.2); }
+@utility role-badge-cooker   { background: rgba(198, 124, 78, 0.15); color: #92400e; border: 1px solid rgba(198, 124, 78, 0.2); }
+@utility role-badge-admin    { background: rgba(248, 113, 113, 0.15); color: #b91c1c; border: 1px solid rgba(248, 113, 113, 0.2); }
+
+@utility action-badge { font-size: 0.68rem; font-weight: 600; padding: 0.2rem 0.55rem; border-radius: 6px; display: inline-flex; align-items: center; gap: 0.3rem; }
+@utility action-badge-green  { background: rgba(3, 172, 14, 0.1);  color: #03ac0e; }
+@utility action-badge-gray   { background: rgba(100, 116, 139, 0.1); color: #64748b; }
+@utility action-badge-blue   { background: rgba(59, 130, 246, 0.1);  color: #3b82f6; }
+@utility action-badge-orange { background: rgba(198, 124, 78, 0.1);  color: #C67C4E; }
+@utility action-badge-purple { background: rgba(139, 92, 246, 0.1);  color: #8b5cf6; }
+@utility action-badge-red    { background: rgba(239, 68, 68, 0.1);   color: #ef4444; }
+
+@utility anim-in { animation: fadeInUp 0.4s ease-out forwards; }
+@utility anim-d1 { animation-delay: 0.05s; opacity: 0; }
+@utility anim-d2 { animation-delay: 0.1s;  opacity: 0; }
+@utility anim-d3 { animation-delay: 0.15s; opacity: 0; }
+@utility anim-d4 { animation-delay: 0.2s;  opacity: 0; }
+
+/* ═══════════════════════════════════════════════
+   LANDING PAGE
+   ═══════════════════════════════════════════════ */
+:root {
+    --heirloom-cream: #F5EFE6;
+    --heirloom-cream-dark: #EDE5DC;
+    --heirloom-brown: #8B4513;
+    --heirloom-brown-light: #C67C4E;
+    --heirloom-brown-dark: #2C1810;
+    --heirloom-text: #3D2B1F;
+    --heirloom-text-light: #7A6B5D;
+    --heirloom-accent: #C67C4E;
+    --heirloom-accent-hover: #B06A3E;
+    --heirloom-gold: #D4A574;
+    --font-serif: 'Playfair Display', 'Georgia', serif;
+}
+
+.reveal {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.reveal.revealed { opacity: 1; transform: translateY(0); }
+
+@keyframes slideScroll {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   MULTI-CURRENCY WALLET STYLES
+══════════════════════════════════════════════════════════════ */
+
+/* Wallet Balance Card */
+.wallet-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 24px;
+    background: linear-gradient(135deg, #C67C4E 0%, #8B4513 55%, #6B2F0A 100%);
+    box-shadow: 0 8px 32px rgba(198, 124, 78, 0.35);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.wallet-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(198, 124, 78, 0.45);
+}
+.wallet-card::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 180px; height: 180px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 50%;
+}
+.wallet-card::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; left: -40px;
+    width: 120px; height: 120px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 50%;
+}
+
+/* Country Flag Badge */
+.country-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.2rem 0.65rem;
+    border-radius: 999px;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    border: 1px solid;
+    transition: all 0.2s ease;
+}
+.country-badge-id {
+    background: rgba(220, 38, 38, 0.08);
+    color: #dc2626;
+    border-color: rgba(220, 38, 38, 0.2);
+}
+.country-badge-sg {
+    background: rgba(239, 68, 68, 0.07);
+    color: #b91c1c;
+    border-color: rgba(239, 68, 68, 0.18);
+}
+.country-badge-my {
+    background: rgba(37, 99, 235, 0.08);
+    color: #1d4ed8;
+    border-color: rgba(37, 99, 235, 0.18);
+}
+
+/* Currency Chip */
+.currency-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.15rem 0.5rem;
+    background: rgba(198, 124, 78, 0.1);
+    color: #C67C4E;
+    border-radius: 999px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    border: 1px solid rgba(198, 124, 78, 0.2);
+}
+
+/* Conversion Preview Panel */
+.conversion-panel {
+    background: linear-gradient(135deg, #FDFAF7, #FFF8F0);
+    border: 1.5px solid #E0D0C0;
+    border-radius: 16px;
+    padding: 1rem;
+    transition: all 0.3s ease;
+}
+.conversion-panel:hover {
+    border-color: #C67C4E;
+    box-shadow: 0 4px 16px rgba(198, 124, 78, 0.10);
+}
+.conversion-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.4rem 0;
+    font-size: 0.85rem;
+}
+.conversion-row + .conversion-row {
+    border-top: 1px solid #F0EAE3;
+}
+.conversion-highlight {
+    color: #C67C4E;
+    font-weight: 700;
+    font-size: 1.05rem;
+}
+.conversion-rate-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.15rem 0.5rem;
+    background: rgba(59, 130, 246, 0.08);
+    color: #2563eb;
+    border-radius: 6px;
+    font-size: 0.6rem;
+    font-weight: 600;
+    border: 1px solid rgba(59, 130, 246, 0.15);
+    font-family: ui-monospace, monospace;
+}
+
+/* Wallet Badge in Navbar */
+#wallet-badge {
+    transition: all 0.25s ease;
+}
+#wallet-badge:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(198, 124, 78, 0.25);
+}
+
+/* Transaction Row */
+.tx-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 0.85rem 1.25rem;
+    border-bottom: 1px solid #F8F4F0;
+    transition: background 0.15s ease;
+}
+.tx-row:hover { background: #FAFAF8; }
+.tx-row:last-child { border-bottom: none; }
+
+.tx-icon-credit { background: rgba(34, 197, 94, 0.08); }
+.tx-icon-debit  { background: rgba(239, 68, 68, 0.08); }
+
+.tx-amount-credit { color: #16a34a; }
+.tx-amount-debit  { color: #dc2626; }
+
+/* Wallet Balance Animation */
+@keyframes balancePulse {
+    0%   { opacity: 1; }
+    50%  { opacity: 0.7; }
+    100% { opacity: 1; }
+}
+.wallet-balance-updating {
+    animation: balancePulse 0.8s ease-in-out;
+}
+
+/* Insufficient balance warning */
+.insufficient-warning {
+    background: rgba(239, 68, 68, 0.06);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    border-radius: 12px;
+    padding: 0.6rem 0.9rem;
+    color: #dc2626;
+    font-size: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Exchange rate table */
+.rate-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 0.75rem;
+    background: #FAFAF8;
+    border-radius: 12px;
+    border: 1px solid #F0EAE3;
+    font-size: 0.85rem;
+    transition: border-color 0.2s ease;
+}
+.rate-row:hover { border-color: rgba(198, 124, 78, 0.3); }
+.rate-value {
+    font-weight: 700;
+    color: #2C1810;
+    font-family: ui-monospace, 'Courier New', monospace;
+}
+
+/* Virtual money disclaimer banner */
+.virtual-money-banner {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.85rem 1rem;
+    background: linear-gradient(135deg, #fffbeb, #fef3c7);
+    border: 1px solid #fde68a;
+    border-radius: 14px;
+    font-size: 0.8rem;
+    color: #92400e;
+}
