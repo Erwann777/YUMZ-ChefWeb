@@ -149,9 +149,34 @@ class User extends Authenticatable
         return $this->hasMany(ServiceOrder::class, 'cooker_id');
     }
 
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'follows', 'cooker_id', 'follower_id')->withTimestamps();
+    }
+
+    public function followingCookers()
+    {
+        return $this->belongsToMany(User::class, 'follows', 'follower_id', 'cooker_id')->withTimestamps();
+    }
+
+    public function isFollowing(User $cooker): bool
+    {
+        return $this->followingCookers()->where('cooker_id', $cooker->id)->exists();
+    }
+
     public function walletTransactions()
     {
         return $this->hasMany(WalletTransaction::class);
+    }
+
+    public function customerChatRooms()
+    {
+        return $this->hasMany(ChatRoom::class, 'customer_id');
+    }
+
+    public function cookerChatRooms()
+    {
+        return $this->hasMany(ChatRoom::class, 'cooker_id');
     }
 
     /**

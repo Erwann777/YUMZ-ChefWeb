@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', $cooker->name . ' — CookSpace')
+@section('title', $cooker->name . ' — Yumz')
 @section('styles')
 <style>
     /* ── Shared Detail Page Styles ────────────────────────────── */
@@ -131,18 +131,45 @@
     </div>
 
     <!-- Stats summary -->
-    <div class="flex gap-6 shrink-0 max-sm:justify-center border-l border-[#E8DDD2] pl-6 max-sm:border-l-0 max-sm:pl-0">
-        <div class="text-center">
-            <span class="block text-2xl font-bold text-[#2C1810]">{{ $services->count() }}</span> 
-            <span class="text-[0.65rem] text-[#7A6248] uppercase tracking-wider">Services</span>
+    <div class="flex flex-col gap-4 shrink-0 max-sm:items-center">
+        <div class="flex gap-6 max-sm:justify-center border-l border-[#E8DDD2] pl-6 max-sm:border-l-0 max-sm:pl-0">
+            <div class="text-center">
+                <span class="block text-2xl font-bold text-[#2C1810]">{{ $services->count() + $recipes->count() }}</span>
+                <span class="text-[0.65rem] text-[#7A6B5D] uppercase tracking-wider font-semibold">Posts</span>
+                <span class="block text-[0.55rem] text-[#9A7B5A] mt-0.5 font-medium">({{ $services->count() }} Services, {{ $recipes->count() }} Recipes)</span>
+            </div>
+            <div class="text-center">
+                <span class="block text-2xl font-bold text-[#2C1810]">{{ $cooker->followers_count ?? $cooker->followers()->count() }}</span>
+                <span class="text-[0.65rem] text-[#7A6B5D] uppercase tracking-wider font-semibold">Followers</span>
+            </div>
+            <div class="text-center">
+                <span class="block text-2xl font-bold text-[#2C1810]">{{ number_format($cooker->averageCookerRating(), 1) }}</span>
+                <span class="text-[0.65rem] text-[#7A6B5D] uppercase tracking-wider font-semibold">⭐ Rating</span>
+            </div>
         </div>
-        <div class="text-center">
-            <span class="block text-2xl font-bold text-[#2C1810]">{{ $recipes->count() }}</span> 
-            <span class="text-[0.65rem] text-[#7A6248] uppercase tracking-wider">Recipes</span>
-        </div>
-        <div class="text-center">
-            <span class="block text-2xl font-bold text-[#2C1810]">{{ number_format($cooker->averageCookerRating(), 1) }}</span> 
-            <span class="text-[0.65rem] text-[#7A6248] uppercase tracking-wider">⭐ Rating</span>
+        <div class="flex flex-col gap-2 w-full">
+            @if(Auth::check() && Auth::id() !== $cooker->id)
+                <form action="{{ route('cookers.toggle-follow', $cooker) }}" method="POST" class="w-full m-0">
+                    @csrf
+                    <button type="submit"
+                        class="w-full flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 border-none cursor-pointer shadow-md hover:shadow-lg
+                        {{ $isFollowing
+                            ? 'bg-[#7A6B5D] text-white hover:bg-[#5C4D40]'
+                            : 'bg-gradient-to-r from-[#C67C4E] to-[#b56b3f] text-white hover:scale-[1.02]' }}">
+                        {{ $isFollowing ? ' Unfollow' : ' Follow Cooker' }}
+                    </button>
+                </form>
+            @endif
+
+            @if(Auth::check() && Auth::user()->isCustomer())
+                <form action="{{ route('chat.start', $cooker) }}" method="POST" class="w-full m-0">
+                    @csrf
+                    <button type="submit"
+                        class="w-full flex items-center justify-center gap-2 px-5 py-2.5 bg-gradient-to-r from-[#2C1810] to-[#3D2B1E] text-white text-sm font-semibold rounded-xl shadow-md hover:shadow-lg hover:scale-[1.02] transition-all duration-200 border-none cursor-pointer">
+                        💬 Chat with Cooker
+                    </button>
+                </form>
+            @endif
         </div>
     </div>
 </div>

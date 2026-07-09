@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Wallet — CookSpace')
+@section('title', 'Wallet — Yumz')
 
 @section('content')
 <div class="min-h-screen bg-gradient-to-br from-[#FDF6EE] via-[#FFF9F4] to-[#FFFDF9] pt-8 pb-16">

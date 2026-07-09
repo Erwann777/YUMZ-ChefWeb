@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('recipes', function (Blueprint $table) {
-            $table->string('category')->default('indonesia')->after('price');
-            $table->boolean('is_halal')->default(true)->after('category');
+            $table->string('category')->default('indonesia');
+            $table->boolean('is_halal')->default(true);
         });
     }
 

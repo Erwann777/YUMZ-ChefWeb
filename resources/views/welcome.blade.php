@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('navbar-extra-class', 'nav-hero')
-@section('title', 'CookSpace — From Their Stove to Your Table')
+@section('title', 'Yumz — From Their Stove to Your Table')
 @section('body-class', 'landing-body')
 @section('main-class', '')
 
@@ -280,24 +280,42 @@
                 @foreach($cookers as $cooker)
                     <div class="bg-white rounded-xl sm:rounded-2xl p-3 sm:p-8 sm:px-6 text-center transition-all duration-300 border border-[rgba(139,69,19,0.08)] shadow-[0_2px_12px_rgba(44,24,16,0.04)] hover:-translate-y-1 hover:shadow-[0_12px_35px_rgba(44,24,16,0.1)] hover:border-[#D4A574] flex flex-col justify-between">
                         <div>
-                            <div class="w-10 h-10 sm:w-[72px] sm:h-[72px] rounded-full bg-gradient-to-br from-[#C67C4E] to-[#8B4513] flex items-center justify-center font-['Playfair_Display',Georgia,serif] text-sm sm:text-[1.75rem] font-bold text-white mx-auto mb-2 sm:mb-4">{{ strtoupper(substr($cooker->name, 0, 1)) }}</div>
+                            <div class="w-10 h-10 sm:w-[72px] sm:h-[72px] rounded-full bg-gradient-to-br from-[#C67C4E] to-[#8B4513] flex items-center justify-center font-['Playfair_Display',Georgia,serif] text-sm sm:text-[1.75rem] font-bold text-white mx-auto mb-2 sm:mb-4 overflow-hidden border border-[#EDE5DA]">
+                                @if($cooker->profile_photo_path)
+                                    <img src="{{ $cooker->getProfilePhotoUrl() }}" alt="{{ $cooker->name }}" class="w-full h-full object-cover">
+                                @else
+                                    {{ strtoupper(substr($cooker->name, 0, 1)) }}
+                                @endif
+                            </div>
                             <div class="font-['Playfair_Display',Georgia,serif] text-xs sm:text-[1.1rem] font-semibold text-[#2C1810] mb-1 sm:mb-2 truncate max-w-[120px] sm:max-w-none" title="{{ $cooker->name }}">{{ $cooker->name }}</div>
                             <div class="flex justify-center gap-2 sm:gap-6 mb-2 sm:mb-5">
                                 <div>
-                                    <div class="font-bold text-[0.8rem] sm:text-[1rem] text-[#2C1810]">{{ $cooker->recipes_count }}</div>
-                                    <div class="text-[0.52rem] sm:text-[0.7rem] text-[#7A6B5D] uppercase tracking-[0.05em]">Recipes</div>
+                                    <div class="font-bold text-[0.8rem] sm:text-[1rem] text-[#2C1810]">{{ $cooker->recipes_count + $cooker->cooking_services_count }}</div>
+                                    <div class="text-[0.52rem] sm:text-[0.7rem] text-[#7A6B5D] uppercase tracking-[0.05em] font-semibold">Posts</div>
+                                    <div class="text-[0.45rem] sm:text-[0.55rem] text-[#9A7B5A] mt-0.5 font-medium">({{ $cooker->cooking_services_count }} Services, {{ $cooker->recipes_count }} Recipes)</div>
                                 </div>
                                 <div>
-                                    <div class="font-bold text-[0.8rem] sm:text-[1rem] text-[#2C1810]">{{ $cooker->cooking_services_count }}</div>
-                                    <div class="text-[0.52rem] sm:text-[0.7rem] text-[#7A6B5D] uppercase tracking-[0.05em]">Services</div>
+                                    <div class="font-bold text-[0.8rem] sm:text-[1rem] text-[#2C1810]">{{ $cooker->followers_count ?? $cooker->followers()->count() }}</div>
+                                    <div class="text-[0.52rem] sm:text-[0.7rem] text-[#7A6B5D] uppercase tracking-[0.05em] font-semibold">Followers</div>
                                 </div>
                             </div>
                         </div>
-                        @auth
-                            <a href="{{ route('cookers.show', $cooker) }}" class="inline-flex justify-center px-3 py-1 sm:px-5 sm:py-2 text-[0.62rem] sm:text-[0.78rem] font-semibold text-[#C67C4E] border-[1.5px] border-[#C67C4E] rounded-full no-underline transition-all duration-[0.25s] hover:bg-[#C67C4E] hover:text-white">View Profile</a>
-                        @else
-                            <a href="{{ route('login') }}" class="inline-flex justify-center px-3 py-1 sm:px-5 sm:py-2 text-[0.62rem] sm:text-[0.78rem] font-semibold text-[#C67C4E] border-[1.5px] border-[#C67C4E] rounded-full no-underline transition-all duration-[0.25s] hover:bg-[#C67C4E] hover:text-white">View Profile</a>
-                        @endauth
+                        <div class="mt-3 flex flex-col gap-2">
+                            @auth
+                                <a href="{{ route('cookers.show', $cooker) }}" class="inline-flex justify-center px-3 py-1.5 sm:px-5 sm:py-2 text-[0.62rem] sm:text-[0.78rem] font-semibold text-[#C67C4E] border-[1.5px] border-[#C67C4E] rounded-full no-underline transition-all duration-[0.25s] hover:bg-[#C67C4E] hover:text-white">View Profile</a>
+                                @if(Auth::id() !== $cooker->id)
+                                    <form action="{{ route('cookers.toggle-follow', $cooker) }}" method="POST" class="m-0 w-full flex">
+                                        @csrf
+                                        <button type="submit" class="w-full inline-flex justify-center items-center px-3 py-1.5 sm:px-5 sm:py-2 text-[0.62rem] sm:text-[0.78rem] font-bold rounded-full border border-solid transition-all duration-[0.25s] cursor-pointer
+                                            {{ Auth::user()->isFollowing($cooker)
+                                                ? 'bg-[#7A6B5D] text-white border-[#7A6B5D] hover:bg-[#5C4D40] hover:border-[#5C4D40]'
+                                                : 'bg-white text-[#C67C4E] border-[#C67C4E] hover:bg-[#C67C4E] hover:text-white' }}">
+                                            {{ Auth::user()->isFollowing($cooker) ? ' Unfollow' : ' Follow' }}
+                                        </button>
+                                    </form>
+                                @endif
+                            @endauth
+                        </div>
                     </div>
                 @endforeach
             </div>
@@ -351,7 +369,13 @@
                         @endif
                         <div class="p-5 pt-5 pb-6 flex-1 flex flex-col">
                             <div class="flex items-center gap-2 mb-3">
-                                <div class="w-7 h-7 rounded-full bg-gradient-to-br from-[#C67C4E] to-[#8B4513] flex items-center justify-center text-[0.65rem] font-bold text-white">{{ strtoupper(substr($service->cooker->name, 0, 1)) }}</div>
+                                <div class="w-7 h-7 rounded-full bg-gradient-to-br from-[#C67C4E] to-[#8B4513] flex items-center justify-center text-[0.65rem] font-bold text-white overflow-hidden border border-[#E8DDD2]">
+                                    @if($service->cooker->profile_photo_path)
+                                        <img src="{{ $service->cooker->getProfilePhotoUrl() }}" alt="{{ $service->cooker->name }}" class="w-full h-full object-cover">
+                                    @else
+                                        {{ strtoupper(substr($service->cooker->name, 0, 1)) }}
+                                    @endif
+                                </div>
                                 <span class="text-[0.78rem] text-[#7A6B5D] font-medium">{{ $service->cooker->name }}</span>
                             </div>
                             <div class="font-['Playfair_Display',Georgia,serif] text-[1.15rem] font-semibold text-[#2C1810] mb-1">{{ $service->title }}</div>
@@ -395,7 +419,13 @@
                           @endif
                           <div class="p-5 pt-5 pb-6 flex-1 flex flex-col">
                               <div class="flex items-center gap-2 mb-3">
-                                  <div class="w-7 h-7 rounded-full bg-gradient-to-br from-[#C67C4E] to-[#8B4513] flex items-center justify-center text-[0.65rem] font-bold text-white">{{ strtoupper(substr($recipe->cooker->name, 0, 1)) }}</div>
+                                  <div class="w-7 h-7 rounded-full bg-gradient-to-br from-[#C67C4E] to-[#8B4513] flex items-center justify-center text-[0.65rem] font-bold text-white overflow-hidden border border-[#E8DDD2]">
+                                      @if($recipe->cooker->profile_photo_path)
+                                          <img src="{{ $recipe->cooker->getProfilePhotoUrl() }}" alt="{{ $recipe->cooker->name }}" class="w-full h-full object-cover">
+                                      @else
+                                          {{ strtoupper(substr($recipe->cooker->name, 0, 1)) }}
+                                      @endif
+                                  </div>
                                   <span class="text-[0.78rem] text-[#7A6B5D] font-medium">{{ $recipe->cooker->name }}</span>
                               </div>
                               <div class="font-['Playfair_Display',Georgia,serif] text-[1.15rem] font-semibold text-[#2C1810] mb-1">{{ $recipe->title }}</div>
@@ -442,7 +472,13 @@
                         {{ $featuredRecipe->description }}
                     </p>
                     <div class="flex items-center gap-[0.85rem] pt-6 border-t border-[#EDE5DA]">
-                        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#C67C4E] to-[#D4A574] flex items-center justify-center font-['Playfair_Display',Georgia,serif] text-[1.25rem] font-bold text-white">{{ strtoupper(substr($featuredRecipe->cooker->name, 0, 1)) }}</div>
+                        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#C67C4E] to-[#D4A574] flex items-center justify-center font-['Playfair_Display',Georgia,serif] text-[1.25rem] font-bold text-white overflow-hidden border border-white/20">
+                            @if($featuredRecipe->cooker->profile_photo_path)
+                                <img src="{{ $featuredRecipe->cooker->getProfilePhotoUrl() }}" alt="{{ $featuredRecipe->cooker->name }}" class="w-full h-full object-cover">
+                            @else
+                                {{ strtoupper(substr($featuredRecipe->cooker->name, 0, 1)) }}
+                            @endif
+                        </div>
                         <div>
                             <strong class="block text-[0.95rem] text-white">{{ $featuredRecipe->cooker->name }}</strong>
                             <span class="text-[0.78rem] text-white/55">Cooker since {{ $featuredRecipe->cooker->created_at->format('M Y') }}</span>
@@ -488,7 +524,13 @@
                             <div class="font-['Playfair_Display',Georgia,serif] text-[1.1rem] font-semibold text-[#2C1810] mb-2">The Story Behind "{{ $recipe->title }}"</div>
                             <div class="text-[0.85rem] text-[#7A6B5D] leading-[1.7] mb-4 line-clamp-3">{{ $recipe->description }}</div>
                             <div class="flex items-center gap-[0.6rem] text-[0.8rem] text-[#7A6B5D]">
-                                <div class="w-[30px] h-[30px] rounded-full bg-gradient-to-br from-[#C67C4E] to-[#8B4513] flex items-center justify-center text-[0.6rem] font-bold text-white">{{ strtoupper(substr($recipe->cooker->name, 0, 1)) }}</div>
+                                <div class="w-[30px] h-[30px] rounded-full bg-gradient-to-br from-[#C67C4E] to-[#8B4513] flex items-center justify-center text-[0.6rem] font-bold text-white overflow-hidden border border-[#E8DDD2]">
+                                    @if($recipe->cooker->profile_photo_path)
+                                        <img src="{{ $recipe->cooker->getProfilePhotoUrl() }}" alt="{{ $recipe->cooker->name }}" class="w-full h-full object-cover">
+                                    @else
+                                        {{ strtoupper(substr($recipe->cooker->name, 0, 1)) }}
+                                    @endif
+                                </div>
                                 <span>by <strong>{{ $recipe->cooker->name }}</strong></span>
                             </div>
                         </div>
@@ -689,7 +731,7 @@
                 <div class="col-span-2 sm:col-span-1">
                     <div class="font-['Playfair_Display',Georgia,serif] text-[0.9rem] font-semibold text-white mb-3">Contact Us</div>
                     <ul class="list-none p-0 m-0 flex flex-col gap-[0.45rem]">
-                        <li><a href="mailto:hello@cookspace.id" class="text-[0.8rem] text-white/50 no-underline transition-colors duration-200 hover:text-[#D4A574]">hello@cookspace.id</a></li>
+                        <li><a href="mailto:erwan@gmail.com" class="text-[0.8rem] text-white/50 no-underline transition-colors duration-200 hover:text-[#D4A574]">yumz@gmail.com</a></li>
                         <li><a href="tel:+6281234567890"        class="text-[0.8rem] text-white/50 no-underline transition-colors duration-200 hover:text-[#D4A574]">+62 812-3456-7890</a></li>
                         <li><a href="#"                         class="text-[0.8rem] text-white/50 no-underline transition-colors duration-200 hover:text-[#D4A574]">Jakarta, Indonesia</a></li>
                     </ul>

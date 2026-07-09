@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Cooker Dashboard — CookSpace')
+@section('title', 'Cooker Dashboard — Yumz')
 @section('body-class', 'cs-bg')
 @section('main-class', 'w-full px-4 sm:px-6 xl:px-8 py-6')
 

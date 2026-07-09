@@ -1,6 +1,6 @@
 @extends('admin.layouts.admin')
 
-@section('title', $targetUser->name . ' — CookSpace Admin')
+@section('title', $targetUser->name . ' — Yumz Admin')
 @section('page-title', 'User Detail')
 
 @section('topbar-actions')

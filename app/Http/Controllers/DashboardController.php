@@ -78,6 +78,7 @@ class DashboardController extends Controller
             $searchedCookers = User::where('role', 'cooker')
                 ->where('name', 'like', "%{$search}%")
                 ->with(['cookingServices', 'recipes'])
+                ->withCount('followers')
                 ->get();
         }
 
@@ -85,7 +86,8 @@ class DashboardController extends Controller
         $cookersQuery = User::where('role', 'cooker')
             ->with(['cookingServices' => function ($q) {
                 $q->available()->with('orders');
-            }]);
+            }])
+            ->withCount('followers');
 
         if ($search) {
             $cookersQuery->where('name', 'like', "%{$search}%");

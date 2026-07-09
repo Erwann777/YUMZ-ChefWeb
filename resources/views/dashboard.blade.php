@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Dashboard Customer — CookSpace')
+@section('title', 'Dashboard Customer — Yumz')
 @section('body-class', 'cs-bg')
 @section('main-class', 'w-full px-4 sm:px-6 xl:px-8 py-6')
 
@@ -130,7 +130,7 @@
             </div>
             <input type="text" name="search" id="global-search" value="{{ request('search') }}"
                 placeholder="Search cooker, food, recipe, or cooking ingredients..."
-                class="dash-search-input flex-1">
+                class="dash-search-input flex-1 border-none focus:outline-none focus:ring-0 ml-2">
             <button type="button" id="clear-search-btn" class="p-2 mr-2 text-[#9A7B5A] hover:text-[#2C1810] bg-transparent border-none cursor-pointer flex items-center justify-center hidden">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
@@ -833,13 +833,28 @@
                             @endif
                         </div>
                         <h3 class="text-xs sm:text-sm font-bold text-[#2C1810] mb-0.5 sm:mb-1 truncate" title="{{ $cooker->name }}">{{ $cooker->name }}</h3>
-                        <div class="flex items-center justify-center gap-0.5 sm:gap-1 mb-2 sm:mb-3 flex-wrap">
+                        <div class="flex items-center justify-center gap-0.5 sm:gap-1 mb-2 sm:mb-3 flex-wrap text-[#9A7B5A]">
                             <span class="text-[0.62rem] sm:text-xs text-amber-500">⭐</span>
                             <span class="text-[0.62rem] sm:text-xs font-bold text-[#2C1810]">{{ number_format($cooker->calculated_rating, 1) }}</span>
-                            <span class="text-[0.55rem] sm:text-[0.65rem] text-[#9A7B5A]">({{ $cooker->totalSalesCount() }} sold)</span>
+                            <span class="text-[0.55rem] sm:text-[0.65rem]">({{ $cooker->totalSalesCount() }} sold)</span>
+                            <span class="text-[0.55rem] sm:text-[0.65rem]">•</span>
+                            <span class="text-[0.55rem] sm:text-[0.65rem] font-medium">{{ $cooker->followers_count ?? $cooker->followers()->count() }} followers</span>
                         </div>
                     </div>
-                    <a href="{{ route('cookers.show', $cooker) }}" class="mt-1.5 sm:mt-2 block w-full text-center py-1 sm:py-1.5 border border-[#C67C4E]/30 hover:bg-[#C67C4E] text-[#C67C4E] hover:text-white text-[0.62rem] sm:text-xs font-bold rounded-lg no-underline transition-colors">View Profile</a>
+                    <div class="mt-2 flex flex-col gap-1.5 w-full">
+                        <a href="{{ route('cookers.show', $cooker) }}" class="block w-full text-center py-1 sm:py-1.5 border border-[#C67C4E]/30 hover:bg-[#C67C4E] text-[#C67C4E] hover:text-white text-[0.62rem] sm:text-xs font-bold rounded-lg no-underline transition-colors">View Profile</a>
+                        @if(Auth::id() !== $cooker->id)
+                            <form action="{{ route('cookers.toggle-follow', $cooker) }}" method="POST" class="m-0 w-full flex">
+                                @csrf
+                                <button type="submit" class="w-full text-center py-1 sm:py-1.5 border border-solid transition-colors text-[0.62rem] sm:text-xs font-bold rounded-lg cursor-pointer
+                                    {{ Auth::user()->isFollowing($cooker)
+                                        ? 'bg-[#7A6B5D] text-white border-[#7A6B5D] hover:bg-[#5C4D40] hover:border-[#5C4D40]'
+                                        : 'bg-white text-[#C67C4E] border-[#C67C4E] hover:bg-[#C67C4E] hover:text-white' }}">
+                                    {{ Auth::user()->isFollowing($cooker) ? '👤 Unfollow' : '👤 Follow' }}
+                                </button>
+                            </form>
+                        @endif
+                    </div>
                 </div>
             @endforeach
         </div>

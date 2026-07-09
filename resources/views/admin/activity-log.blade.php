@@ -1,12 +1,12 @@
 @extends('admin.layouts.admin')
 
-@section('title', 'Activity Log — CookSpace Admin')
+@section('title', 'Activity Log — Yumz Admin')
 @section('page-title', 'Activity Log')
 @section('content')
 <div class="flex items-center justify-between mb-6 flex-wrap gap-4 anim-in">
     <div>
         <h1 class="text-2xl font-bold text-cs-text-primary mb-1">📋 Activity Log</h1>
-        <p class="text-cs-text-secondary text-sm">All activities that happen on CookSpace</p>
+        <p class="text-cs-text-secondary text-sm">All activities that happen on Yumz</p>
     </div>
 </div>
 

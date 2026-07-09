@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('recipe_purchases', function (Blueprint $table) {
-            $table->unsignedTinyInteger('rating')->nullable()->after('amount_paid');
-            $table->text('review')->nullable()->after('rating');
-            $table->timestamp('rated_at')->nullable()->after('review');
+            $table->unsignedTinyInteger('rating')->nullable();
+            $table->text('review')->nullable();
+            $table->timestamp('rated_at')->nullable();
         });
     }
 

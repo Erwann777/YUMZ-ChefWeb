@@ -1,11 +1,11 @@
 @extends('admin.layouts.admin')
 
-@section('title', 'Admin Dashboard — CookSpace')
+@section('title', 'Admin Dashboard — Yumz')
 @section('page-title', 'Overview')
 @section('content')
 <div class="mb-7 anim-in">
     <h1 class="text-2xl font-bold text-cs-text-primary mb-1">Dashboard Overview 🛡️</h1>
-    <p class="text-cs-text-secondary text-sm">Monitor CookSpace platform statistics and activity in real-time.</p>
+    <p class="text-cs-text-secondary text-sm">Monitor Yumz platform statistics and activity in real-time.</p>
 </div>
 
 {{-- User Stats --}}

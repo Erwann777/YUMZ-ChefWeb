@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', $recipe->title . ' — CookSpace')
+@section('title', $recipe->title . ' — Yumz')
 @section('body-class', 'cs-bg')
 
 @section('styles')

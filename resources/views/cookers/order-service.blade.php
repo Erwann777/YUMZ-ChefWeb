@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Order Service — CookSpace')
+@section('title', 'Order Service — Yumz')
 
 @section('styles')
 <style>

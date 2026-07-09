@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Upload Recipe — CookSpace')
+@section('title', 'Upload Recipe — Yumz')
 
 @section('content')
 <div class="max-w-[700px] mx-auto mt-20 animate-fadeInUp">

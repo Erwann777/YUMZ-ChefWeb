@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('cooking_services', function (Blueprint $table) {
-            $table->string('image_path')->nullable()->after('description');
-            $table->string('category')->default('indonesia')->after('image_path');
-            $table->boolean('is_halal')->default(true)->after('category');
+            $table->string('image_path')->nullable();
+            $table->string('category')->default('indonesia');
+            $table->boolean('is_halal')->default(true);
         });
     }
 

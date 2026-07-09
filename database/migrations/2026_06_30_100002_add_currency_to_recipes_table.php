@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('recipes', function (Blueprint $table) {
-            $table->enum('currency', ['IDR', 'SGD', 'MYR'])->default('IDR')->after('price');
+            $table->enum('currency', ['IDR', 'SGD', 'MYR'])->default('IDR');
         });
     }
 

@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->enum('country', ['ID', 'SG', 'MY'])->default('ID')->after('role');
-            $table->enum('currency', ['IDR', 'SGD', 'MYR'])->default('IDR')->after('country');
-            $table->decimal('wallet_balance', 15, 2)->default(0)->after('currency');
+            $table->enum('country', ['ID', 'SG', 'MY'])->default('ID');
+            $table->enum('currency', ['IDR', 'SGD', 'MYR'])->default('IDR');
+            $table->decimal('wallet_balance', 15, 2)->default(0);
         });
     }
 

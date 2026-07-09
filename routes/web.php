@@ -2,9 +2,11 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CookerDashboardController;
 use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\RecipeController;
 use App\Http\Controllers\CookingServiceController;
 use App\Http\Controllers\CookerProfileController;
@@ -17,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     $cookers = User::where('role', 'cooker')
-        ->withCount(['recipes', 'cookingServices'])
+        ->withCount(['recipes', 'cookingServices', 'followers'])
         ->latest()
         ->take(8)
         ->get();
@@ -72,6 +74,7 @@ Route::middleware('auth')->group(function () {
     // Browse cookers & foods (accessible by all authenticated users)
     Route::get('/foods', [CookerProfileController::class, 'allFoods'])->name('foods.index');
     Route::get('/cookers', [CookerProfileController::class, 'index'])->name('cookers.index');
+    Route::post('/cookers/{cooker}/toggle-follow', [CookerProfileController::class, 'toggleFollow'])->name('cookers.toggle-follow');
     Route::get('/cookers/{cooker}', [CookerProfileController::class, 'show'])->name('cookers.show');
     Route::get('/cookers/{cooker}/recipes/{recipe}', [CookerProfileController::class, 'showRecipe'])->name('cookers.recipe');
     Route::get('/cookers/{cooker}/services/{service}', [CookerProfileController::class, 'showService'])->name('cookers.service');
@@ -81,6 +84,20 @@ Route::middleware('auth')->group(function () {
     Route::get('/cookers/{cooker}/services/{service}/order', [CookerProfileController::class, 'orderServiceForm'])->name('services.order');
     Route::post('/services/{service}/order', [CookerProfileController::class, 'orderService'])->name('services.order.store');
     Route::get('/api/orders/{order}/status', [DashboardController::class, 'getOrderStatus'])->name('api.orders.status');
+
+    // Chat routes
+    Route::get('/chat', [ChatController::class, 'index'])->name('chat.index');
+    Route::post('/chat/start/{cooker}', [ChatController::class, 'startChat'])->name('chat.start');
+    Route::get('/chat/{room}', [ChatController::class, 'show'])->name('chat.show');
+    Route::post('/chat/{room}/messages', [ChatController::class, 'sendMessage'])->name('chat.send');
+    Route::get('/api/chat/{room}/messages', [ChatController::class, 'getMessages'])->name('api.chat.messages');
+    Route::delete('/chat/messages/{message}', [ChatController::class, 'deleteMessage'])->name('chat.message.delete');
+    Route::patch('/chat/messages/{message}', [ChatController::class, 'editMessage'])->name('chat.message.edit');
+
+    // Notification routes
+    Route::get('/api/notifications', [NotificationController::class, 'index'])->name('api.notifications');
+    Route::post('/notifications/mark-all-read', [NotificationController::class, 'markAllRead'])->name('notifications.mark-all-read');
+    Route::get('/notifications/{id}/read', [NotificationController::class, 'markRead'])->name('notifications.mark-read');
 
     // Cooker routes
     Route::middleware('role:cooker')->prefix('cooker')->name('cooker.')->group(function () {

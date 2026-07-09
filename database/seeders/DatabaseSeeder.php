@@ -25,25 +25,5 @@ class DatabaseSeeder extends Seeder
                 'role' => 'admin',
             ]
         );
-
-        // Create a test customer
-        User::updateOrCreate(
-            ['email' => 'customer@cookspace.com'],
-            [
-                'name' => 'Test Customer',
-                'password' => Hash::make('password'),
-                'role' => 'customer',
-            ]
-        );
-
-        // Create a test cooker
-        User::updateOrCreate(
-            ['email' => 'cooker@cookspace.com'],
-            [
-                'name' => 'Test Cooker',
-                'password' => Hash::make('password'),
-                'role' => 'cooker',
-            ]
-        );
     }
 }

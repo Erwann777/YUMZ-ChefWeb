@@ -1,6 +1,6 @@
 @extends('admin.layouts.admin')
 
-@section('title', 'Manage Users — CookSpace Admin')
+@section('title', 'Manage Users — Yumz Admin')
 @section('page-title', 'Users')
 @section('content')
 <div class="flex items-center justify-between mb-6 flex-wrap gap-4 anim-in">

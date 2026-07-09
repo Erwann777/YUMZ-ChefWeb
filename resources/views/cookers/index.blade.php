@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Explore Cookers — CookSpace')
+@section('title', 'Explore Cookers — Yumz')
 
 @section('styles')
 <style>
@@ -121,7 +121,13 @@
             @foreach($cookers as $cooker)
                 <a href="{{ route('cookers.show', $cooker) }}" class="bg-white border border-[#E8DDD2] rounded-xl sm:rounded-2xl p-3 sm:p-6 transition-all duration-300 shadow-sm block hover:border-cs-orange/30 hover:-translate-y-1 hover:shadow-md no-underline animate-fadeInUp">
                     <div class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
-                        <div class="w-10 h-10 sm:w-[52px] sm:h-[52px] rounded-full bg-gradient-to-br from-cs-orange to-[#ff7337] flex items-center justify-center text-sm sm:text-xl font-bold text-white flex-shrink-0">{{ strtoupper(substr($cooker->name, 0, 1)) }}</div>
+                        <div class="w-10 h-10 sm:w-[52px] sm:h-[52px] rounded-full bg-gradient-to-br from-cs-orange to-[#ff7337] flex items-center justify-center text-sm sm:text-xl font-bold text-white flex-shrink-0 overflow-hidden border border-[#E8DDD2]">
+                            @if($cooker->profile_photo_path)
+                                <img src="{{ $cooker->getProfilePhotoUrl() }}" alt="{{ $cooker->name }}" class="w-full h-full object-cover">
+                            @else
+                                {{ strtoupper(substr($cooker->name, 0, 1)) }}
+                            @endif
+                        </div>
                         <div>
                             <div class="text-xs sm:text-[1.05rem] font-semibold text-[#2C1810] mb-0.5 truncate max-w-[120px] sm:max-w-none" title="{{ $cooker->name }}">{{ $cooker->name }}</div>
                             <div class="text-[0.55rem] sm:text-[0.72rem] text-cs-orange font-medium">👨‍🍳 Cooker</div>
@@ -133,8 +139,13 @@
                             <div class="text-[0.55rem] sm:text-[0.68rem] text-[#7A6248] uppercase tracking-wider">Rating</div>
                         </div>
                         <div>
-                            <div class="text-xs sm:text-lg font-bold text-[#2C1810]">{{ $cooker->cooking_services_count }}</div>
-                            <div class="text-[0.55rem] sm:text-[0.68rem] text-[#7A6248] uppercase tracking-wider">Services</div>
+                            <div class="text-xs sm:text-lg font-bold text-[#2C1810]">{{ $cooker->recipes_count + $cooker->cooking_services_count }}</div>
+                            <div class="text-[0.55rem] sm:text-[0.68rem] text-[#7A6248] uppercase tracking-wider font-semibold">Posts</div>
+                            <div class="text-[0.45rem] sm:text-[0.55rem] text-[#9A7B5A] mt-0.5 font-medium">({{ $cooker->cooking_services_count }} Services, {{ $cooker->recipes_count }} Recipes)</div>
+                        </div>
+                        <div>
+                            <div class="text-xs sm:text-lg font-bold text-[#2C1810]">{{ $cooker->followers_count ?? $cooker->followers()->count() }}</div>
+                            <div class="text-[0.55rem] sm:text-[0.68rem] text-[#7A6248] uppercase tracking-wider">Followers</div>
                         </div>
                     </div>
                     <div class="inline-flex items-center gap-1 mt-3 sm:mt-4 px-2 sm:px-4 py-1.5 sm:py-2 bg-cs-orange-glow border border-cs-orange/20 rounded-lg text-cs-orange text-[0.62rem] sm:text-xs font-semibold hover:bg-cs-orange/10 transition-all w-full sm:w-auto justify-center">View Profile →</div>

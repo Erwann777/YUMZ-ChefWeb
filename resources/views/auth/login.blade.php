@@ -5,37 +5,64 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Login — CookSpace</title>
-    <meta name="description" content="Log in to CookSpace to enjoy the best culinary services">
+    <title>Login — Yumz</title>
+    <meta name="description" content="Log in to Yumz to enjoy the best culinary services">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
     @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
         @vite(['resources/css/compiled.css', 'resources/js/app.js'])
     @endif
 
     @yield('styles')
+
+    {{-- Only keyframes live here — Tailwind utilities below reference them via animate-[...] arbitrary values.
+         Feel free to move these into tailwind.config.js under theme.extend.keyframes/animation instead. --}}
+    <style>
+        @keyframes ticketPrint { 0% { transform: translateY(-32px) scaleY(0.94); opacity: 0; } 100% { transform: translateY(0) scaleY(1); opacity: 1; } }
+        @keyframes stampIn { 0% { opacity: 0; transform: rotate(-30deg) scale(0.3); } 60% { opacity: 1; transform: rotate(-8deg) scale(1.08); } 100% { opacity: 1; transform: rotate(-11deg) scale(1); } }
+        @keyframes stampThunk { 0% { transform: rotate(-11deg) scale(1); } 40% { transform: rotate(-13deg) scale(0.88); } 100% { transform: rotate(-11deg) scale(1); } }
+        @keyframes steamRise { 0% { transform: translateY(10px) scaleY(0.8); opacity: 0; } 30% { opacity: 0.55; } 100% { transform: translateY(-70px) scaleY(1.15); opacity: 0; } }
+        @keyframes floatSlow { 0%, 100% { transform: translate(0,0); } 50% { transform: translate(14px,-18px); } }
+        @media (prefers-reduced-motion: reduce) {
+            *{ animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+        }
+    </style>
 </head>
-<body class="bg-cs-bg-primary text-[#2C1810] min-h-screen flex items-center justify-center font-sans antialiased relative overflow-hidden">
-    <div class="fixed rounded-full filter blur-[80px] opacity-50 animate-float pointer-events-none w-[400px] h-[400px] bg-[rgba(238,77,45,0.08)] -top-[100px] -left-[100px]"></div>
-    <div class="fixed rounded-full filter blur-[80px] opacity-50 animate-float pointer-events-none w-[350px] h-[350px] bg-[rgba(3,172,14,0.06)] -bottom-[100px] -right-[100px] [animation-delay:-7s]"></div>
-    <div class="fixed rounded-full filter blur-[80px] opacity-50 animate-float pointer-events-none w-[250px] h-[250px] bg-[rgba(59,130,246,0.05)] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 [animation-delay:-14s]"></div>
+<body class="min-h-screen flex items-center justify-center relative overflow-hidden p-6 bg-[#EEE9E2] text-[#2B241C] font-['Inter',sans-serif]">
 
-    <div class="relative z-10 w-full max-w-[440px] px-6">
-        <div class="text-center mb-8">
-            <a href="/" class="inline-flex items-center gap-2 no-underline font-bold text-2xl text-[#2C1810] mb-6">
-                <span class="w-10 h-10 bg-gradient-to-br from-cs-orange to-[#ff7337] rounded-xl flex items-center justify-center text-xl text-white">🍳</span>
-                <span>CookSpace</span>
-            </a>
-            <h1 class="text-3xl font-bold mb-2 bg-gradient-to-br from-[#1e293b] to-[#475569] bg-clip-text text-transparent">Welcome Back</h1>
-            <p class="text-[#64748b] text-sm">Sign in to your account to continue</p>
-        </div>
+    {{-- ambient warm/herb glow blobs, quiet on purpose --}}
+    <div class="fixed pointer-events-none w-[420px] h-[420px] rounded-full blur-[90px] opacity-40 bg-[#B23A1A]/10 -top-24 -left-24 animate-[floatSlow_9s_ease-in-out_infinite]"></div>
+    <div class="fixed pointer-events-none w-[380px] h-[380px] rounded-full blur-[90px] opacity-40 bg-[#55724F]/10 -bottom-24 -right-16 animate-[floatSlow_11s_ease-in-out_infinite] [animation-delay:-4s]"></div>
 
-        <div class="bg-white border border-[#E8DDD2] rounded-2xl p-8 shadow-[0_4px_20px_rgba(0,0,0,0.05)] animate-fadeInUp">
+    {{-- faint rising steam, corner detail only --}}
+    <div class="absolute w-[2px] h-14 rounded-full blur-[2px] bg-gradient-to-t from-transparent via-[#2B241C]/10 to-transparent left-[12%] bottom-[20%] animate-[steamRise_6s_ease-in-out_infinite]"></div>
+    <div class="absolute w-[2px] h-10 rounded-full blur-[2px] bg-gradient-to-t from-transparent via-[#2B241C]/10 to-transparent left-[15%] bottom-[22%] animate-[steamRise_6s_ease-in-out_infinite] [animation-delay:2s]"></div>
+    <div class="absolute w-[2px] h-12 rounded-full blur-[2px] bg-gradient-to-t from-transparent via-[#2B241C]/10 to-transparent right-[14%] top-[18%] animate-[steamRise_6s_ease-in-out_infinite] [animation-delay:3.2s]"></div>
+
+    <div class="relative z-10 w-full max-w-[420px] origin-top animate-[ticketPrint_0.7s_cubic-bezier(0.2,0.7,0.25,1)_both]">
+
+        
+
+        {{-- perforated tear edge: dots cut to the page background color so it reads as punched paper --}}
+        <div aria-hidden="true"
+             class="h-3.5 w-full bg-[radial-gradient(circle_at_10px_8px,#EEE9E2_6.5px,transparent_7px)] [background-size:20px_16px] bg-repeat-x [background-position:-4px_0]"></div>
+
+        <div class="bg-[#FAF6EC] border border-black/[0.05] px-8 pt-7 pb-8 shadow-[0_20px_50px_rgba(43,36,28,0.14)]">
+
+            <div class="flex items-baseline justify-between mb-1.5">
+                <span class="font-['Fraunces',serif] font-semibold text-2xl text-[#2B241C]">Welcome back</span>
+                <span class="font-['JetBrains_Mono',monospace] text-[11px] tracking-wide text-[#5C5346] whitespace-nowrap">NO. {{ str_pad(random_int(1, 999), 4, '0', STR_PAD_LEFT) }}</span>
+            </div>
+            <span class="font-['JetBrains_Mono',monospace] text-[11px] font-semibold tracking-[0.14em] uppercase text-[#55724F]">Table for one &middot; sign in below</span>
+
+            <div aria-hidden="true"
+                 class="h-px w-full my-5 opacity-40 bg-[repeating-linear-gradient(to_right,#5C5346_0,#5C5346_5px,transparent_5px,transparent_10px)]"></div>
+
             @if ($errors->any())
-                <div class="bg-red-500/10 border border-red-500/20 rounded-lg p-3.5 mb-5 text-sm text-red-500">
+                <div class="bg-[#B23A1A]/[0.08] border border-[#B23A1A]/25 rounded-lg px-3.5 py-2.5 mb-4 text-sm text-[#8F2C12]">
                     @foreach ($errors->all() as $error)
                         <div>{{ $error }}</div>
                     @endforeach
@@ -45,13 +72,14 @@
             <form method="POST" action="{{ route('login') }}" id="login-form">
                 @csrf
 
-                <div class="mb-5">
-                    <label for="email" class="block text-xs font-semibold text-[#475569] mb-2 tracking-wide uppercase">Email</label>
+                <div class="mb-4">
+                    <label for="email" class="block font-['JetBrains_Mono',monospace] text-[10.5px] font-semibold tracking-[0.12em] uppercase text-[#5C5346] mb-2">Email</label>
                     <input
                         id="email"
                         type="email"
                         name="email"
-                        class="w-full px-4 py-3 bg-white border {{ $errors->has('email') ? 'border-red-500 focus:ring-red-500/10' : 'border-slate-300 focus:border-cs-orange focus:ring-cs-orange/10' }} rounded-xl text-[#2C1810] text-sm transition-all outline-none focus:ring-3"
+                        class="w-full px-3.5 py-2.5 bg-white/60 border rounded-lg text-[14.5px] text-[#2B241C] outline-none transition-colors placeholder:text-[#2B241C]/35
+                               {{ $errors->has('email') ? 'border-[#B23A1A] focus:ring-4 focus:ring-[#B23A1A]/10' : 'border-[#2B241C]/15 hover:border-[#2B241C]/25 focus:border-[#55724F] focus:bg-white focus:ring-4 focus:ring-[#55724F]/15' }}"
                         value="{{ old('email') }}"
                         placeholder="name@email.com"
                         required
@@ -59,31 +87,43 @@
                     >
                 </div>
 
-                <div class="mb-5">
-                    <label for="password" class="block text-xs font-semibold text-[#475569] mb-2 tracking-wide uppercase">Password</label>
+                <div class="mb-4">
+                    <label for="password" class="block font-['JetBrains_Mono',monospace] text-[10.5px] font-semibold tracking-[0.12em] uppercase text-[#5C5346] mb-2">Password</label>
                     <input
                         id="password"
                         type="password"
                         name="password"
-                        class="w-full px-4 py-3 bg-white border {{ $errors->has('password') ? 'border-red-500 focus:ring-red-500/10' : 'border-slate-300 focus:border-cs-orange focus:ring-cs-orange/10' }} rounded-xl text-[#2C1810] text-sm transition-all outline-none focus:ring-3"
+                        class="w-full px-3.5 py-2.5 bg-white/60 border rounded-lg text-[14.5px] text-[#2B241C] outline-none transition-colors placeholder:text-[#2B241C]/35
+                               {{ $errors->has('password') ? 'border-[#B23A1A] focus:ring-4 focus:ring-[#B23A1A]/10' : 'border-[#2B241C]/15 hover:border-[#2B241C]/25 focus:border-[#55724F] focus:bg-white focus:ring-4 focus:ring-[#55724F]/15' }}"
                         placeholder="Enter password"
                         required
                     >
                 </div>
 
-                <div class="flex items-center gap-2 mb-6">
-                    <input type="checkbox" id="remember" name="remember" class="w-4 h-4 accent-cs-orange cursor-pointer" {{ old('remember') ? 'checked' : '' }}>
-                    <label for="remember" class="text-sm text-[#64748b] cursor-pointer select-none">Remember me</label>
+                <div class="flex items-center gap-2.5 mb-6">
+                    <input type="checkbox" id="remember" name="remember" class="w-4 h-4 accent-[#55724F] cursor-pointer" {{ old('remember') ? 'checked' : '' }}>
+                    <label for="remember" class="text-[13px] text-[#5C5346] cursor-pointer select-none">Remember me</label>
                 </div>
 
-                <button type="submit" class="relative overflow-hidden w-full px-6 py-3.5 bg-gradient-to-r from-cs-orange to-[#ff7337] text-white border-none rounded-xl text-sm font-semibold cursor-pointer transition-all shadow-[0_2px_10px_rgba(238,77,45,0.15)] hover:-translate-y-px hover:shadow-[0_4px_15px_rgba(238,77,45,0.25)] active:translate-y-0" id="btn-login">
-                    Sign In
-                </button>
+                <div class="flex items-center gap-3.5">
+                    <button type="submit"
+                        class="peer flex-1 relative px-5 py-3 rounded-lg text-[14.5px] font-semibold tracking-wide text-[#FDF6EC]
+                               bg-gradient-to-b from-[#B23A1A] to-[#8F2C12] shadow-[0_6px_18px_rgba(178,58,26,0.32)]
+                               transition-all hover:-translate-y-px hover:shadow-[0_8px_22px_rgba(178,58,26,0.4)] hover:brightness-[1.04] active:translate-y-0
+                               focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#E3A73F]"
+                        id="btn-login">
+                        Sign In
+                    </button>
+                </div>
             </form>
         </div>
 
-        <div class="text-center mt-6 text-sm text-[#64748b]">
-            Don't have an account? <a href="{{ route('register') }}" class="no-underline font-semibold transition-colors hover:text-[#ff7337] hover:underline text-cs-orange">Register now</a>
+        <div class="text-center mt-6 text-[13.5px] text-[#5C5346]">
+            Don't have an account?
+            <a href="{{ route('register') }}"
+               class="font-semibold no-underline text-[#8F2C12] hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#E3A73F] focus-visible:rounded-sm">
+                Register now
+            </a>
         </div>
     </div>
 </body>

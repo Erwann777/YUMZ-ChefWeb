@@ -1,6 +1,6 @@
 @extends('admin.layouts.admin')
 
-@section('title', 'Edit User — CookSpace Admin')
+@section('title', 'Edit User — Yumz Admin')
 @section('page-title', 'Edit User')
 
 @section('content')

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Recipe;
 use App\Models\RecipePurchase;
 use App\Models\ServiceOrder;
+use App\Notifications\OrderCompletedNotification;
 use Illuminate\Http\Request;
 
 class CookerDashboardController extends Controller
@@ -110,6 +111,16 @@ class CookerDashboardController extends Controller
         $order->update([
             'status' => $newStatus,
         ]);
+
+        // Notify customer when cooker marks order as completed
+        if ($newStatus === 'completed') {
+            try {
+                $order->load(['customer', 'service']);
+                $order->customer->notify(new OrderCompletedNotification($order, $request->user()));
+            } catch (\Exception $e) {
+                // Silently fail if notification fails
+            }
+        }
 
         \App\Models\ActivityLog::log(
             'order_status_updated',

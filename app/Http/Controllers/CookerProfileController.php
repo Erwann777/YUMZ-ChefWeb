@@ -9,6 +9,7 @@ use App\Models\RecipePurchase;
 use App\Models\ServiceOrder;
 use App\Models\User;
 use App\Models\WalletTransaction;
+use App\Notifications\OrderPlacedNotification;
 use App\Services\CurrencyService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -29,17 +30,15 @@ class CookerProfileController extends Controller
 
         $query = User::where('role', 'cooker')
             ->withCount(['recipes' => fn($q) => $q->where('is_published', true)])
-            ->withCount(['cookingServices' => fn($q) => $q->where('is_available', true)]);
+            ->withCount(['cookingServices' => fn($q) => $q->where('is_available', true)])
+            ->withCount('followers');
 
         if ($search) {
             $query->where('name', 'like', "%{$search}%");
         } else {
             $query->where(function ($q) {
-                $q->having('recipes_count', '>', 0)
-                  ->orWhere(function ($inner) {
-                      $inner->where('role', 'cooker');
-                      $inner->has('cookingServices');
-                  });
+                $q->whereHas('recipes', fn($r) => $r->where('is_published', true))
+                  ->orWhereHas('cookingServices', fn($s) => $s->where('is_available', true));
             });
         }
 
@@ -102,15 +101,54 @@ class CookerProfileController extends Controller
             abort(404);
         }
 
+        $cooker->loadCount('followers');
         $recipes  = $cooker->recipes()->published()->latest()->get();
         $services = $cooker->cookingServices()->available()->latest()->get();
+        $isFollowing = Auth::check() ? Auth::user()->isFollowing($cooker) : false;
 
         return view('cookers.profile', [
-            'user'    => Auth::user(),
-            'cooker'  => $cooker,
-            'recipes' => $recipes,
-            'services' => $services,
+            'user'        => Auth::user(),
+            'cooker'      => $cooker,
+            'recipes'     => $recipes,
+            'services'    => $services,
+            'isFollowing' => $isFollowing,
         ]);
+    }
+
+    /**
+     * Toggle follow/unfollow a cooker.
+     */
+    public function toggleFollow(User $cooker)
+    {
+        if ($cooker->role !== 'cooker') {
+            abort(404);
+        }
+
+        $user = Auth::user();
+        if ($user->id === $cooker->id) {
+            return back()->with('error', 'You cannot follow yourself.');
+        }
+
+        // Toggle follow
+        if ($user->isFollowing($cooker)) {
+            $user->followingCookers()->detach($cooker->id);
+            ActivityLog::log(
+                'unfollowed_cooker',
+                "{$user->name} unfollowed cooker: {$cooker->name}",
+                $user->id, $cooker->id, request()->ip()
+            );
+            $message = "You unfollowed {$cooker->name}.";
+        } else {
+            $user->followingCookers()->attach($cooker->id);
+            ActivityLog::log(
+                'followed_cooker',
+                "{$user->name} followed cooker: {$cooker->name}",
+                $user->id, $cooker->id, request()->ip()
+            );
+            $message = "You are now following {$cooker->name}.";
+        }
+
+        return back()->with('success', $message);
     }
 
     /**
@@ -433,6 +471,14 @@ class CookerProfileController extends Controller
             "{$user->name} ordered service: {$service->title} from {$service->cooker->name}",
             $user->id, $service->cooker_id, $request->ip()
         );
+
+        // Notify the cooker about the new order
+        try {
+            $order->load('service');
+            $service->cooker->notify(new OrderPlacedNotification($order, $user));
+        } catch (\Exception $e) {
+            // Silently fail if notification fails
+        }
 
         return redirect()->route('cookers.show', $service->cooker)
             ->with('success', "Cooking service order \"{$service->title}\" created successfully! Status: Pending. 🎉");
