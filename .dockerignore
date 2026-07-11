@@ -1,0 +1,42 @@
+.git
+.gitignore
+.github
+
+# Env & secrets — JANGAN pernah ikut ke image
+.env
+.env.*
+!.env.example
+
+# Dependencies (di-install ulang saat build)
+/vendor
+/node_modules
+
+# Sail / dev only
+docker-compose.yml
+docker-compose.override.yml
+.docker
+
+# Cache & logs
+storage/*.key
+storage/logs/*
+storage/framework/cache/*
+storage/framework/sessions/*
+storage/framework/views/*
+bootstrap/cache/*.php
+
+# Testing
+/tests
+phpunit.xml
+.phpunit.result.cache
+
+# IDE
+.idea
+.vscode
+
+# Misc
+*.log
+.DS_Store
+Homestead.json
+Homestead.yaml
+npm-debug.log
+yarn-error.log
