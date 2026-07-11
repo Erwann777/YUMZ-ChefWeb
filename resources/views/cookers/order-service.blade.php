@@ -23,7 +23,7 @@
 @section('content')
 <div class="max-w-[600px] mx-auto mt-20 pb-12">
     @if(session('error'))
-        <div class="bg-red-500/10 border border-red-500/20 text-red-600 px-4 py-3 rounded-xl text-[0.85rem] mb-6 anim-in">❌ {{ session('error') }}</div>
+        <div class="bg-red-500/10 border border-red-500/20 text-red-600 px-4 py-3 rounded-xl text-[0.85rem] mb-6 anim-in"> {{ session('error') }}</div>
     @endif
 
     <a href="{{ route('cookers.show', $cooker) }}" class="inline-flex items-center gap-[0.4rem] text-[0.82rem] text-[#7A6248] hover:text-cs-orange transition-colors duration-200 mb-6 no-underline anim-in">← Chef Profile {{ $cooker->name }}</a>
@@ -45,7 +45,7 @@
 
         {{-- Virtual money disclaimer --}}
         <div class="flex items-center gap-2 mb-4 p-3 bg-amber-50 border border-amber-200 rounded-xl">
-            <span class="text-sm shrink-0">⚠️</span>
+            <span class="text-sm shrink-0"></span>
             <span class="text-xs text-amber-700">Transactions use <strong>Virtual Wallet</strong> — this is a project simulation, not real money.</span>
         </div>
 

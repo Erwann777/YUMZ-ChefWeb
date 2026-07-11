@@ -25,8 +25,8 @@ class OrderCompletedNotification extends Notification
     {
         return [
             'type'       => 'order_done',
-            'icon'       => '✅',
-            'title'      => 'Your food is ready! 🍽️',
+            'icon'       => '',
+            'title'      => 'Your food is ready! ',
             'body'       => "{$this->cooker->name} has finished your order: {$this->order->service->title}",
             'url'        => url('/dashboard?tab=orders'),
             'order_id'   => $this->order->id,

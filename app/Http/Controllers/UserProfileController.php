@@ -74,7 +74,7 @@ class UserProfileController extends Controller
         $user->save();
 
         return redirect()->route('profile')
-            ->with('success', 'Profile successfully updated! ✅');
+            ->with('success', 'Profile successfully updated! ');
     }
 
     /**
@@ -99,6 +99,6 @@ class UserProfileController extends Controller
         $user->save();
 
         return redirect()->route('profile')
-            ->with('success', 'Profile photo successfully updated! 📸');
+            ->with('success', 'Profile photo successfully updated! ');
     }
 }

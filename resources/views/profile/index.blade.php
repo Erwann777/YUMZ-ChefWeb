@@ -8,7 +8,7 @@
     <!-- Success/Error Notification -->
     @if(session('success'))
         <div class="mb-6 bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-xl text-sm flex items-center gap-2 shadow-sm">
-            <span>✅</span>
+            <span></span>
             <span>{{ session('success') }}</span>
         </div>
     @endif

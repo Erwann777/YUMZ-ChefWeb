@@ -25,7 +25,7 @@ class OrderPlacedNotification extends Notification
     {
         return [
             'type'       => 'order',
-            'icon'       => '🛒',
+            'icon'       => '',
             'title'      => 'New order from ' . $this->customer->name,
             'body'       => "Order #{$this->order->id}: {$this->order->service->title}",
             'url'        => url('/cooker/dashboard'),

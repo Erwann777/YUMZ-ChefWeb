@@ -215,9 +215,9 @@ class User extends Authenticatable
     public function getCountryFlag(): string
     {
         return match($this->country ?? 'ID') {
-            'SG' => '🇸🇬',
-            'MY' => '🇲🇾',
-            default => '🇮🇩',
+            'SG' => '',
+            'MY' => '',
+            default => '',
         };
     }
 

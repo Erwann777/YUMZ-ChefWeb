@@ -213,7 +213,9 @@
                 <a href="{{ route('cookers.index') }}"  class="nav-link">Cookers</a>
                 <a href="{{ route('welcome') }}#stories"  class="nav-link">Stories</a>
                 <a href="{{ route('welcome') }}#feedback" class="nav-link">Contact</a>
-                <a href="{{ route('dashboard') }}" class="nav-link nav-link-accent">Dashboard</a>
+                @if(!Auth::user()->isCooker())
+                    <a href="{{ route('dashboard') }}" class="nav-link nav-link-accent">Dashboard</a>
+                @endif
                 @if(Auth::user()->isCooker())
                     <a href="{{ route('cooker.dashboard') }}" class="nav-link nav-link-accent">Cooker Panel</a>
                 @endif
@@ -439,7 +441,9 @@
                     <a href="{{ route('cookers.index') }}"  class="mobile-link text-white/85 text-sm font-medium py-2 px-3 rounded-lg hover:bg-white/8 hover:text-white text-center transition-all">Cookers</a>
                     <a href="{{ route('welcome') }}#stories"  class="mobile-link text-white/85 text-sm font-medium py-2 px-3 rounded-lg hover:bg-white/8 hover:text-white text-center transition-all">Stories</a>
                     <a href="{{ route('welcome') }}#feedback" class="mobile-link text-white/85 text-sm font-medium py-2 px-3 rounded-lg hover:bg-white/8 hover:text-white text-center transition-all">Contact</a>
-                    <a href="{{ route('dashboard') }}" class="mobile-link text-[#e8a87c] text-sm font-semibold py-2 px-3 rounded-lg hover:bg-[#C67C4E]/15 text-center transition-all">Dashboard</a>
+                    @if(!Auth::user()->isCooker())
+                        <a href="{{ route('dashboard') }}" class="mobile-link text-[#e8a87c] text-sm font-semibold py-2 px-3 rounded-lg hover:bg-[#C67C4E]/15 text-center transition-all">Dashboard</a>
+                    @endif
                     @if(Auth::user()->isCooker())
                         <a href="{{ route('cooker.dashboard') }}" class="mobile-link text-[#e8a87c] text-sm font-semibold py-2 px-3 rounded-lg hover:bg-[#C67C4E]/15 text-center transition-all">Cooker Panel</a>
                     @endif
@@ -626,6 +630,80 @@
     });
 </script>
 
+<script>
+/* ── Global AJAX Follow / Unfollow ──────────────────────────────── */
+window._followCsrf = '{{ csrf_token() }}';
+
+async function toggleFollow(btn, cookerId, url) {
+    if (!cookerId || !url) return;
+    btn.disabled = true;
+    const prev = btn.innerHTML;
+    btn.innerHTML = '<span style="display:inline-block;width:14px;height:14px;border:2px solid currentColor;border-top-color:transparent;border-radius:50%;animation:spin .6s linear infinite;vertical-align:middle;"></span>';
+
+    try {
+        const res  = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': window._followCsrf,
+                'Accept': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest',
+            },
+        });
+        const data = await res.json();
+        if (!res.ok || !data.success) throw new Error(data.message || 'Error');
+
+        /* ── Update every follow btn that belongs to this cooker ── */
+        document.querySelectorAll('[data-follow-cooker="' + cookerId + '"]').forEach(el => {
+            el.dataset.following = data.following ? '1' : '0';
+            _applyFollowState(el, data.following);
+        });
+
+        /* ── Update any followers counter visible for this cooker ── */
+        document.querySelectorAll('[data-followers-count="' + cookerId + '"]').forEach(el => {
+            el.textContent = data.followers_count + (el.dataset.suffix || '');
+        });
+
+    } catch (err) {
+        btn.innerHTML = prev;
+        console.error('[Follow]', err);
+    } finally {
+        btn.disabled = false;
+    }
+}
+
+function _applyFollowState(btn, following) {
+    if (following) {
+        btn.innerHTML = btn.dataset.labelUnfollow || ' Unfollow';
+        btn.className = btn.className
+            .replace(/bg-gradient-to-r\s+from-\[#C67C4E\]\s+to-\[#b56b3f\]/g, '')
+            .replace(/bg-white/g, '')
+            .replace(/text-\[#C67C4E\]/g, '')
+            .replace(/border-\[#C67C4E\]/g, '')
+            .replace(/hover:bg-\[#C67C4E\]/g, '')
+            .replace(/hover:text-white/g, '')
+            .trim();
+        if (!btn.className.includes('bg-[#7A6B5D]')) {
+            btn.className += ' bg-[#7A6B5D] text-white border-[#7A6B5D] hover:bg-[#5C4D40] hover:border-[#5C4D40]';
+        }
+    } else {
+        btn.innerHTML = btn.dataset.labelFollow || ' Follow';
+        btn.className = btn.className
+            .replace(/bg-\[#7A6B5D\]/g, '')
+            .replace(/border-\[#7A6B5D\]/g, '')
+            .replace(/hover:bg-\[#5C4D40\]/g, '')
+            .replace(/hover:border-\[#5C4D40\]/g, '')
+            .trim();
+        const baseClass = btn.dataset.btnVariant === 'pill'
+            ? 'bg-white text-[#C67C4E] border-[#C67C4E] hover:bg-[#C67C4E] hover:text-white'
+            : 'bg-white text-[#C67C4E] border-[#C67C4E] hover:bg-[#C67C4E] hover:text-white';
+        if (!btn.className.includes('text-[#C67C4E]')) {
+            btn.className += ' ' + baseClass;
+        }
+    }
+}
+</script>
+
+
 @auth
 <style>
 /* Toast notifications */
@@ -804,7 +882,7 @@ function renderNotifications(notifications, unreadCount, unreadChatCount) {
             const d = n.data;
             const url = '/notifications/' + n.id + '/read';
             return `<a href="${url}" class="notif-item ${!n.read ? 'unread' : ''}">
-                <span class="notif-icon">${d.icon || '🔔'}</span>
+                <span class="notif-icon">${d.icon || ''}</span>
                 <div class="notif-body">
                     <div class="notif-title">${esc(d.title || '')}</div>
                     <div class="notif-msg">${esc(d.body || '')}</div>
@@ -830,44 +908,8 @@ async function markAllNotifRead() {
     } catch(e) { /* silent */ }
 }
 
-/* ── Show a toast popup ───────────────── */
-function showToast(notif, toastType) {
-    const d = notif.data || notif;
-    const container = document.getElementById('toast-container');
-    const toast = document.createElement('div');
-    toast.className = 'toast-item toast-' + (toastType || 'order');
-
-    toast.innerHTML = `
-        <span class="toast-icon">${d.icon || '🔔'}</span>
-        <div class="toast-body">
-            <div class="toast-title">${esc(d.title || '')}</div>
-            <div class="toast-msg">${esc(d.body || '')}</div>
-        </div>
-        <button class="toast-close" onclick="this.parentElement.remove()">✕</button>
-    `;
-    if (d.url) toast.addEventListener('click', () => { window.location.href = d.url; });
-    container.appendChild(toast);
-
-    // Play a soft chime
-    try {
-        const ctx = new (window.AudioContext || window.webkitAudioContext)();
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-        osc.frequency.value = 880;
-        osc.type = 'sine';
-        gain.gain.setValueAtTime(0.15, ctx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.5);
-        osc.start(ctx.currentTime);
-        osc.stop(ctx.currentTime + 0.5);
-    } catch(e) { /* silent */ }
-
-    setTimeout(() => {
-        toast.style.animation = 'toastSlideOut 0.35s ease forwards';
-        setTimeout(() => toast.remove(), 350);
-    }, 6000);
-}
+/* ── Toast popup — disabled (badge-only mode) ── */
+function showToast(notif, toastType) { /* intentionally no-op: notifications are badge-only */ }
 
 function esc(str) {
     return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
@@ -880,10 +922,17 @@ async function pollNotifications() {
         const data = await res.json();
         renderNotifications(data.notifications, data.unread_count, data.unread_chat_count);
 
-        // Show toast for newly arrived unread notifications
+        // Track newly arrived unread notifications for chat sidebar sync
         data.notifications.filter(n => !n.read && !knownNotifIds.has(n.id)).forEach(n => {
             if (!isFirstPoll) {
-                showToast(n, n.data?.type === 'chat' ? 'chat' : 'order');
+                if (n.data?.type === 'chat') {
+                    const payload = {
+                        room_id: parseInt(n.data.room_id),
+                        body: n.data.body,
+                        created_at_ts: n.data.created_at_ts || Math.floor(new Date(n.created_at || Date.now()).getTime() / 1000)
+                    };
+                    document.dispatchEvent(new CustomEvent('chat-notification-received', { detail: payload }));
+                }
             }
             knownNotifIds.add(n.id);
         });
@@ -900,8 +949,15 @@ function setupEchoNotifications() {
         window.Echo.private('App.Models.User.' + CURRENT_USER_ID)
             .notification((notification) => {
                 notifEchoWorking = true;
-                showToast(notification, notification.type === 'chat' ? 'chat' : 'order');
                 loadNotifications();
+                if (notification.type === 'chat') {
+                    const payload = {
+                        room_id: parseInt(notification.room_id),
+                        body: notification.body,
+                        created_at_ts: notification.created_at_ts || Math.floor(Date.now() / 1000)
+                    };
+                    document.dispatchEvent(new CustomEvent('chat-notification-received', { detail: payload }));
+                }
             });
         console.log('[Notif] Echo listening for notifications');
     } catch(e) {

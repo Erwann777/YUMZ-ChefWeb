@@ -180,9 +180,9 @@
                 <label class="block font-['JetBrains_Mono',monospace] text-[10.5px] font-semibold tracking-[0.12em] uppercase text-[#5C5346] mb-2.5">Country of Origin</label>
                 <div class="grid grid-cols-3 gap-3 mb-4" id="country-selector-group">
                     @foreach([
-                        ['code' => 'ID', 'flag' => '🇮🇩', 'name' => 'Indonesia', 'currency' => 'IDR', 'balance' => 'Rp 10.000.000'],
-                        ['code' => 'SG', 'flag' => '🇸🇬', 'name' => 'Singapore', 'currency' => 'SGD', 'balance' => 'S$1,000.00'],
-                        ['code' => 'MY', 'flag' => '🇲🇾', 'name' => 'Malaysia',  'currency' => 'MYR', 'balance' => 'RM3,000.00'],
+                        ['code' => 'ID', 'flag' => '', 'name' => 'Indonesia', 'currency' => 'IDR', 'balance' => 'Rp 10.000.000'],
+                        ['code' => 'SG', 'flag' => '', 'name' => 'Singapore', 'currency' => 'SGD', 'balance' => 'S$1,000.00'],
+                        ['code' => 'MY', 'flag' => '', 'name' => 'Malaysia',  'currency' => 'MYR', 'balance' => 'RM3,000.00'],
                     ] as $c)
                     <label class="relative cursor-pointer group country-card" data-balance="{{ $c['balance'] }}" data-currency="{{ $c['currency'] }}" data-country="{{ $c['code'] }}">
                         <input type="radio" name="country" value="{{ $c['code'] }}" {{ old('country', 'ID') === $c['code'] ? 'checked' : '' }} required class="absolute opacity-0 pointer-events-none peer">

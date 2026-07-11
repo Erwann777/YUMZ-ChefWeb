@@ -506,8 +506,8 @@ html, body { height: 100%; overflow: hidden; }
                     if ($lm) {
                         $lmTs = $lm->created_at->timestamp;
                         if ($lm->is_deleted)                          $lmSnippet = 'Deleted';
-                        elseif ($lm->attachment_type === 'image')     $lmSnippet = '📷 Photo';
-                        elseif ($lm->attachment_type === 'video')     $lmSnippet = '🎥 Video';
+                        elseif ($lm->attachment_type === 'image')     $lmSnippet = ' Photo';
+                        elseif ($lm->attachment_type === 'video')     $lmSnippet = ' Video';
                         else                                           $lmSnippet = Str::limit($lm->message ?? '', 35);
                     }
                     $isUnread  = in_array($sideRoom->id, $unreadRoomIds);
@@ -528,10 +528,10 @@ html, body { height: 100%; overflow: hidden; }
                     </div>
                     <div class="s-info">
                         <div class="s-name">{{ $sp->name }}</div>
-                        <div class="s-snippet" id="s-snip-{{ $sideRoom->id }}">{{ $lmSnippet ?: 'No messages yet' }}</div>
+                        <div class="s-snippet" id="s-snip-{{ $sideRoom->id }}" style="{{ !$hasRoom ? 'display:none;' : '' }}">{{ $lmSnippet ?: 'No messages yet' }}</div>
                     </div>
                     <div class="s-right">
-                        <span class="s-time" id="s-time-{{ $sideRoom->id }}" data-ts="{{ $lmTs }}">
+                        <span class="s-time" id="s-time-{{ $sideRoom->id }}" data-ts="{{ $lmTs }}" style="{{ !$hasRoom ? 'display:none;' : '' }}">
                             {{-- rendered by JS using local time --}}
                         </span>
                         @if($isUnread)
@@ -611,14 +611,14 @@ html, body { height: 100%; overflow: hidden; }
                             <div class="b-col">
                                 {{-- Bubble --}}
                                 @if($msg->is_deleted)
-                                    <div class="bubble deleted">🚫 This message was deleted</div>
+                                    <div class="bubble deleted"> This message was deleted</div>
 
                                 @elseif($msg->isImage())
                                     <div class="bubble media-bubble">
                                         @if($msg->replyTo)
                                             <div class="rq" onclick="scrollToMsg({{ $msg->replyTo->id }})">
                                                 <span class="rq-name">{{ $msg->replyTo->sender?->name ?? 'Unknown' }}</span>
-                                                <span class="rq-text">{{ $msg->replyTo->is_deleted ? '🚫 Deleted' : ($msg->replyTo->attachment_type === 'image' ? '📷 Photo' : ($msg->replyTo->attachment_type === 'video' ? '🎥 Video' : Str::limit($msg->replyTo->message ?? '', 60))) }}</span>
+                                                <span class="rq-text">{{ $msg->replyTo->is_deleted ? ' Deleted' : ($msg->replyTo->attachment_type === 'image' ? ' Photo' : ($msg->replyTo->attachment_type === 'video' ? ' Video' : Str::limit($msg->replyTo->message ?? '', 60))) }}</span>
                                             </div>
                                         @endif
                                         <img src="{{ $msg->attachment_url }}" class="chat-img" onclick="openLbox(this.src)" alt="Photo">
@@ -630,7 +630,7 @@ html, body { height: 100%; overflow: hidden; }
                                         @if($msg->replyTo)
                                             <div class="rq" onclick="scrollToMsg({{ $msg->replyTo->id }})">
                                                 <span class="rq-name">{{ $msg->replyTo->sender?->name ?? 'Unknown' }}</span>
-                                                <span class="rq-text">{{ $msg->replyTo->is_deleted ? '🚫 Deleted' : ($msg->replyTo->attachment_type === 'image' ? '📷 Photo' : ($msg->replyTo->attachment_type === 'video' ? '🎥 Video' : Str::limit($msg->replyTo->message ?? '', 60))) }}</span>
+                                                <span class="rq-text">{{ $msg->replyTo->is_deleted ? ' Deleted' : ($msg->replyTo->attachment_type === 'image' ? ' Photo' : ($msg->replyTo->attachment_type === 'video' ? ' Video' : Str::limit($msg->replyTo->message ?? '', 60))) }}</span>
                                             </div>
                                         @endif
                                         <div class="video-wrap">
@@ -644,7 +644,7 @@ html, body { height: 100%; overflow: hidden; }
                                         @if($msg->replyTo)
                                             <div class="rq" onclick="scrollToMsg({{ $msg->replyTo->id }})">
                                                 <span class="rq-name">{{ $msg->replyTo->sender?->name ?? 'Unknown' }}</span>
-                                                <span class="rq-text">{{ $msg->replyTo->is_deleted ? '🚫 Deleted' : ($msg->replyTo->attachment_type === 'image' ? '📷 Photo' : ($msg->replyTo->attachment_type === 'video' ? '🎥 Video' : Str::limit($msg->replyTo->message ?? '', 60))) }}</span>
+                                                <span class="rq-text">{{ $msg->replyTo->is_deleted ? ' Deleted' : ($msg->replyTo->attachment_type === 'image' ? ' Photo' : ($msg->replyTo->attachment_type === 'video' ? ' Video' : Str::limit($msg->replyTo->message ?? '', 60))) }}</span>
                                             </div>
                                         @endif
                                         <span id="bbl-txt-{{ $msg->id }}">{{ $msg->message }}</span>
@@ -682,14 +682,14 @@ html, body { height: 100%; overflow: hidden; }
                     <div class="rb-name" id="rb-name">Replying to…</div>
                     <div class="rb-text" id="rb-text"></div>
                 </div>
-                <button class="rb-cancel" onclick="clearReply()">✕</button>
+                <button class="rb-cancel" onclick="clearReply()"></button>
             </div>
 
             <div class="fp-bar" id="fp-bar">
-                <span id="fp-icon">📎</span>
+                <span id="fp-icon"></span>
                 <img id="fp-thumb" class="fp-thumb" src="" alt="" style="display:none">
                 <span id="fp-name" style="font-size:.78rem;color:#5C4232;max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;"></span>
-                <button class="fp-rm" onclick="clearFile()">✕ Remove</button>
+                <button class="fp-rm" onclick="clearFile()"> Remove</button>
             </div>
 
             <div class="c-input-bar">
@@ -697,11 +697,11 @@ html, body { height: 100%; overflow: hidden; }
                     <button class="att-btn" id="att-btn" onclick="toggleAtt()" title="Attach">+</button>
                     <div class="att-popup" id="att-popup">
                         <label class="att-opt">
-                            <span class="att-ic">🖼️</span><span>Photo</span>
+                            <span class="att-ic"></span><span>Photo</span>
                             <input type="file" id="img-input" accept="image/*" onchange="handleFile(this,'image')">
                         </label>
                         <label class="att-opt">
-                            <span class="att-ic">🎥</span><span>Video</span>
+                            <span class="att-ic"></span><span>Video</span>
                             <input type="file" id="vid-input" accept="video/*" onchange="handleFile(this,'video')">
                         </label>
                     </div>
@@ -732,7 +732,7 @@ html, body { height: 100%; overflow: hidden; }
 </div>{{-- /chat-shell --}}
 
 <div id="lbox">
-    <button id="lbox-close" onclick="closeLbox()">✕</button>
+    <button id="lbox-close" onclick="closeLbox()"></button>
     <img id="lbox-img" src="" alt="">
 </div>
 <div class="c-toast" id="c-toast"></div>
@@ -879,11 +879,11 @@ function handleFile(input, type) {
     closeAtt();
     if (!input.files.length) return;
     const file = input.files[0];
-    if (file.size > 50 * 1024 * 1024) { showToast('⚠️ Max file size is 50 MB.'); input.value = ''; return; }
+    if (file.size > 50 * 1024 * 1024) { showToast(' Max file size is 50 MB.'); input.value = ''; return; }
     selFile = file;
     document.getElementById('fp-bar').classList.add('show');
     document.getElementById('fp-name').textContent = file.name;
-    document.getElementById('fp-icon').textContent = type === 'image' ? '📷' : '🎥';
+    document.getElementById('fp-icon').textContent = type === 'image' ? '' : '';
     if (type === 'image') {
         const r = new FileReader();
         r.onload = ev => { const img = document.getElementById('fp-thumb'); img.src = ev.target.result; img.style.display = ''; };
@@ -915,9 +915,9 @@ function doReply(id) {
     const deleted = row.dataset.deleted === '1';
     const sender  = row.dataset.sender || 'Unknown';
     let snippet   = '';
-    if (deleted)                         snippet = '🚫 This message was deleted';
-    else if (row.dataset.attach === 'image') snippet = '📷 Photo';
-    else if (row.dataset.attach === 'video') snippet = '🎥 Video';
+    if (deleted)                         snippet = ' This message was deleted';
+    else if (row.dataset.attach === 'image') snippet = ' Photo';
+    else if (row.dataset.attach === 'video') snippet = ' Video';
     else { const sp = document.getElementById('bbl-txt-' + id); snippet = sp ? sp.textContent : ''; }
     setReply(id, sender, snippet);
 }
@@ -970,8 +970,8 @@ async function sendMsg() {
             lastMsgId = data.id;
             ta.value = ''; ta.style.height = 'auto';
             clearFile(); clearReply();
-        } else { showToast('⚠️ ' + (data.error || 'Send failed.')); }
-    } catch { showToast('⚠️ Network error.'); }
+        } else { showToast(' ' + (data.error || 'Send failed.')); }
+    } catch { showToast(' Network error.'); }
     finally { icon.style.display = ''; spin.style.display = 'none'; btn.disabled = false; }
 }
 
@@ -1007,7 +1007,7 @@ function appendMsg(msg, isMine) {
     /* bubble */
     let bHtml = '';
     if (msg.is_deleted) {
-        bHtml = `<div class="bubble deleted">🚫 This message was deleted</div>`;
+        bHtml = `<div class="bubble deleted"> This message was deleted</div>`;
     } else if (msg.attachment_type === 'image' && msg.attachment_url) {
         bHtml = `<div class="bubble media-bubble">${qHtml}
             <img src="${esc(msg.attachment_url)}" class="chat-img" onclick="openLbox(this.src)" alt="Photo">
@@ -1061,30 +1061,53 @@ function appendMsg(msg, isMine) {
     scrollBot();
 }
 
-/* ── Update sidebar snippet & time ─────────────────────────────────── */
-function updateSidebarSnippet(msg, ts) {
-    const snipEl = document.getElementById('s-snip-' + ROOM_ID);
-    const timeEl = document.getElementById('s-time-' + ROOM_ID);
+/* ── Generalized Update Sidebar Room ───────────────────────────────── */
+function updateSidebarRoom(roomId, snippet, ts, isUnread) {
+    const snipEl = document.getElementById('s-snip-' + roomId);
+    const timeEl = document.getElementById('s-time-' + roomId);
+    const dotEl  = document.getElementById('s-dot-' + roomId);
+    
     if (snipEl) {
-        if (msg.is_deleted)                          snipEl.textContent = 'Deleted';
-        else if (msg.attachment_type === 'image')    snipEl.textContent = '📷 Photo';
-        else if (msg.attachment_type === 'video')    snipEl.textContent = '🎥 Video';
-        else {
-            const t = msg.message || '';
-            snipEl.textContent = t.length > 35 ? t.substring(0, 35) + '…' : t;
-        }
+        snipEl.textContent = snippet;
     }
     if (timeEl) {
         timeEl.dataset.ts = ts;
         timeEl.textContent = localHM(ts);
     }
+    if (dotEl) {
+        dotEl.style.display = (isUnread && roomId !== ROOM_ID) ? '' : 'none';
+    }
+    
     /* Move this room to top of sidebar */
-    const roomEl = document.getElementById('s-room-' + ROOM_ID);
+    const roomEl = document.getElementById('s-room-' + roomId);
     const list   = document.getElementById('s-list');
     if (roomEl && list && roomEl.parentNode === list) {
         list.prepend(roomEl);
     }
 }
+
+/* ── Update sidebar snippet & time ─────────────────────────────────── */
+function updateSidebarSnippet(msg, ts) {
+    let snippet = '';
+    if (msg.is_deleted)                          snippet = 'Deleted';
+    else if (msg.attachment_type === 'image')    snippet = ' Photo';
+    else if (msg.attachment_type === 'video')    snippet = ' Video';
+    else {
+        const t = msg.message || '';
+        snippet = t.length > 35 ? t.substring(0, 35) + '…' : t;
+    }
+    updateSidebarRoom(ROOM_ID, snippet, ts, false);
+}
+
+/* Listen to chat notifications to sync other rooms in the sidebar */
+document.addEventListener('chat-notification-received', (e) => {
+    const data = e.detail;
+    if (data && data.room_id) {
+        const body = data.body || '';
+        const ts = data.created_at_ts || Math.floor(Date.now() / 1000);
+        updateSidebarRoom(data.room_id, body, ts, true);
+    }
+});
 
 /* ── Delete message ─────────────────────────────────────────────────── */
 async function deleteMsg(id) {
@@ -1094,8 +1117,8 @@ async function deleteMsg(id) {
         const res  = await fetch(`${DEL_BASE}/${id}`, { method: 'DELETE', headers: { 'X-CSRF-TOKEN': CSRF, Accept: 'application/json' } });
         const data = await res.json();
         if (res.ok) { markDeleted(id); showToast('🗑 Deleted'); }
-        else showToast('⚠️ ' + (data.error || 'Delete failed.'));
-    } catch { showToast('⚠️ Network error.'); }
+        else showToast(' ' + (data.error || 'Delete failed.'));
+    } catch { showToast(' Network error.'); }
 }
 
 function markDeleted(id) {
@@ -1103,7 +1126,7 @@ function markDeleted(id) {
     if (!row) return;
     row.dataset.deleted = '1'; row.removeAttribute('data-attach');
     const bbl = row.querySelector('.bubble');
-    if (bbl) { bbl.className = 'bubble deleted'; bbl.innerHTML = '🚫 This message was deleted'; }
+    if (bbl) { bbl.className = 'bubble deleted'; bbl.innerHTML = ' This message was deleted'; }
     const ctx = document.getElementById('ctx-' + id);
     if (ctx) ctx.innerHTML = `<div class="ctx-item" onclick="doReply(${id})">↩ Reply</div>`;
     /* Update sidebar if it was last msg */
@@ -1141,6 +1164,9 @@ async function loadChatRoom(e, roomId, url) {
         const dot = document.getElementById('s-dot-' + roomId);
         if (dot) dot.style.display = 'none';
     }
+
+    // Reveal all sidebar snippets & times now that a room is open
+    document.querySelectorAll('.s-snippet, .s-time').forEach(el => el.style.display = '');
 
     try {
         const res = await fetch(url, { headers: { 'Accept': 'application/json', 'X-Requested-With': 'XMLHttpRequest' } });
@@ -1231,7 +1257,7 @@ async function loadChatRoom(e, roomId, url) {
 
     } catch (err) {
         console.error(err);
-        showToast('⚠️ Error loading chat room');
+        showToast(' Error loading chat room');
     }
 }
 

@@ -7,7 +7,7 @@
 @section('content')
 {{-- ═══════════════════════════════════════════════════
 {{-- SECTION 1: HERO --}}
-<section id="hero" class="relative min-h-screen flex items-center overflow-hidden">
+<section id="hero" class="relative min-h-screen flex flex-col justify-center overflow-hidden pt-28 pb-16 md:pt-36 md:pb-20">
 
     <!-- Background Mobile -->
     <div class="absolute inset-0 md:hidden bg-cover bg-center bg-no-repeat"
@@ -29,7 +29,7 @@
     <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 w-full">
         <div class="max-w-3xl text-center md:text-left">
 
-            <div class="uppercase tracking-[0.3em] text-[#C67C4E] text-xs md:text-sm mb-6 mt-12">
+            <div class="uppercase tracking-[0.3em] text-[#C67C4E] text-xs md:text-sm mb-6 mt-4">
                 Taste of the Neighborhood
             </div>
 
@@ -161,15 +161,21 @@
                             @auth
                                 <a href="{{ route('cookers.show', $cooker) }}" class="inline-flex justify-center px-3 py-1.5 sm:px-5 sm:py-2 text-[0.62rem] sm:text-[0.78rem] font-semibold text-[#C67C4E] border-[1.5px] border-[#C67C4E] rounded-full no-underline transition-all duration-[0.25s] hover:bg-[#C67C4E] hover:text-white">View Profile</a>
                                 @if(Auth::id() !== $cooker->id)
-                                    <form action="{{ route('cookers.toggle-follow', $cooker) }}" method="POST" class="m-0 w-full flex">
-                                        @csrf
-                                        <button type="submit" class="w-full inline-flex justify-center items-center px-3 py-1.5 sm:px-5 sm:py-2 text-[0.62rem] sm:text-[0.78rem] font-bold rounded-full border border-solid transition-all duration-[0.25s] cursor-pointer
-                                            {{ Auth::user()->isFollowing($cooker)
-                                                ? 'bg-[#7A6B5D] text-white border-[#7A6B5D] hover:bg-[#5C4D40] hover:border-[#5C4D40]'
-                                                : 'bg-white text-[#C67C4E] border-[#C67C4E] hover:bg-[#C67C4E] hover:text-white' }}">
-                                            {{ Auth::user()->isFollowing($cooker) ? ' Unfollow' : ' Follow' }}
-                                        </button>
-                                    </form>
+                                    @php $isFollowingNow = Auth::user()->isFollowing($cooker); @endphp
+                                    <button type="button"
+                                        data-follow-cooker="{{ $cooker->id }}"
+                                        data-follow-url="{{ route('cookers.toggle-follow', $cooker) }}"
+                                        data-following="{{ $isFollowingNow ? '1' : '0' }}"
+                                        data-label-follow=" Follow"
+                                        data-label-unfollow=" Unfollow"
+                                        data-btn-variant="pill"
+                                        onclick="toggleFollow(this, {{ $cooker->id }}, this.dataset.followUrl)"
+                                        class="w-full inline-flex justify-center items-center px-3 py-1.5 sm:px-5 sm:py-2 text-[0.62rem] sm:text-[0.78rem] font-bold rounded-full border border-solid transition-all duration-[0.25s] cursor-pointer
+                                        {{ $isFollowingNow
+                                            ? 'bg-[#7A6B5D] text-white border-[#7A6B5D] hover:bg-[#5C4D40] hover:border-[#5C4D40]'
+                                            : 'bg-white text-[#C67C4E] border-[#C67C4E] hover:bg-[#C67C4E] hover:text-white' }}">
+                                        {{ $isFollowingNow ? ' Unfollow' : ' Follow' }}
+                                    </button>
                                 @endif
                             @endauth
                         </div>
@@ -179,9 +185,15 @@
             
             <div class="text-center mt-12">
                 @auth
-                    <a href="{{ route('dashboard') }}" class="inline-flex items-center gap-2 px-8 py-3.5 bg-[#C67C4E] text-white font-semibold rounded-full hover:bg-[#d78d5d] transition no-underline text-sm shadow-md">
-                        View All Cookers &rarr;
-                    </a>
+                    @if(Auth::user()->isCooker())
+                        <a href="{{ route('cookers.index') }}" class="inline-flex items-center gap-2 px-8 py-3.5 bg-[#C67C4E] text-white font-semibold rounded-full hover:bg-[#d78d5d] transition no-underline text-sm shadow-md">
+                            View All Cookers &rarr;
+                        </a>
+                    @else
+                        <a href="{{ route('dashboard') }}" class="inline-flex items-center gap-2 px-8 py-3.5 bg-[#C67C4E] text-white font-semibold rounded-full hover:bg-[#d78d5d] transition no-underline text-sm shadow-md">
+                            View All Cookers &rarr;
+                        </a>
+                    @endif
                 @else
                     <a href="{{ route('login') }}" class="inline-flex items-center gap-2 px-8 py-3.5 bg-[#C67C4E] text-white font-semibold rounded-full hover:bg-[#d78d5d] transition no-underline text-sm shadow-md">
                         View All Cookers &rarr;
@@ -210,7 +222,11 @@
         <div class="border-b border-[#E8DDD2] pb-2.5 mb-6 flex items-center justify-between">
             <h3 class="font-['Playfair_Display',Georgia,serif] text-xl font-bold text-[#2C1810] m-0 flex items-center gap-2">Cooking Services &amp; Menu Offerings</h3>
             @auth
-                <a href="{{ route('dashboard') }}" class="text-xs font-semibold text-[#C67C4E] hover:text-[#d78d5d] transition-colors no-underline flex items-center gap-1">View All &rarr;</a>
+                @if(Auth::user()->isCooker())
+                    <a href="{{ route('foods.index') }}" class="text-xs font-semibold text-[#C67C4E] hover:text-[#d78d5d] transition-colors no-underline flex items-center gap-1">View All &rarr;</a>
+                @else
+                    <a href="{{ route('dashboard') }}" class="text-xs font-semibold text-[#C67C4E] hover:text-[#d78d5d] transition-colors no-underline flex items-center gap-1">View All &rarr;</a>
+                @endif
             @else
                 <a href="{{ route('login') }}" class="text-xs font-semibold text-[#C67C4E] hover:text-[#d78d5d] transition-colors no-underline flex items-center gap-1">View All &rarr;</a>
             @endauth
@@ -260,7 +276,11 @@
         <div class="border-b border-[#E8DDD2] pb-2.5 mb-6 flex items-center justify-between">
             <h3 class="font-['Playfair_Display',Georgia,serif] text-xl font-bold text-[#2C1810] m-0 flex items-center gap-2"> Secret Culinary Recipes</h3>
             @auth
-                <a href="{{ route('dashboard') }}" class="text-xs font-semibold text-[#C67C4E] hover:text-[#d78d5d] transition-colors no-underline flex items-center gap-1">View All &rarr;</a>
+                @if(Auth::user()->isCooker())
+                    <a href="{{ route('foods.index') }}" class="text-xs font-semibold text-[#C67C4E] hover:text-[#d78d5d] transition-colors no-underline flex items-center gap-1">View All &rarr;</a>
+                @else
+                    <a href="{{ route('dashboard') }}" class="text-xs font-semibold text-[#C67C4E] hover:text-[#d78d5d] transition-colors no-underline flex items-center gap-1">View All &rarr;</a>
+                @endif
             @else
                 <a href="{{ route('login') }}" class="text-xs font-semibold text-[#C67C4E] hover:text-[#d78d5d] transition-colors no-underline flex items-center gap-1">View All &rarr;</a>
             @endauth
@@ -375,7 +395,7 @@
                         @if($recipe->image_path)
                             <img src="{{ asset('storage/' . $recipe->image_path) }}" alt="{{ $recipe->title }}" class="w-full h-[200px] object-cover">
                         @else
-                            <div class="w-full h-[200px] flex items-center justify-center text-5xl bg-[#EDE5DC]">📖</div>
+                            <div class="w-full h-[200px] flex items-center justify-center text-5xl bg-[#EDE5DC]"></div>
                         @endif
                         <div class="p-6">
                             <div class="font-['Playfair_Display',Georgia,serif] text-[1.1rem] font-semibold text-[#2C1810] mb-2">The Story Behind "{{ $recipe->title }}"</div>
@@ -626,7 +646,7 @@
     function handleFeedbackSubmit(form) {
         const btn = document.getElementById('feedback-submit-btn');
         const originalHTML = btn.innerHTML;
-        btn.innerHTML = '✓ Message Sent!';
+        btn.innerHTML = ' Message Sent!';
         btn.style.background = '#C67C4E';
         btn.disabled = true;
         form.reset();

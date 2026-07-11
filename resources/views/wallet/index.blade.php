@@ -6,7 +6,7 @@
 <div class="min-h-screen bg-gradient-to-br from-[#FDF6EE] via-[#FFF9F4] to-[#FFFDF9] pt-8 pb-16">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mt-16">        {{-- Virtual Money Disclaimer --}}
         <div class="mb-6 p-4 rounded-2xl border border-amber-200 bg-gradient-to-r from-amber-50 to-orange-50 flex gap-3">
-            <span class="text-xl shrink-0">⚠️</span>
+            <span class="text-xl shrink-0"></span>
             <div>
                 <div class="text-sm font-semibold text-amber-800">Virtual Wallet — Project Simulation</div>
                 <div class="text-xs text-amber-700 mt-0.5 leading-relaxed">
@@ -62,7 +62,7 @@
             <div class="lg:col-span-1">
                 <div class="bg-white rounded-2xl shadow-sm border border-[#F0E8DE] p-6 h-full">
                     <div class="flex items-center gap-2 mb-4">
-                        <div class="w-8 h-8 bg-[#FDF5EE] rounded-lg flex items-center justify-center">💳</div>
+                        <div class="w-8 h-8 bg-[#FDF5EE] rounded-lg flex items-center justify-center"></div>
                         <h3 class="font-semibold text-[#2C1810]">Simulate Top-Up</h3>
                     </div>
                     @if(session('success'))
@@ -115,19 +115,19 @@
             <div class="lg:col-span-2">
                 <div class="bg-white rounded-2xl shadow-sm border border-[#F0E8DE] p-6 h-full">
                     <div class="flex items-center gap-2 mb-4">
-                        <div class="w-8 h-8 bg-[#FDF5EE] rounded-lg flex items-center justify-center">📊</div>
+                        <div class="w-8 h-8 bg-[#FDF5EE] rounded-lg flex items-center justify-center"></div>
                         <h3 class="font-semibold text-[#2C1810]">Current Exchange Rates</h3>
                         <span class="ml-auto text-[0.65rem] text-[#94a3b8] bg-[#F8F4F0] px-2 py-1 rounded-full">1h Cache</span>
                     </div>
                     <div class="grid grid-cols-1 gap-3">
                         @php
                             $rateDisplay = [
-                                ['from' => '🇮🇩 IDR', 'to' => '🇸🇬 SGD', 'rate' => number_format($rates['SGD'] ?? 0.000087, 6)],
-                                ['from' => '🇮🇩 IDR', 'to' => '🇲🇾 MYR', 'rate' => number_format($rates['MYR'] ?? 0.000294, 6)],
-                                ['from' => '🇸🇬 SGD', 'to' => '🇮🇩 IDR', 'rate' => number_format(1 / ($rates['SGD'] ?? 0.000087), 2)],
-                                ['from' => '🇲🇾 MYR', 'to' => '🇮🇩 IDR', 'rate' => number_format(1 / ($rates['MYR'] ?? 0.000294), 2)],
-                                ['from' => '🇸🇬 SGD', 'to' => '🇲🇾 MYR', 'rate' => number_format(($rates['MYR'] ?? 0.000294) / ($rates['SGD'] ?? 0.000087), 4)],
-                                ['from' => '🇲🇾 MYR', 'to' => '🇸🇬 SGD', 'rate' => number_format(($rates['SGD'] ?? 0.000087) / ($rates['MYR'] ?? 0.000294), 4)],
+                                ['from' => ' IDR', 'to' => ' SGD', 'rate' => number_format($rates['SGD'] ?? 0.000087, 6)],
+                                ['from' => ' IDR', 'to' => ' MYR', 'rate' => number_format($rates['MYR'] ?? 0.000294, 6)],
+                                ['from' => ' SGD', 'to' => ' IDR', 'rate' => number_format(1 / ($rates['SGD'] ?? 0.000087), 2)],
+                                ['from' => ' MYR', 'to' => ' IDR', 'rate' => number_format(1 / ($rates['MYR'] ?? 0.000294), 2)],
+                                ['from' => ' SGD', 'to' => ' MYR', 'rate' => number_format(($rates['MYR'] ?? 0.000294) / ($rates['SGD'] ?? 0.000087), 4)],
+                                ['from' => ' MYR', 'to' => ' SGD', 'rate' => number_format(($rates['SGD'] ?? 0.000087) / ($rates['MYR'] ?? 0.000294), 4)],
                             ];
                         @endphp
                         @foreach($rateDisplay as $r)

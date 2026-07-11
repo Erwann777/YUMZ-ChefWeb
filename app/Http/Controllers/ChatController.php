@@ -56,7 +56,7 @@ class ChatController extends Controller
                 'room_id' => $room->id,
                 'partner' => [
                     'name' => $partner->name,
-                    'role' => $partner->isCooker() ? '👨‍🍳 Cooker' : '🧑 Customer',
+                    'role' => $partner->isCooker() ? '‍ Cooker' : ' Customer',
                     'avatar' => $partner->profile_photo_path ? $partner->getProfilePhotoUrl() : null,
                     'initials' => $partner->getInitials(),
                     'profile_url' => ($user->isCustomer() && $partner->isCooker()) ? route('cookers.show', $partner) : null,

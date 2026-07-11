@@ -36,11 +36,11 @@ class ServiceOrder extends Model
     public function getStatusBadgeAttribute(): string
     {
         return match ($this->status) {
-            'pending' => '⏳',
-            'confirmed' => '✅',
-            'completed' => '🎉',
-            'cancelled' => '❌',
-            default => '📋',
+            'pending' => '',
+            'confirmed' => '',
+            'completed' => '',
+            'cancelled' => '',
+            default => '',
         };
     }
 

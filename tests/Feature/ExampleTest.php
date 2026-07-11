@@ -68,4 +68,18 @@ class ExampleTest extends TestCase
         $response->assertRedirect('/dashboard');
         $this->assertAuthenticatedAs($user);
     }
+
+    public function test_cooker_cannot_access_customer_dashboard_and_is_redirected(): void
+    {
+        $cooker = \App\Models\User::create([
+            'name' => 'Chef Cooker 2',
+            'email' => 'chef2@cooker.com',
+            'password' => \Illuminate\Support\Facades\Hash::make('password123'),
+            'role' => 'cooker',
+        ]);
+
+        $response = $this->actingAs($cooker)->get('/dashboard');
+
+        $response->assertRedirect('/cooker/dashboard');
+    }
 }

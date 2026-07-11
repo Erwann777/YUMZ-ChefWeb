@@ -91,10 +91,10 @@
 <div class="max-w-[800px] mx-auto mt-20 mb-12 animate-fadeInUp">
     <!-- Success/Error alert -->
     @if(session('success'))
-        <div class="bg-cs-green/10 border border-cs-green/20 text-cs-green px-4 py-3 rounded-xl text-[0.85rem] mb-6 animate-fadeIn">✅ {{ session('success') }}</div>
+        <div class="bg-cs-green/10 border border-cs-green/20 text-cs-green px-4 py-3 rounded-xl text-[0.85rem] mb-6 animate-fadeIn"> {{ session('success') }}</div>
     @endif
     @if(session('error'))
-        <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl text-[0.85rem] mb-6 animate-fadeIn">❌ {{ session('error') }}</div>
+        <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl text-[0.85rem] mb-6 animate-fadeIn"> {{ session('error') }}</div>
     @endif
 
     <a href="{{ route('cookers.show', $cooker) }}" class="inline-flex items-center gap-[0.4rem] text-[0.82rem] cs-label hover:text-cs-orange transition-colors duration-200 mb-6 no-underline">← Chef Profile {{ $cooker->name }}</a>
@@ -118,7 +118,7 @@
                     @else
                         bg-red-50 text-red-700 border-red-200
                     @endif">
-                    {{ $service->is_halal ? 'HALAL 🟢' : 'NON-HALAL 🔴' }}
+                    {{ $service->is_halal ? 'HALAL ' : 'NON-HALAL ' }}
                 </span>
                 
                 <!-- Category Badge -->
@@ -166,7 +166,7 @@
             <div class="price-card sticky top-24">
                 {{-- Virtual money notice --}}
                 <div class="flex items-center gap-1.5 mb-3 bg-amber-50 border border-amber-200 rounded-lg px-3 py-2 text-left">
-                    <span class="text-xs shrink-0">⚠️</span>
+                    <span class="text-xs shrink-0"></span>
                     <span class="text-[0.62rem] text-amber-700 leading-snug">Payment using <strong>Virtual Wallet</strong> (simulation)</span>
                 </div>
 
@@ -219,7 +219,7 @@
                     <label class="text-xs font-bold text-[#7A6248] uppercase tracking-wider">Star Rating</label>
                     <div class="flex gap-1.5 text-2xl" id="stars-container">
                         @for($i = 1; $i <= 5; $i++)
-                            <span class="star-item cursor-pointer text-slate-300 transition-colors" data-value="{{ $i }}" onclick="selectStars({{ $i }})">★</span>
+                            <span class="star-item cursor-pointer text-slate-300 transition-colors" data-value="{{ $i }}" onclick="selectStars({{ $i }})"></span>
                         @endfor
                     </div>
                     <input type="hidden" name="rating" id="rating-input" required>
@@ -269,7 +269,7 @@
                             <!-- Rating stars -->
                             <div class="flex gap-0.5 text-xs text-amber-500 mb-2">
                                 @for($i = 1; $i <= 5; $i++)
-                                    <span>{{ $i <= $rev->rating ? '★' : '☆' }}</span>
+                                    <span>{{ $i <= $rev->rating ? '' : '' }}</span>
                                 @endfor
                             </div>
 

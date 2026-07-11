@@ -161,12 +161,12 @@
                                     <div class="bg-white border border-[#E8DDD2] rounded-xl overflow-hidden transition-all hover:border-[#C67C4E]/30 hover:shadow-md flex flex-col relative">
                                         <div class="h-20 sm:h-24 bg-cs-bg-primary overflow-hidden relative">
                                             <span class="absolute top-1.5 left-1.5 z-10 text-[0.5rem] sm:text-[0.58rem] font-bold px-1.5 py-0.5 rounded-full backdrop-blur-md shadow-sm border {{ $food->is_halal ? 'bg-green-500/90 text-white border-green-400/20' : 'bg-red-500/90 text-white border-red-400/20' }}">
-                                                {{ $food->is_halal ? 'Halal 🟢' : 'Non-Halal 🔴' }}
+                                                {{ $food->is_halal ? 'Halal ' : 'Non-Halal ' }}
                                             </span>
                                             @if($food->image_path)
                                                 <img src="{{ asset('storage/' . $food->image_path) }}" alt="{{ $food->title }}" class="w-full h-full object-cover">
                                             @else
-                                                <div class="w-full h-full flex items-center justify-center text-2xl bg-cs-orange/5 text-cs-orange">{{ isset($food->is_available) ? '🍽️' : '🥘' }}</div>
+                                                <div class="w-full h-full flex items-center justify-center text-2xl bg-cs-orange/5 text-cs-orange">{{ isset($food->is_available) ? '' : '' }}</div>
                                             @endif
                                             <x-price-display :item="$food" :viewerCurrency="$viewerCurrency" size="sm" color="text-[#D4A574]" class="absolute bottom-1.5 right-1.5 bg-[#2C1810]/85 backdrop-blur-md px-1.5 py-0.5 rounded-full" />
                                         </div>
@@ -239,34 +239,34 @@
 <div id="mobile-filter-drawer" class="lg:hidden hidden mb-6 bg-white border border-[#EDE5DA] rounded-2xl shadow-sm overflow-hidden animate-fadeInUp">
     <div class="p-4 space-y-4">
         <div>
-            <p class="text-[0.62rem] uppercase font-bold text-[#9A7B5A] mb-2">🍴 Content Type</p>
+            <p class="text-[0.62rem] uppercase font-bold text-[#9A7B5A] mb-2"> Content Type</p>
             <div class="flex gap-2">
                 <button id="mobile-tab-services" onclick="switchMarketplaceTab('services-tab', null, this)" class="mobile-sidebar-tab flex-1 py-2.5 text-xs font-semibold rounded-xl border-none cursor-pointer bg-[#C67C4E] text-white transition-all"> Cooking Services</button>
                 <button id="mobile-tab-recipes" onclick="switchMarketplaceTab('recipes-tab', null, this)" class="mobile-sidebar-tab flex-1 py-2.5 text-xs font-semibold rounded-xl border border-[#E8DDD2] cursor-pointer bg-transparent text-[#7A6248] transition-all"> Recipes</button>
             </div>
         </div>
         <div>
-            <p class="text-[0.62rem] uppercase font-bold text-[#9A7B5A] mb-2">☪️ Halal</p>
+            <p class="text-[0.62rem] uppercase font-bold text-[#9A7B5A] mb-2"> Halal</p>
             <div class="flex gap-2">
                 <button class="mobile-halal-btn flex-1 py-2 text-xs font-semibold rounded-xl border-none cursor-pointer bg-[#F5EFE6] text-[#2C1810] transition-all" onclick="filterHalal('all', this)">All</button>
-                <button class="mobile-halal-btn flex-1 py-2 text-xs font-semibold rounded-xl border border-[#E8DDD2] cursor-pointer bg-transparent text-[#7A6248] transition-all" onclick="filterHalal('halal', this)">🟢 Halal</button>
-                <button class="mobile-halal-btn flex-1 py-2 text-xs font-semibold rounded-xl border border-[#E8DDD2] cursor-pointer bg-transparent text-[#7A6248] transition-all" onclick="filterHalal('nonhalal', this)">🔴 Non-Halal</button>
+                <button class="mobile-halal-btn flex-1 py-2 text-xs font-semibold rounded-xl border border-[#E8DDD2] cursor-pointer bg-transparent text-[#7A6248] transition-all" onclick="filterHalal('halal', this)"> Halal</button>
+                <button class="mobile-halal-btn flex-1 py-2 text-xs font-semibold rounded-xl border border-[#E8DDD2] cursor-pointer bg-transparent text-[#7A6248] transition-all" onclick="filterHalal('nonhalal', this)"> Non-Halal</button>
             </div>
         </div>
         <div>
-            <p class="text-[0.62rem] uppercase font-bold text-[#9A7B5A] mb-2">💰 Price Range</p>
+            <p class="text-[0.62rem] uppercase font-bold text-[#9A7B5A] mb-2"> Price Range</p>
             <div class="flex gap-2">
                 <input type="number" id="price-min-mobile" min="0" step="10000" placeholder="Min (Rp)" oninput="syncPriceFromMobile()" class="flex-1 px-3 py-2 border border-[#E8DDD2] rounded-lg text-xs outline-none focus:border-[#C67C4E] bg-white">
                 <input type="number" id="price-max-mobile" min="0" step="10000" placeholder="Max (Rp)" oninput="syncPriceFromMobile()" class="flex-1 px-3 py-2 border border-[#E8DDD2] rounded-lg text-xs outline-none focus:border-[#C67C4E] bg-white">
             </div>
         </div>
         <div>
-            <p class="text-[0.62rem] uppercase font-bold text-[#9A7B5A] mb-2">↕️ Sort By</p>
+            <p class="text-[0.62rem] uppercase font-bold text-[#9A7B5A] mb-2">↕ Sort By</p>
             <select id="sort-select-mobile" onchange="syncSortFromMobile()" class="w-full px-3 py-2 border border-[#EDE5DA] rounded-xl text-xs text-[#2C1810] bg-white outline-none focus:border-[#C67C4E] cursor-pointer">
                 <option value="default">Default</option>
                 <option value="rating-desc">⭐ Highest Rating</option>
-                <option value="price-asc">💰 Lowest Price</option>
-                <option value="price-desc">💎 Highest Price</option>
+                <option value="price-asc"> Lowest Price</option>
+                <option value="price-desc"> Highest Price</option>
             </select>
         </div>
         <button onclick="resetAllFilters()" class="w-full py-2.5 bg-[#FBF7F3] border border-[#EDE5DA] text-[#7A6248] text-xs font-semibold rounded-xl hover:border-[#C67C4E]/40 hover:text-[#C67C4E] transition-all cursor-pointer">Reset All Filters</button>
@@ -316,7 +316,7 @@
                         </div>
                     </div>
                 </a>
-                <p class="text-[0.58rem] text-[#b4a89b] mt-2 text-center leading-snug">⚠️ Virtual money for simulation</p>
+                <p class="text-[0.58rem] text-[#b4a89b] mt-2 text-center leading-snug"> Virtual money for simulation</p>
             </div>
 
             {{-- ── Navigasi Cepat ── --}}
@@ -356,7 +356,7 @@
                     <div>
                         <p class="text-[0.55rem] uppercase font-bold text-[#9A7B5A]/60 mb-1 pl-1"> Asia</p>
                         <div class="flex flex-col gap-0.5">
-                            @foreach(['indonesia' => '🇮🇩 Indonesia', 'malaysian' => '🇲🇾 Malaysian', 'chinese' => '🇨🇳 Chinese', 'japanese' => '🇯🇵 Japanese', 'korean' => '🇰🇷 Korean', 'thailand' => '🇹🇭 Thai', 'indian' => '🇮🇳 Indian'] as $catVal => $catLabel)
+                            @foreach(['indonesia' => ' Indonesia', 'malaysian' => ' Malaysian', 'chinese' => ' Chinese', 'japanese' => ' Japanese', 'korean' => ' Korean', 'thailand' => ' Thai', 'indian' => ' Indian'] as $catVal => $catLabel)
                             <button class="sidebar-cat-btn category-btn w-full text-left px-3 py-1.5 rounded-lg text-[0.72rem] font-medium bg-transparent text-[#7A6248] hover:bg-[#C67C4E]/8 hover:text-[#C67C4E] border-none cursor-pointer transition-all" onclick="filterCategory('{{ $catVal }}', this)">
                                 {{ $catLabel }}
                             </button>
@@ -366,7 +366,7 @@
                     <div>
                         <p class="text-[0.55rem] uppercase font-bold text-[#9A7B5A]/60 mb-1 pl-1">Western</p>
                         <div class="flex flex-col gap-0.5">
-                            @foreach(['italian' => '🇮🇹 Italian', 'american' => '🇺🇸 American', 'french' => '🇫🇷 French', 'british' => '🇬🇧 British'] as $catVal => $catLabel)
+                            @foreach(['italian' => ' Italian', 'american' => ' American', 'french' => ' French', 'british' => ' British'] as $catVal => $catLabel)
                             <button class="sidebar-cat-btn category-btn w-full text-left px-3 py-1.5 rounded-lg text-[0.72rem] font-medium bg-transparent text-[#7A6248] hover:bg-[#C67C4E]/8 hover:text-[#C67C4E] border-none cursor-pointer transition-all" onclick="filterCategory('{{ $catVal }}', this)">
                                 {{ $catLabel }}
                             </button>
@@ -431,7 +431,7 @@
             <div class="p-4">
                 <p class="text-[0.6rem] uppercase tracking-widest font-bold text-[#9A7B5A] mb-2"> Minimum Rating</p>
                 <div class="flex flex-col gap-0.5">
-                    <button class="rating-filter-btn w-full text-left flex items-center gap-1.5 px-3 py-2 rounded-xl text-[0.72rem] font-semibold border-none cursor-pointer transition-all bg-white text-white" onclick="filterByRating(0, this)">🌟 All Ratings</button>
+                    <button class="rating-filter-btn w-full text-left flex items-center gap-1.5 px-3 py-2 rounded-xl text-[0.72rem] font-semibold border-none cursor-pointer transition-all bg-white text-white" onclick="filterByRating(0, this)"> All Ratings</button>
                     <button class="rating-filter-btn w-full text-left flex items-center gap-1.5 px-3 py-2 rounded-xl text-[0.72rem] font-medium border-none cursor-pointer transition-all bg-transparent text-[#7A6248] hover:bg-[#F5EFE6]" onclick="filterByRating(3, this)">⭐⭐⭐ 3.0+ &amp; Up</button>
                     <button class="rating-filter-btn w-full text-left flex items-center gap-1.5 px-3 py-2 rounded-xl text-[0.72rem] font-medium border-none cursor-pointer transition-all bg-transparent text-[#7A6248] hover:bg-[#F5EFE6]" onclick="filterByRating(3.5, this)">⭐⭐⭐½ 3.5+ &amp; Up</button>
                     <button class="rating-filter-btn w-full text-left flex items-center gap-1.5 px-3 py-2 rounded-xl text-[0.72rem] font-medium border-none cursor-pointer transition-all bg-transparent text-[#7A6248] hover:bg-[#F5EFE6]" onclick="filterByRating(4, this)">⭐⭐⭐⭐ 4.0+ &amp; Up</button>
@@ -492,7 +492,7 @@
         <div class="flex items-center gap-2">
             <span class="text-xs font-semibold px-2.5 py-1 bg-white border border-[#E8DDD2] rounded-full text-[#7A6248] shadow-sm">ID: #{{ $activeOrder->id }}</span>
             <button onclick="requestNotificationPermission()" class="p-2 bg-white hover:bg-orange-50 text-cs-orange hover:text-cs-orange-hover border border-[#FFD0B8] rounded-xl cursor-pointer transition-all shadow-sm" title="Enable Desktop Notifications">
-                🔔
+                
             </button>
         </div>
     </div>
@@ -509,7 +509,7 @@
             <!-- Step 1: Order Placed -->
             <div class="flex flex-col items-center">
                 <div id="step-1-icon" class="w-10 h-10 rounded-full bg-white border-2 border-[#EDE5DA] flex items-center justify-center font-bold text-sm text-[#9A7B5A] transition-all duration-300">
-                    📥
+                    
                 </div>
                 <span class="text-[0.7rem] font-bold text-[#2C1810] mt-2">Received</span>
                 <span class="text-[0.55rem] text-[#9A7B5A] text-center max-w-[80px] mt-0.5 leading-tight">Awaiting Confirmation</span>
@@ -518,7 +518,7 @@
             <!-- Step 2: Cooking -->
             <div class="flex flex-col items-center">
                 <div id="step-2-icon" class="w-10 h-10 rounded-full bg-white border-2 border-[#EDE5DA] flex items-center justify-center font-bold text-sm text-[#9A7B5A] transition-all duration-300">
-                    🍳
+                    
                 </div>
                 <span class="text-[0.7rem] font-bold text-[#2C1810] mt-2">Preparing</span>
                 <span class="text-[0.55rem] text-[#9A7B5A] text-center max-w-[85px] mt-0.5 leading-tight">Cooking</span>
@@ -527,7 +527,7 @@
             <!-- Step 3: Ready -->
             <div class="flex flex-col items-center">
                 <div id="step-3-icon" class="w-10 h-10 rounded-full bg-white border-2 border-[#EDE5DA] flex items-center justify-center font-bold text-sm text-[#9A7B5A] transition-all duration-300">
-                    🎉
+                    
                 </div>
                 <span class="text-[0.7rem] font-bold text-[#2C1810] mt-2">Ready</span>
                 <span class="text-[0.55rem] text-[#9A7B5A] text-center max-w-[80px] mt-0.5 leading-tight">Ready to Serve</span>
@@ -559,7 +559,7 @@
             @foreach($hotRecommendations as $recipe)
                 <a href="{{ route('services.order', [$recipe->cooker, $recipe]) }}" class="bg-white border border-[#E8DDD2] rounded-2xl overflow-hidden transition-all hover:border-[#C67C4E]/40 hover:-translate-y-1 hover:shadow-lg flex flex-col relative group no-underline text-[#2C1810]">
                     <span class="absolute top-3 left-3 z-10 text-[0.68rem] font-bold px-2.5 py-1 rounded-full backdrop-blur-md shadow-sm border {{ $recipe->is_halal ? 'bg-green-500/90 text-white border-green-400/20' : 'bg-red-500/90 text-white border-red-400/20' }}">
-                        {{ $recipe->is_halal ? 'HALAL 🟢' : 'NON-HALAL 🔴' }}
+                        {{ $recipe->is_halal ? 'HALAL ' : 'NON-HALAL ' }}
                     </span>
                     <div class="h-44 bg-cs-bg-primary overflow-hidden relative">
                         @if($recipe->image_path)
@@ -585,7 +585,7 @@
                                     <span class="text-xs font-bold text-[#2C1810]">{{ number_format($recipe->averageRating(), 1) }}</span>
                                     <span class="text-[0.65rem] text-[#9A7B5A]">({{ $recipe->reviews()->count() }})</span>
                                 </div>
-                                <span class="text-[0.68rem] text-[#7A6248] font-medium">🛒 {{ $recipe->orders_count }} sold</span>
+                                <span class="text-[0.68rem] text-[#7A6248] font-medium"> {{ $recipe->orders_count }} sold</span>
                             </div>
                             <span class="px-3.5 py-1.5 bg-[#C67C4E]/10 text-[#C67C4E] hover:bg-[#C67C4E] hover:text-white text-xs font-bold rounded-lg border border-transparent transition-colors">Order Now →</span>
                         </div>
@@ -620,7 +620,7 @@
     {{-- Mobile horizontal category scroll (lg screens use sidebar) --}}
     <div class="lg:hidden flex flex-col gap-3 mb-5">
         <div class="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
-            <button class="category-btn px-4 py-2 bg-[#C67C4E] text-white border-none rounded-xl text-xs font-bold cursor-pointer transition-all shadow-sm shrink-0 active" onclick="filterCategory('all', this)">🌟 All</button>
+            <button class="category-btn px-4 py-2 bg-[#C67C4E] text-white border-none rounded-xl text-xs font-bold cursor-pointer transition-all shadow-sm shrink-0 active" onclick="filterCategory('all', this)"> All</button>
             <div class="h-6 w-px bg-cs-border mx-1 shrink-0"></div>
             <span class="text-[0.65rem] uppercase font-bold text-[#9A7B5A] tracking-wider shrink-0">Asian:</span>
             @foreach(['indonesia', 'malaysian', 'chinese', 'japanese', 'korean', 'thailand', 'indian'] as $c)
@@ -632,7 +632,7 @@
                 <button class="category-btn px-3.5 py-2 bg-white text-[#7A6248] border border-[#E8DDD2] rounded-xl text-xs font-semibold cursor-pointer transition-all hover:bg-[#F5EFE6] shrink-0" onclick="filterCategory('{{ $c }}', this)">{{ ucfirst($c) }}</button>
             @endforeach
             <div class="h-6 w-px bg-cs-border mx-1 shrink-0"></div>
-            <button class="category-btn px-3.5 py-2 bg-white text-[#7A6248] border border-[#E8DDD2] rounded-xl text-xs font-semibold cursor-pointer transition-all hover:bg-[#F5EFE6] shrink-0" onclick="filterCategory('dessert', this)">🧁 Dessert</button>
+            <button class="category-btn px-3.5 py-2 bg-white text-[#7A6248] border border-[#E8DDD2] rounded-xl text-xs font-semibold cursor-pointer transition-all hover:bg-[#F5EFE6] shrink-0" onclick="filterCategory('dessert', this)"> Dessert</button>
         </div>
     </div>
 
@@ -659,7 +659,7 @@
                         data-rating="{{ $item->averageRating() }}">
                         <div class="h-20 sm:h-28 bg-cs-bg-primary overflow-hidden relative">
                             <span class="absolute top-1.5 left-1.5 z-10 text-[0.5rem] sm:text-[0.58rem] font-bold px-1.5 py-0.5 rounded-full backdrop-blur-md shadow-sm border {{ $item->is_halal ? 'bg-green-500/90 text-white border-green-400/20' : 'bg-red-500/90 text-white border-red-400/20' }}">
-                                {{ $item->is_halal ? 'Halal 🟢' : 'Non-Halal 🔴' }}
+                                {{ $item->is_halal ? 'Halal ' : 'Non-Halal ' }}
                             </span>
                             @if($item->image_path)
                                 <img src="{{ asset('storage/' . $item->image_path) }}" alt="{{ $item->title }}" class="w-full h-full object-cover">
@@ -712,7 +712,7 @@
                         data-rating="{{ $item->averageRating() }}">
                         <div class="h-20 sm:h-28 bg-cs-bg-primary overflow-hidden relative">
                             <span class="absolute top-1.5 left-1.5 z-10 text-[0.5rem] sm:text-[0.58rem] font-bold px-1.5 py-0.5 rounded-full backdrop-blur-md shadow-sm border {{ $item->is_halal ? 'bg-green-500/90 text-white border-green-400/20' : 'bg-red-500/90 text-white border-red-400/20' }}">
-                                {{ $item->is_halal ? 'Halal 🟢' : 'Non-Halal 🔴' }}
+                                {{ $item->is_halal ? 'Halal ' : 'Non-Halal ' }}
                             </span>
                             @if($item->image_path)
                                 <img src="{{ asset('storage/' . $item->image_path) }}" alt="{{ $item->title }}" class="w-full h-full object-cover">
@@ -775,7 +775,7 @@
                 <a href="{{ route('cookers.recipe', [$item->cooker, $item]) }}" class="bg-white border border-[#E8DDD2] rounded-xl sm:rounded-2xl overflow-hidden transition-all hover:border-[#C67C4E]/30 hover:shadow-md flex flex-col no-underline text-[#2C1810]">
                     <div class="h-20 sm:h-28 bg-cs-bg-primary overflow-hidden relative">
                         <span class="absolute top-1.5 left-1.5 z-10 text-[0.5rem] sm:text-[0.58rem] font-bold px-1.5 py-0.5 rounded-full backdrop-blur-md shadow-sm border {{ $item->is_halal ? 'bg-green-500/90 text-white border-green-400/20' : 'bg-red-500/90 text-white border-red-400/20' }}">
-                            {{ $item->is_halal ? 'Halal 🟢' : 'Non-Halal 🔴' }}
+                            {{ $item->is_halal ? 'Halal ' : 'Non-Halal ' }}
                         </span>
                         @if($item->image_path)
                             <img src="{{ asset('storage/' . $item->image_path) }}" alt="{{ $item->title }}" class="w-full h-full object-cover">
@@ -838,21 +838,29 @@
                             <span class="text-[0.62rem] sm:text-xs font-bold text-[#2C1810]">{{ number_format($cooker->calculated_rating, 1) }}</span>
                             <span class="text-[0.55rem] sm:text-[0.65rem]">({{ $cooker->totalSalesCount() }} sold)</span>
                             <span class="text-[0.55rem] sm:text-[0.65rem]">•</span>
-                            <span class="text-[0.55rem] sm:text-[0.65rem] font-medium">{{ $cooker->followers_count ?? $cooker->followers()->count() }} followers</span>
+                            <span class="text-[0.55rem] sm:text-[0.65rem] font-medium"
+                                data-followers-count="{{ $cooker->id }}"
+                                data-suffix=" followers">{{ $cooker->followers_count ?? $cooker->followers()->count() }} followers</span>
                         </div>
                     </div>
                     <div class="mt-2 flex flex-col gap-1.5 w-full">
                         <a href="{{ route('cookers.show', $cooker) }}" class="block w-full text-center py-1 sm:py-1.5 border border-[#C67C4E]/30 hover:bg-[#C67C4E] text-[#C67C4E] hover:text-white text-[0.62rem] sm:text-xs font-bold rounded-lg no-underline transition-colors">View Profile</a>
                         @if(Auth::id() !== $cooker->id)
-                            <form action="{{ route('cookers.toggle-follow', $cooker) }}" method="POST" class="m-0 w-full flex">
-                                @csrf
-                                <button type="submit" class="w-full text-center py-1 sm:py-1.5 border border-solid transition-colors text-[0.62rem] sm:text-xs font-bold rounded-lg cursor-pointer
-                                    {{ Auth::user()->isFollowing($cooker)
-                                        ? 'bg-[#7A6B5D] text-white border-[#7A6B5D] hover:bg-[#5C4D40] hover:border-[#5C4D40]'
-                                        : 'bg-white text-[#C67C4E] border-[#C67C4E] hover:bg-[#C67C4E] hover:text-white' }}">
-                                    {{ Auth::user()->isFollowing($cooker) ? '👤 Unfollow' : '👤 Follow' }}
-                                </button>
-                            </form>
+                            @php $isFollowingNow = Auth::user()->isFollowing($cooker); @endphp
+                            <button type="button"
+                                data-follow-cooker="{{ $cooker->id }}"
+                                data-follow-url="{{ route('cookers.toggle-follow', $cooker) }}"
+                                data-following="{{ $isFollowingNow ? '1' : '0' }}"
+                                data-label-follow=" Follow"
+                                data-label-unfollow=" Unfollow"
+                                data-btn-variant="card"
+                                onclick="toggleFollow(this, {{ $cooker->id }}, this.dataset.followUrl)"
+                                class="w-full text-center py-1 sm:py-1.5 border border-solid transition-colors text-[0.62rem] sm:text-xs font-bold rounded-lg cursor-pointer
+                                {{ $isFollowingNow
+                                    ? 'bg-[#7A6B5D] text-white border-[#7A6B5D] hover:bg-[#5C4D40] hover:border-[#5C4D40]'
+                                    : 'bg-white text-[#C67C4E] border-[#C67C4E] hover:bg-[#C67C4E] hover:text-white' }}">
+                                {{ $isFollowingNow ? ' Unfollow' : ' Follow' }}
+                            </button>
                         @endif
                     </div>
                 </div>
@@ -890,7 +898,7 @@
                             <div class="text-[0.7rem] text-cs-orange mb-1 font-semibold">Chef {{ $recipe->cooker->name }}</div>
                             <div class="text-xs font-bold text-[#2C1810] mb-1 truncate">{{ $recipe->title }}</div>
                             <div class="text-[0.7rem] text-[#7A6248] mb-3 line-clamp-2">{{ $recipe->description }}</div>
-                            <div class="text-[0.68rem] text-cs-green font-bold flex items-center gap-1">🔓 Steps Unlocked</div>
+                            <div class="text-[0.68rem] text-cs-green font-bold flex items-center gap-1"> Steps Unlocked</div>
                         </div>
                     </a>
                 @endforeach
@@ -1303,9 +1311,9 @@
         const pricePill  = document.getElementById('active-price-pill');
         const ratingPill = document.getElementById('active-rating-pill');
 
-        if (catPill)    { catPill.classList.toggle('hidden',    !hasCategory); if (hasCategory) catPill.textContent = `🌍 ${activeCategory}`; }
-        if (halalPill)  { halalPill.classList.toggle('hidden',  !hasHalal);   if (hasHalal) halalPill.textContent = activeHalalFilter === 'halal' ? '🟢 Halal' : '🔴 Non-Halal'; }
-        if (pricePill)  { pricePill.classList.toggle('hidden',  !hasPrice);   if (hasPrice) { const min = priceMinEl?.value || '0'; const max = priceMaxEl?.value || '∞'; pricePill.textContent = `💰 ${parseInt(min/1000)||0}rb – ${priceMaxEl?.value ? parseInt(priceMaxEl.value/1000)+'rb' : '∞'}`; } }
+        if (catPill)    { catPill.classList.toggle('hidden',    !hasCategory); if (hasCategory) catPill.textContent = ` ${activeCategory}`; }
+        if (halalPill)  { halalPill.classList.toggle('hidden',  !hasHalal);   if (hasHalal) halalPill.textContent = activeHalalFilter === 'halal' ? ' Halal' : ' Non-Halal'; }
+        if (pricePill)  { pricePill.classList.toggle('hidden',  !hasPrice);   if (hasPrice) { const min = priceMinEl?.value || '0'; const max = priceMaxEl?.value || '∞'; pricePill.textContent = ` ${parseInt(min/1000)||0}rb – ${priceMaxEl?.value ? parseInt(priceMaxEl.value/1000)+'rb' : '∞'}`; } }
         if (ratingPill) { ratingPill.classList.toggle('hidden', !hasRating);  if (hasRating) ratingPill.textContent = `⭐ ${activeMinRating}+`; }
     }
 
@@ -1400,33 +1408,33 @@
                 progressLine.style.width = '15%';
                 setActive(step1);
                 statusText.textContent = 'Awaiting Chef Confirmation';
-                bannerTitle.textContent = 'Awaiting Chef Confirmation 👩‍🍳';
+                bannerTitle.textContent = 'Awaiting Chef Confirmation ‍';
                 bannerDesc.textContent = 'Chef is reviewing your order. Please wait.';
-                bannerIcon.textContent = '⏳';
+                bannerIcon.textContent = '';
                 bannerIcon.className = 'text-2xl animate-pulse';
             } else if (status === 'confirmed') {
                 progressLine.style.width = '50%';
                 setActive(step1);
                 setActive(step2);
-                statusText.textContent = 'Preparing 🍳';
+                statusText.textContent = 'Preparing ';
                 bannerTitle.textContent = 'Being Prepared by Chef!';
                 bannerDesc.textContent = 'Chef has confirmed and is cooking your delicious meal.';
-                bannerIcon.textContent = '🍳';
+                bannerIcon.textContent = '';
                 bannerIcon.className = 'text-2xl animate-bounce';
             } else if (status === 'completed') {
                 progressLine.style.width = '100%';
                 setActive(step1);
                 setActive(step2);
                 setActive(step3);
-                statusText.textContent = 'Ready to Serve! 🎉';
+                statusText.textContent = 'Ready to Serve! ';
                 statusText.className = 'text-cs-green font-bold';
-                bannerTitle.textContent = 'Your Food is Ready! 😋';
+                bannerTitle.textContent = 'Your Food is Ready! ';
                 bannerDesc.textContent = 'Your order is ready. Please pick it up or enjoy your meal!';
-                bannerIcon.textContent = '🎉';
+                bannerIcon.textContent = '';
                 bannerIcon.className = 'text-2xl animate-bounce';
 
                 if (lastStatus && lastStatus !== 'completed') {
-                    showDesktopNotification("Food is Ready! 🍲", "Your food order is ready to be served by Chef.");
+                    showDesktopNotification("Food is Ready! ", "Your food order is ready to be served by Chef.");
                     // Stop polling on terminal state
                     clearInterval(pollInterval);
                     // Refresh after a few seconds to update order tables
@@ -1440,15 +1448,15 @@
                 step2.className = 'w-10 h-10 rounded-full bg-red-100 text-red-500 border-red-300 flex items-center justify-center font-bold text-sm';
                 step3.className = 'w-10 h-10 rounded-full bg-red-100 text-red-500 border-red-300 flex items-center justify-center font-bold text-sm';
                 
-                statusText.textContent = 'Cancelled ❌';
+                statusText.textContent = 'Cancelled ';
                 statusText.className = 'text-red-500';
-                bannerTitle.textContent = 'Order Cancelled/Rejected 😔';
+                bannerTitle.textContent = 'Order Cancelled/Rejected ';
                 bannerDesc.textContent = 'Sorry, your order was rejected. Your virtual wallet balance has been fully refunded.';
-                bannerIcon.textContent = '❌';
+                bannerIcon.textContent = '';
                 bannerIcon.className = 'text-2xl';
 
                 if (lastStatus && lastStatus !== 'cancelled') {
-                    showDesktopNotification("Order Cancelled ❌", "Your food order has been cancelled. Your wallet balance has been refunded.");
+                    showDesktopNotification("Order Cancelled ", "Your food order has been cancelled. Your wallet balance has been refunded.");
                     clearInterval(pollInterval);
                     setTimeout(() => { window.location.reload(); }, 5000);
                 }
@@ -1457,7 +1465,7 @@
             // Notification on change
             if (lastStatus && lastStatus !== status) {
                 if (status === 'confirmed') {
-                    showDesktopNotification("Order Accepted by Chef! 🍳", "Chef is preparing your meal now.");
+                    showDesktopNotification("Order Accepted by Chef! ", "Chef is preparing your meal now.");
                 }
             }
             lastStatus = status;
@@ -1485,7 +1493,7 @@
         if ("Notification" in window) {
             Notification.requestPermission().then(permission => {
                 if (permission === "granted") {
-                    alert("Desktop notifications enabled! 🔔 We will notify you when the food is ready.");
+                    alert("Desktop notifications enabled!  We will notify you when the food is ready.");
                 }
             });
         } else {

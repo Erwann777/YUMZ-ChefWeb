@@ -13,6 +13,9 @@ class DashboardController extends Controller
     public function index(Request $request)
     {
         $user = $request->user();
+        if ($user && $user->isCooker()) {
+            return redirect()->route('cooker.dashboard');
+        }
         $search = $request->input('search');
         $viewerCurrency = strtoupper($user?->currency ?? 'IDR');
 

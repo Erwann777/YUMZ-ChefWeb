@@ -58,7 +58,7 @@
 
             <div class="text-[0.65rem] font-semibold uppercase tracking-wider text-cs-text-muted px-3 pt-4 pb-1.5">Quick Links</div>
             <a href="/" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm font-medium transition-all text-cs-text-secondary hover:bg-admin-bg hover:text-cs-text-primary" id="nav-site">
-                <span class="w-5 text-center text-base">🌐</span>
+                <span class="w-5 text-center text-base"></span>
                 <span>View Site</span>
             </a>
         </nav>
@@ -89,7 +89,7 @@
     <div class="flex-1 min-h-screen ml-[260px] max-md:ml-0">
         <div class="h-[60px] border-b border-admin-border flex items-center justify-between px-8 bg-white sticky top-0 z-30 shadow-[0_1px_6px_0_rgba(49,53,59,0.06)] max-sm:px-4">
             <div class="flex items-center gap-3">
-                <button class="mobile-toggle hidden max-md:block bg-admin-card border border-admin-border text-cs-text-primary p-2 rounded-lg cursor-pointer text-lg" onclick="toggleSidebar()">☰</button>
+                <button class="mobile-toggle hidden max-md:block bg-admin-card border border-admin-border text-cs-text-primary p-2 rounded-lg cursor-pointer text-lg" onclick="toggleSidebar()"></button>
                 <h2 class="text-base font-semibold">@yield('page-title', 'Dashboard')</h2>
             </div>
             <div class="flex items-center gap-2">
@@ -99,10 +99,10 @@
 
         <div class="p-8 max-w-[1200px] max-md:p-5">
             @if (session('success'))
-                <div class="bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 px-4 py-3 rounded-xl text-[0.85rem] mb-6 flex items-center gap-2">✅ {{ session('success') }}</div>
+                <div class="bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 px-4 py-3 rounded-xl text-[0.85rem] mb-6 flex items-center gap-2"> {{ session('success') }}</div>
             @endif
             @if (session('error'))
-                <div class="bg-red-500/10 border border-red-500/20 text-red-600 px-4 py-3 rounded-xl text-[0.85rem] mb-6 flex items-center gap-2">❌ {{ session('error') }}</div>
+                <div class="bg-red-500/10 border border-red-500/20 text-red-600 px-4 py-3 rounded-xl text-[0.85rem] mb-6 flex items-center gap-2"> {{ session('error') }}</div>
             @endif
 
             @yield('content')

@@ -137,7 +137,8 @@ class CookerProfileController extends Controller
                 "{$user->name} unfollowed cooker: {$cooker->name}",
                 $user->id, $cooker->id, request()->ip()
             );
-            $message = "You unfollowed {$cooker->name}.";
+            $message   = "You unfollowed {$cooker->name}.";
+            $following = false;
         } else {
             $user->followingCookers()->attach($cooker->id);
             ActivityLog::log(
@@ -145,7 +146,19 @@ class CookerProfileController extends Controller
                 "{$user->name} followed cooker: {$cooker->name}",
                 $user->id, $cooker->id, request()->ip()
             );
-            $message = "You are now following {$cooker->name}.";
+            $message   = "You are now following {$cooker->name}.";
+            $following = true;
+        }
+
+        $followersCount = $cooker->followers()->count();
+
+        if (request()->wantsJson() || request()->ajax()) {
+            return response()->json([
+                'success'         => true,
+                'following'       => $following,
+                'followers_count' => $followersCount,
+                'message'         => $message,
+            ]);
         }
 
         return back()->with('success', $message);
@@ -324,7 +337,7 @@ class CookerProfileController extends Controller
             $user->id, $recipe->cooker_id, $request->ip()
         );
 
-        return back()->with('success', "Successfully purchased recipe: \"{$recipe->title}\"! 🎉");
+        return back()->with('success', "Successfully purchased recipe: \"{$recipe->title}\"! ");
     }
 
     /**
@@ -481,7 +494,7 @@ class CookerProfileController extends Controller
         }
 
         return redirect()->route('cookers.show', $service->cooker)
-            ->with('success', "Cooking service order \"{$service->title}\" created successfully! Status: Pending. 🎉");
+            ->with('success', "Cooking service order \"{$service->title}\" created successfully! Status: Pending. ");
     }
 
     /**

@@ -26,16 +26,17 @@ class NewMessageNotification extends Notification
         $sender = $this->message->sender;
         $snippet = $this->message->message
             ? (strlen($this->message->message) > 60 ? substr($this->message->message, 0, 60) . '…' : $this->message->message)
-            : ($this->message->attachment_type === 'image' ? '📷 Sent a photo' : '🎥 Sent a video');
+            : ($this->message->attachment_type === 'image' ? ' Sent a photo' : ' Sent a video');
 
         return [
-            'type'        => 'chat',
-            'icon'        => '💬',
-            'title'       => 'New message from ' . $sender->name,
-            'body'        => $snippet,
-            'url'         => url('/chat/' . $this->room->id),
-            'sender_id'   => $sender->id,
-            'room_id'     => $this->room->id,
+            'type'          => 'chat',
+            'icon'          => '',
+            'title'         => 'New message from ' . $sender->name,
+            'body'          => $snippet,
+            'url'           => url('/chat/' . $this->room->id),
+            'sender_id'     => $sender->id,
+            'room_id'       => $this->room->id,
+            'created_at_ts' => $this->message->created_at->timestamp,
         ];
     }
 

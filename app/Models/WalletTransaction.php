@@ -53,13 +53,13 @@ class WalletTransaction extends Model
     public function getReferenceLabelAttribute(): string
     {
         return match ($this->reference_type) {
-            'recipe_purchase' => '🍽️ Pembelian Resep',
-            'service_order'   => '👨‍🍳 Pemesanan Service',
-            'initial_credit'  => '🎁 Saldo Awal',
-            'topup'           => '💰 Top-Up',
-            'sale_credit'     => '💵 Hasil Penjualan',
-            'refund'          => '↩️ Pengembalian Dana',
-            default           => '📋 Transaksi',
+            'recipe_purchase' => ' Pembelian Resep',
+            'service_order'   => '‍ Pemesanan Service',
+            'initial_credit'  => ' Saldo Awal',
+            'topup'           => ' Top-Up',
+            'sale_credit'     => ' Hasil Penjualan',
+            'refund'          => '↩ Pengembalian Dana',
+            default           => ' Transaksi',
         };
     }
 }

@@ -72,7 +72,7 @@ class ChatMessage extends Model
             'id'          => $this->id,
             'sender_name' => $this->sender?->name ?? 'Unknown',
             'snippet'     => $this->attachment_type
-                                ? ($this->attachment_type === 'image' ? '📷 Photo' : '🎥 Video')
+                                ? ($this->attachment_type === 'image' ? ' Photo' : ' Video')
                                 : \Str::limit($this->message ?? '', 80),
             'type'        => $this->attachment_type ?? 'text',
         ];

@@ -119,10 +119,10 @@
 <!-- Tab Switcher for View All -->
 <div class="flex border-b border-[#E8DDD2] mb-6 animate-fadeInUp [animation-delay:0.05s]" id="tabs-switcher-container">
     <button class="marketplace-tab-btn border-b-2 border-[#C67C4E] text-[#C67C4E] text-sm font-bold px-5 py-3 cursor-pointer transition-all bg-transparent" onclick="switchMarketplaceTab('services-tab', this)">
-        🍽️ Cooking Services & Menus ({{ $services->total() }})
+         Cooking Services & Menus ({{ $services->total() }})
     </button>
     <button class="marketplace-tab-btn border-b-2 border-transparent text-[#7A6248] text-sm font-semibold px-5 py-3 cursor-pointer transition-all bg-transparent hover:text-[#2C1810]" onclick="switchMarketplaceTab('recipes-tab', this)">
-        🥘 Family Secret Recipes ({{ $recipes->total() }})
+         Family Secret Recipes ({{ $recipes->total() }})
     </button>
 </div>
 
@@ -140,13 +140,13 @@
                             @else
                                 bg-red-500/90 text-white border-red-400/20
                             @endif">
-                            {{ $item->is_halal ? 'Halal 🟢' : 'Non-Halal 🔴' }}
+                            {{ $item->is_halal ? 'Halal ' : 'Non-Halal ' }}
                         </span>
 
                         @if($item->image_path)
                             <img src="{{ asset('storage/' . $item->image_path) }}" alt="{{ $item->title }}" class="w-full h-full object-cover">
                         @else
-                            <div class="w-full h-full flex items-center justify-center text-2xl sm:text-3xl bg-cs-orange/5 text-cs-orange">🍽️</div>
+                            <div class="w-full h-full flex items-center justify-center text-2xl sm:text-3xl bg-cs-orange/5 text-cs-orange"></div>
                         @endif
                         <div class="absolute bottom-1.5 right-1.5 bg-[#2C1810]/85 backdrop-blur-md px-1.5 py-0.5 rounded-full flex items-center gap-0.5">
                             <span class="opacity-75 leading-none text-[0.6rem]">{{ $item->cooker->getCountryFlag() }}</span>
@@ -225,7 +225,7 @@
                             @else
                                 bg-red-500/90 text-white border-red-400/20
                             @endif">
-                            {{ $item->is_halal ? 'Halal 🟢' : 'Non-Halal 🔴' }}
+                            {{ $item->is_halal ? 'Halal ' : 'Non-Halal ' }}
                         </span>
 
                         @if($item->image_path)

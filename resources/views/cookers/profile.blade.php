@@ -89,10 +89,10 @@
 @section('body-class', 'cs-bg')
 
 @if(session('success'))
-    <div class="bg-cs-green/10 border border-cs-green/20 text-cs-green px-4 py-3 rounded-xl text-sm mb-6 animate-fadeInUp mt-20">✅ {{ session('success') }}</div>
+    <div class="bg-cs-green/10 border border-cs-green/20 text-cs-green px-4 py-3 rounded-xl text-sm mb-6 animate-fadeInUp mt-20"> {{ session('success') }}</div>
 @endif
 @if(session('error'))
-    <div class="bg-red-500/10 border border-red-500/20 text-red-600 px-4 py-3 rounded-xl text-sm mb-6 animate-fadeInUp mt-20">❌ {{ session('error') }}</div>
+    <div class="bg-red-500/10 border border-red-500/20 text-red-600 px-4 py-3 rounded-xl text-sm mb-6 animate-fadeInUp mt-20"> {{ session('error') }}</div>
 @endif
 
 <div class="chef-banner flex items-center gap-6 mt-20 mb-8 p-6 sm:p-8 max-sm:flex-col max-sm:text-center animate-fadeInUp">
@@ -139,7 +139,8 @@
                 <span class="block text-[0.55rem] text-[#9A7B5A] mt-0.5 font-medium">({{ $services->count() }} Services, {{ $recipes->count() }} Recipes)</span>
             </div>
             <div class="text-center">
-                <span class="block text-2xl font-bold text-[#2C1810]">{{ $cooker->followers_count ?? $cooker->followers()->count() }}</span>
+                <span class="block text-2xl font-bold text-[#2C1810]"
+                    data-followers-count="{{ $cooker->id }}">{{ $cooker->followers_count ?? $cooker->followers()->count() }}</span>
                 <span class="text-[0.65rem] text-[#7A6B5D] uppercase tracking-wider font-semibold">Followers</span>
             </div>
             <div class="text-center">
@@ -149,16 +150,21 @@
         </div>
         <div class="flex flex-col gap-2 w-full">
             @if(Auth::check() && Auth::id() !== $cooker->id)
-                <form action="{{ route('cookers.toggle-follow', $cooker) }}" method="POST" class="w-full m-0">
-                    @csrf
-                    <button type="submit"
-                        class="w-full flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 border-none cursor-pointer shadow-md hover:shadow-lg
-                        {{ $isFollowing
-                            ? 'bg-[#7A6B5D] text-white hover:bg-[#5C4D40]'
-                            : 'bg-gradient-to-r from-[#C67C4E] to-[#b56b3f] text-white hover:scale-[1.02]' }}">
-                        {{ $isFollowing ? ' Unfollow' : ' Follow Cooker' }}
-                    </button>
-                </form>
+                @php $isFollowingNow = Auth::user()->isFollowing($cooker); @endphp
+                <button type="button"
+                    data-follow-cooker="{{ $cooker->id }}"
+                    data-follow-url="{{ route('cookers.toggle-follow', $cooker) }}"
+                    data-following="{{ $isFollowingNow ? '1' : '0' }}"
+                    data-label-follow=" Follow Cooker"
+                    data-label-unfollow=" Unfollow"
+                    data-btn-variant="pill"
+                    onclick="toggleFollow(this, {{ $cooker->id }}, this.dataset.followUrl)"
+                    class="w-full flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 border border-solid cursor-pointer shadow-md hover:shadow-lg
+                    {{ $isFollowingNow
+                        ? 'bg-[#7A6B5D] text-white border-[#7A6B5D] hover:bg-[#5C4D40] hover:border-[#5C4D40]'
+                        : 'bg-gradient-to-r from-[#C67C4E] to-[#b56b3f] text-white border-transparent hover:scale-[1.02]' }}">
+                    {{ $isFollowingNow ? ' Unfollow' : ' Follow Cooker' }}
+                </button>
             @endif
 
             @if(Auth::check() && Auth::user()->isCustomer())
@@ -190,7 +196,7 @@
                     @else
                         bg-red-500/90 text-white border-red-400/20
                     @endif">
-                    {{ $service->is_halal ? 'Halal 🟢' : 'Non-Halal 🔴' }}
+                    {{ $service->is_halal ? 'Halal ' : 'Non-Halal ' }}
                 </span>
 
                 <!-- Category Badge -->
@@ -255,7 +261,7 @@
                     @else
                         bg-red-500/90 text-white border-red-400/20
                     @endif">
-                    {{ $recipe->is_halal ? 'Halal 🟢' : 'Non-Halal 🔴' }}
+                    {{ $recipe->is_halal ? 'Halal ' : 'Non-Halal ' }}
                 </span>
 
                 <!-- Category Badge -->

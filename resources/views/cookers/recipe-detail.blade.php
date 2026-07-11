@@ -91,10 +91,10 @@
 <div class="max-w-[800px] mx-auto mt-20 mb-12">
     <!-- Success/Error alert -->
     @if(session('success'))
-        <div class="bg-cs-green/10 border border-cs-green/20 text-cs-green px-4 py-3 rounded-xl text-[0.85rem] mb-6 anim-in">✅ {{ session('success') }}</div>
+        <div class="bg-cs-green/10 border border-cs-green/20 text-cs-green px-4 py-3 rounded-xl text-[0.85rem] mb-6 anim-in"> {{ session('success') }}</div>
     @endif
     @if(session('error'))
-        <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl text-[0.85rem] mb-6 anim-in">❌ {{ session('error') }}</div>
+        <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl text-[0.85rem] mb-6 anim-in"> {{ session('error') }}</div>
     @endif
 
     <a href="{{ route('cookers.show', $cooker) }}" class="inline-flex items-center gap-[0.4rem] text-[0.82rem] cs-label hover:text-cs-orange transition-colors duration-200 mb-6 no-underline anim-in">← Chef Profile {{ $cooker->name }}</a>
@@ -118,7 +118,7 @@
                     @else
                         bg-red-50 text-red-700 border-red-200
                     @endif">
-                    {{ $recipe->is_halal ? 'HALAL 🟢' : 'NON-HALAL 🔴' }}
+                    {{ $recipe->is_halal ? 'HALAL ' : 'NON-HALAL ' }}
                 </span>
                 
                 <!-- Category Badge -->
@@ -155,7 +155,7 @@
     <div class="mb-8 anim-in anim-d2">
         <div class="text-[1.15rem] font-semibold cs-title mb-4 flex items-center gap-2">
             Ingredients
-            <span class="text-[0.65rem] px-2 py-[0.15rem] rounded font-semibold bg-cs-green/10 text-cs-green">✅ Free</span>
+            <span class="text-[0.65rem] px-2 py-[0.15rem] rounded font-semibold bg-cs-green/10 text-cs-green"> Free</span>
         </div>
         <div class="cs-card p-6 text-[0.9rem] cs-text leading-[1.7] whitespace-pre-line bg-white">{{ $recipe->ingredients }}</div>
     </div>
@@ -165,9 +165,9 @@
         <div class="text-[1.15rem] font-semibold cs-title mb-4 flex items-center gap-2">
             Preparation Steps
             @if($hasPurchased)
-                <span class="text-[0.65rem] px-2 py-[0.15rem] rounded font-semibold bg-blue-500/10 text-blue-600">🔓 Unlocked</span>
+                <span class="text-[0.65rem] px-2 py-[0.15rem] rounded font-semibold bg-blue-500/10 text-blue-600"> Unlocked</span>
             @else
-                <span class="text-[0.65rem] px-2 py-[0.15rem] rounded font-semibold bg-amber-500/10 text-amber-600">🔒 Locked</span>
+                <span class="text-[0.65rem] px-2 py-[0.15rem] rounded font-semibold bg-amber-500/10 text-amber-600"> Locked</span>
             @endif
         </div>
 
@@ -184,7 +184,7 @@
                     </h3>
                     <div class="flex items-center gap-1 mb-2">
                         @for($i = 1; $i <= 5; $i++)
-                            <span class="text-lg {{ $i <= $userPurchase->rating ? 'text-amber-500' : 'text-slate-300' }}">★</span>
+                            <span class="text-lg {{ $i <= $userPurchase->rating ? 'text-amber-500' : 'text-slate-300' }}"></span>
                         @endfor
                         <span class="text-xs text-[#7A6248] font-medium ml-1">({{ $userPurchase->rated_at->format('d M Y, H:i') }})</span>
                     </div>
@@ -201,7 +201,7 @@
                             <!-- Stars Selector with interactive script -->
                             <div class="flex gap-1.5 text-2xl" id="stars-container">
                                 @for($i = 1; $i <= 5; $i++)
-                                    <span class="star-item cursor-pointer text-slate-300 transition-colors" data-value="{{ $i }}" onclick="selectStars({{ $i }})">★</span>
+                                    <span class="star-item cursor-pointer text-slate-300 transition-colors" data-value="{{ $i }}" onclick="selectStars({{ $i }})"></span>
                                 @endfor
                             </div>
                             <input type="hidden" name="rating" id="rating-input" required>
@@ -235,7 +235,7 @@
 
                 {{-- Overlay CTA di tengah --}}
                 <div class="absolute inset-0 flex flex-col items-center justify-center p-8 text-center bg-transparent">
-                    <div class="text-[2.8rem] mb-3">🔒</div>
+                    <div class="text-[2.8rem] mb-3"></div>
                     <div class="text-[1.15rem] font-bold cs-title mb-1">Preparation Steps Locked</div>
                     <div class="text-[0.83rem] cs-label mb-4 max-w-[360px] leading-relaxed">
                         Purchase access to view the preparation steps for this recipe by Chef <strong>{{ $cooker->name }}</strong>
@@ -246,7 +246,7 @@
                     <div class="w-full max-w-[340px] bg-white/95 backdrop-blur-sm rounded-2xl border border-[#E0D5C8] shadow-lg p-4 mb-4 text-left">
                         {{-- Virtual money notice --}}
                         <div class="flex items-center gap-1.5 mb-3 bg-amber-50 border border-amber-200 rounded-lg px-3 py-1.5">
-                            <span class="text-xs">⚠️</span>
+                            <span class="text-xs"></span>
                             <span class="text-[0.65rem] text-amber-700 font-medium">Payment using Virtual Wallet (Simulation)</span>
                         </div>
 
@@ -301,7 +301,7 @@
                             style="background: linear-gradient(135deg, #C67C4E, #B06A3E); {{ $isInsufficient ? 'opacity:0.6;cursor:not-allowed;' : '' }}"
                             {{ $isInsufficient ? 'disabled' : '' }}
                             onclick="return confirm({{ json_encode($confirmMsg) }})">
-                            💳 Buy Access Now
+                             Buy Access Now
                         </button>
                     </form>
                 </div>
@@ -314,7 +314,7 @@
     <!-- SECTION: Review Pembeli Lain -->
     <div class="anim-in [animation-delay:0.15s] opacity-0">
         <h3 class="text-base font-bold text-[#2C1810] mb-4 flex items-center gap-1.5">
-            💬 Customer Reviews ({{ $reviews->count() }})
+             Customer Reviews ({{ $reviews->count() }})
         </h3>
 
         @if($reviews->count() > 0)
@@ -342,7 +342,7 @@
                             <!-- Rating stars -->
                             <div class="flex gap-0.5 text-xs text-amber-500 mb-2">
                                 @for($i = 1; $i <= 5; $i++)
-                                    <span>{{ $i <= $rev->rating ? '★' : '☆' }}</span>
+                                    <span>{{ $i <= $rev->rating ? '' : '' }}</span>
                                 @endfor
                             </div>
 
@@ -355,7 +355,7 @@
             </div>
         @else
             <div class="text-center py-8 bg-[#FBF7F3] border border-[#EDE5DA] rounded-2xl text-[#7A6248] shadow-sm">
-                <span class="text-2xl mb-1 block">💬</span>
+                <span class="text-2xl mb-1 block"></span>
                 <p class="text-xs">No reviews for this recipe yet. Be the first to leave a review!</p>
             </div>
         @endif

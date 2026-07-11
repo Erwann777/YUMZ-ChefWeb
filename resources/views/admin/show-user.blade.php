@@ -9,7 +9,7 @@
         <form action="{{ route('admin.users.toggle-suspend', $targetUser) }}" method="POST" class="inline">
             @csrf
             <button type="submit" class="btn btn-sm {{ $targetUser->is_suspended ? 'btn-primary' : 'btn-danger' }}" onclick="return confirm('{{ $targetUser->is_suspended ? 'Unsuspend' : 'Suspend' }} {{ $targetUser->name }}?')">
-                {{ $targetUser->is_suspended ? '✅ Unsuspend' : '🚫 Suspend' }}
+                {{ $targetUser->is_suspended ? ' Unsuspend' : ' Suspend' }}
             </button>
         </form>
     @endif
@@ -39,7 +39,7 @@
             <div class="flex items-center gap-2 mt-2">
                 <span class="role-badge role-badge-{{ $targetUser->role }}">{{ $targetUser->role }}</span>
                 @if($targetUser->is_suspended)
-                    <span class="text-[0.68rem] font-semibold px-2 py-0.5 rounded-full bg-red-500/12 text-red-600">🚫 Suspended</span>
+                    <span class="text-[0.68rem] font-semibold px-2 py-0.5 rounded-full bg-red-500/12 text-red-600"> Suspended</span>
                 @endif
             </div>
         </div>

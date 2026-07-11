@@ -11,7 +11,7 @@ use App\Http\Controllers\CookingServiceController;
 use App\Http\Controllers\CookerProfileController;
 use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\WalletController;
-use App\Http\Controllers\Api\CurrencyController;
+use App\Http\Controllers\Api\CurrencyController;    
 use App\Models\User;
 use App\Models\Recipe;
 use Illuminate\Support\Facades\Route;
