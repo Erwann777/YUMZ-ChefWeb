@@ -31,3 +31,6 @@ RUN chmod +x /usr/local/bin/start.sh
 EXPOSE 10000
 
 CMD ["/usr/local/bin/start.sh"]
+
+RUN mkdir -p storage/framework/sessions storage/framework/views storage/framework/cache/data bootstrap/cache
+RUN chmod -R 775 storage bootstrap/cache

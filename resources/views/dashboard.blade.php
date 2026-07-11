@@ -136,7 +136,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                 </svg>
             </button>
-            <button type="submit" class="shrink-0 flex items-center gap-1.5 px-5 py-2.5 bg-gradient-to-r from-[#C67C4E] to-[#D4895A] hover:from-[#B06A3E] hover:to-[#C67C4E] text-white text-xs font-bold rounded-xl border-none cursor-pointer transition-all shadow-sm hover:shadow-md">
+            <button type="submit" class="sm:hidden shrink-0 flex items-center gap-1.5 px-5 py-2.5 bg-gradient-to-r from-[#C67C4E] to-[#D4895A] hover:from-[#B06A3E] hover:to-[#C67C4E] text-white text-xs font-bold rounded-xl border-none cursor-pointer transition-all shadow-sm hover:shadow-md">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
                 Search
             </button>
