@@ -5,7 +5,7 @@
 
 @section('content')
 <div class="mb-7 anim-in">
-    <h1 class="text-2xl font-bold text-cs-text-primary mb-1">✏️ Edit User</h1>
+    <h1 class="text-2xl font-bold text-cs-text-primary mb-1">Edit User</h1>
     <p class="text-cs-text-secondary text-sm">Update user information</p>
 </div>
 
@@ -60,18 +60,18 @@
         <div class="mb-5">
             <label for="role" class="block text-xs font-semibold text-cs-text-secondary mb-1.5 tracking-wide uppercase">Role</label>
             <select name="role" id="role" class="w-full px-4 py-3 bg-white border border-admin-border rounded-lg text-cs-text-primary text-sm font-sans outline-none cursor-pointer transition-all focus:border-admin-accent focus:ring-3 focus:ring-admin-accent-glow">
-                <option value="customer" {{ old('role', $targetUser->role) === 'customer' ? 'selected' : '' }}>🛒 Customer</option>
-                <option value="cooker" {{ old('role', $targetUser->role) === 'cooker' ? 'selected' : '' }}>👨‍🍳 Cooker</option>
-                <option value="admin" {{ old('role', $targetUser->role) === 'admin' ? 'selected' : '' }}>🛡️ Admin</option>
+                <option value="customer" {{ old('role', $targetUser->role) === 'customer' ? 'selected' : '' }}>Customer</option>
+                <option value="cooker" {{ old('role', $targetUser->role) === 'cooker' ? 'selected' : '' }}>Cooker</option>
+                <option value="admin" {{ old('role', $targetUser->role) === 'admin' ? 'selected' : '' }}>Admin</option>
             </select>
             @error('role')
                 <div class="text-xs text-red-500 mt-1.5">{{ $message }}</div>
             @enderror
         </div>
 
-        <div class="flex items-center gap-3 mt-6">
-            <button type="submit" class="btn btn-primary" id="btn-save">💾 Save Changes</button>
-            <a href="{{ route('admin.users') }}" class="btn btn-ghost">Cancel</a>
+        <div class="flex items-center flex-col gap-3 mt-6">
+            <button type="submit" class="btn btn-primary w-full" id="btn-save">Save Changes</button>
+            <a href="{{ route('admin.users') }}" class="btn btn-ghost w-full">Cancel</a>
         </div>
     </form>
 </div>

@@ -5,7 +5,7 @@
 @section('content')
 <div class="flex items-center justify-between mb-6 flex-wrap gap-4 anim-in">
     <div>
-        <h1 class="text-2xl font-bold text-cs-text-primary">💰 Wallet Transactions</h1>
+        <h1 class="text-2xl font-bold text-cs-text-primary">Wallet Transactions</h1>
         <p class="text-cs-text-secondary text-sm">Audit all wallet activity across the platform</p>
     </div>
 </div>
@@ -31,8 +31,8 @@
     >
     <select name="type" class="px-3 py-2.5 bg-white border border-admin-border rounded-lg text-sm outline-none cursor-pointer" onchange="this.form.submit()">
         <option value="">All Types</option>
-        <option value="credit" {{ ($typeFilter ?? '') === 'credit' ? 'selected' : '' }}>💚 Credit</option>
-        <option value="debit" {{ ($typeFilter ?? '') === 'debit' ? 'selected' : '' }}>🔴 Debit</option>
+        <option value="credit" {{ ($typeFilter ?? '') === 'credit' ? 'selected' : '' }}> Credit</option>
+        <option value="debit" {{ ($typeFilter ?? '') === 'debit' ? 'selected' : '' }}> Debit</option>
     </select>
     <select name="reference" class="px-3 py-2.5 bg-white border border-admin-border rounded-lg text-sm outline-none cursor-pointer" onchange="this.form.submit()">
         <option value="">All References</option>
@@ -87,7 +87,7 @@
                 @empty
                     <tr>
                         <td colspan="6" class="px-5 py-12 text-center text-cs-text-secondary">
-                            <div class="text-4xl mb-3">💰</div>
+                            <div class="text-4xl mb-3"></div>
                             <div>No transactions found</div>
                         </td>
                     </tr>

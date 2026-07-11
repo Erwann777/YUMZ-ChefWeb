@@ -4,7 +4,7 @@
 @section('page-title', 'User Detail')
 
 @section('topbar-actions')
-    <a href="{{ route('admin.users.edit', $targetUser) }}" class="btn btn-ghost btn-sm">✏️ Edit</a>
+    <a href="{{ route('admin.users.edit', $targetUser) }}" class="btn btn-ghost btn-sm">Edit</a>
     @if($targetUser->id !== $user->id && !($targetUser->isAdmin() && !$targetUser->is_suspended))
         <form action="{{ route('admin.users.toggle-suspend', $targetUser) }}" method="POST" class="inline">
             @csrf
@@ -97,7 +97,7 @@
         </div>
         <div class="admin-card p-4">
             <div class="text-[0.72rem] text-cs-text-secondary uppercase tracking-wider mb-1">Avg Rating</div>
-            <div class="text-2xl font-bold text-cs-text-primary">⭐ {{ number_format($targetUser->averageCookerRating(), 1) }}</div>
+            <div class="text-2xl font-bold text-cs-text-primary"> {{ number_format($targetUser->averageCookerRating(), 1) }}</div>
         </div>
         @endif
         <div class="admin-card p-4">
@@ -111,7 +111,7 @@
     {{-- Recent Transactions --}}
     <div class="admin-card anim-in anim-d3">
         <div class="px-5 py-4 border-b border-admin-border">
-            <h3 class="text-sm font-semibold text-cs-text-primary">💰 Recent Transactions</h3>
+            <h3 class="text-sm font-semibold text-cs-text-primary"> Recent Transactions</h3>
         </div>
         <ul class="list-none">
             @forelse($recentTransactions as $tx)
@@ -133,7 +133,7 @@
     {{-- Recent Purchases --}}
     <div class="admin-card anim-in anim-d3">
         <div class="px-5 py-4 border-b border-admin-border">
-            <h3 class="text-sm font-semibold text-cs-text-primary">🥘 Recent Purchases</h3>
+            <h3 class="text-sm font-semibold text-cs-text-primary"> Recent Purchases</h3>
         </div>
         <ul class="list-none">
             @forelse($recentPurchases as $purchase)
@@ -153,7 +153,7 @@
     {{-- Recent Orders --}}
     <div class="admin-card anim-in anim-d3">
         <div class="px-5 py-4 border-b border-admin-border">
-            <h3 class="text-sm font-semibold text-cs-text-primary">📦 Recent Orders</h3>
+            <h3 class="text-sm font-semibold text-cs-text-primary"> Recent Orders</h3>
         </div>
         <ul class="list-none">
             @forelse($recentOrders as $order)

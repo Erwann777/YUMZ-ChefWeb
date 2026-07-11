@@ -130,7 +130,7 @@
                         </div>
                         <div>
                             <div class="text-xs sm:text-[1.05rem] font-semibold text-[#2C1810] mb-0.5 truncate max-w-[120px] sm:max-w-none" title="{{ $cooker->name }}">{{ $cooker->name }}</div>
-                            <div class="text-[0.55rem] sm:text-[0.72rem] text-cs-orange font-medium">👨‍🍳 Cooker</div>
+                            <div class="text-[0.55rem] sm:text-[0.72rem] text-cs-orange font-medium">Cooker</div>
                         </div>
                     </div>
                     <div class="flex gap-4 sm:gap-6 mb-3 sm:mb-0">
@@ -178,7 +178,7 @@
         @endif
     @else
         <div class="text-center py-16 text-[#7A6248] animate-fadeInUp">
-            <div class="text-5xl mb-4">🔍</div>
+            <div class="text-5xl mb-4"></div>
             <div>No cookers have joined yet</div>
         </div>
     @endif

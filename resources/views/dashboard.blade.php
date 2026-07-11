@@ -104,7 +104,7 @@
         <div class="absolute -bottom-20 -left-20 w-64 h-64 rounded-full bg-[#D4A574]/5 blur-3xl"></div>
         <div class="relative z-10 max-w-2xl">
             <div class="text-[#D4A574] text-xs sm:text-sm font-bold uppercase tracking-widest mb-1.5 flex items-center gap-2">
-                <span>🍽️ Customer Dashboard</span>
+                <span>Customer Dashboard</span>
                 @if(request('search'))
                     <span class="text-white/40 font-normal">| Search Results: "{{ request('search') }}"</span>
                 @endif
@@ -155,7 +155,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     @if($searchedFoods->count() > 0)
                         <div>
-                            <h3 class="text-sm font-bold text-[#2C1810] mb-3">🥘 Menu & Recipes:</h3>
+                            <h3 class="text-sm font-bold text-[#2C1810] mb-3"> Menu & Recipes:</h3>
                             <div class="grid grid-cols-2 gap-3">
                                 @foreach($searchedFoods as $food)
                                     <div class="bg-white border border-[#E8DDD2] rounded-xl overflow-hidden transition-all hover:border-[#C67C4E]/30 hover:shadow-md flex flex-col relative">
@@ -197,7 +197,7 @@
                     @endif
                     @if($searchedCookers->count() > 0)
                         <div>
-                            <h3 class="text-sm font-bold text-[#2C1810] mb-3">👨‍🍳 Cooker / Chef:</h3>
+                            <h3 class="text-sm font-bold text-[#2C1810] mb-3">Cooker / Chef:</h3>
                             <div class="flex flex-col gap-3">
                                 @foreach($searchedCookers as $cooker)
                                     <div class="p-3 bg-[#F5EFE6] border border-slate-100 rounded-xl flex items-center justify-between gap-3">
@@ -241,8 +241,8 @@
         <div>
             <p class="text-[0.62rem] uppercase font-bold text-[#9A7B5A] mb-2">🍴 Content Type</p>
             <div class="flex gap-2">
-                <button id="mobile-tab-services" onclick="switchMarketplaceTab('services-tab', null, this)" class="mobile-sidebar-tab flex-1 py-2.5 text-xs font-semibold rounded-xl border-none cursor-pointer bg-[#C67C4E] text-white transition-all">🍽️ Cooking Services</button>
-                <button id="mobile-tab-recipes" onclick="switchMarketplaceTab('recipes-tab', null, this)" class="mobile-sidebar-tab flex-1 py-2.5 text-xs font-semibold rounded-xl border border-[#E8DDD2] cursor-pointer bg-transparent text-[#7A6248] transition-all">🥘 Recipes</button>
+                <button id="mobile-tab-services" onclick="switchMarketplaceTab('services-tab', null, this)" class="mobile-sidebar-tab flex-1 py-2.5 text-xs font-semibold rounded-xl border-none cursor-pointer bg-[#C67C4E] text-white transition-all"> Cooking Services</button>
+                <button id="mobile-tab-recipes" onclick="switchMarketplaceTab('recipes-tab', null, this)" class="mobile-sidebar-tab flex-1 py-2.5 text-xs font-semibold rounded-xl border border-[#E8DDD2] cursor-pointer bg-transparent text-[#7A6248] transition-all"> Recipes</button>
             </div>
         </div>
         <div>
@@ -299,7 +299,7 @@
             {{-- ── Wallet Widget ── --}}
             <div class="p-4">
                 <a href="{{ route('wallet') }}" class="block no-underline group">
-                    <div class="relative overflow-hidden rounded-2xl p-4" style="background: linear-gradient(135deg, #C67C4E 0%, #8B4513 100%);">
+                    <div class="relative overflow-hidden rounded-2xl p-4" style="background: linear-gradient(135deg, #0bbd2cff 0%, #09cc0cff 100%);">
                         <div class="absolute inset-0 opacity-10">
                             <div class="absolute -top-6 -right-6 w-24 h-24 bg-white rounded-full"></div>
                         </div>
@@ -312,7 +312,7 @@
                                 <span class="text-white/50 text-[0.6rem] bg-white/10 px-1.5 py-0.5 rounded-full">virtual</span>
                             </div>
                             <div class="text-white font-bold text-lg leading-tight">{{ Auth::user()->getFormattedWalletBalance() }}</div>
-                            <div class="text-white/60 text-[0.62rem] mt-1 group-hover:text-white/80 transition-colors">💰 View Wallet →</div>
+                            <div class="text-white/60 text-[0.62rem] mt-1 group-hover:text-white/80 transition-colors">View Wallet →</div>
                         </div>
                     </div>
                 </a>
@@ -321,40 +321,40 @@
 
             {{-- ── Navigasi Cepat ── --}}
             <div class="p-4">
-                <p class="text-[0.6rem] uppercase tracking-widest font-bold text-[#9A7B5A] mb-2">⚡ Quick Navigation</p>
+                <p class="text-[0.6rem] uppercase tracking-widest font-bold text-[#9A7B5A] mb-2"> Quick Navigation</p>
                 <nav class="flex flex-col gap-0.5">
                     <a href="#hot-recommendations-container" class="flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-[0.75rem] font-medium text-[#7A6248] hover:bg-[#C67C4E]/8 hover:text-[#C67C4E] transition-all no-underline">🔥 Hot Recommendations</a>
-                    <a href="#recipes-section-container" class="flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-[0.75rem] font-medium text-[#7A6248] hover:bg-[#C67C4E]/8 hover:text-[#C67C4E] transition-all no-underline">🥘 Secret Recipes</a>
-                    <a href="#all-foods-section" class="flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-[0.75rem] font-medium text-[#7A6248] hover:bg-[#C67C4E]/8 hover:text-[#C67C4E] transition-all no-underline">🍽️ All Foods</a>
-                    <a href="#cookers-grid-container" class="flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-[0.75rem] font-medium text-[#7A6248] hover:bg-[#C67C4E]/8 hover:text-[#C67C4E] transition-all no-underline">👨‍🍳 Top Cookers</a>
-                    <a href="#transaction-section" class="flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-[0.75rem] font-medium text-[#7A6248] hover:bg-[#C67C4E]/8 hover:text-[#C67C4E] transition-all no-underline">📦 My Activity</a>
+                    <a href="#recipes-section-container" class="flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-[0.75rem] font-medium text-[#7A6248] hover:bg-[#C67C4E]/8 hover:text-[#C67C4E] transition-all no-underline"> Secret Recipes</a>
+                    <a href="#all-foods-section" class="flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-[0.75rem] font-medium text-[#7A6248] hover:bg-[#C67C4E]/8 hover:text-[#C67C4E] transition-all no-underline">All Foods</a>
+                    <a href="#cookers-grid-container" class="flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-[0.75rem] font-medium text-[#7A6248] hover:bg-[#C67C4E]/8 hover:text-[#C67C4E] transition-all no-underline"> Top Cookers</a>
+                    <a href="#transaction-section" class="flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-[0.75rem] font-medium text-[#7A6248] hover:bg-[#C67C4E]/8 hover:text-[#C67C4E] transition-all no-underline"> My Activity</a>
                 </nav>
             </div>
 
             {{-- ── Jenis Konten ── --}}
             <div class="p-4">
-                <p class="text-[0.6rem] uppercase tracking-widest font-bold text-[#9A7B5A] mb-2">🍴 Content Type</p>
+                <p class="text-[0.6rem] uppercase tracking-widest font-bold text-[#9A7B5A] mb-2"> Content Type</p>
                 <div class="flex flex-col gap-1">
                     <button id="sidebar-tab-services" onclick="switchMarketplaceTab('services-tab', null, this)"
                         class="sidebar-tab-btn w-full text-left flex items-center gap-2 px-3 py-2.5 rounded-xl text-[0.75rem] font-semibold transition-all border-none cursor-pointer bg-[#C67C4E] text-white">
-                        🍽️ Cooking Services &amp; Menu
+                        Cooking Services &amp; Menu
                     </button>
                     <button id="sidebar-tab-recipes" onclick="switchMarketplaceTab('recipes-tab', null, this)"
                         class="sidebar-tab-btn w-full text-left flex items-center gap-2 px-3 py-2.5 rounded-xl text-[0.75rem] font-semibold transition-all border-none cursor-pointer bg-transparent text-[#7A6248] hover:bg-[#F5EFE6]">
-                        🥘 Secret Family Recipes
+                        Secret Family Recipes
                     </button>
                 </div>
             </div>
 
             {{-- ── Kategori Masakan ── --}}
             <div class="p-4">
-                <p class="text-[0.6rem] uppercase tracking-widest font-bold text-[#9A7B5A] mb-2">🌍 Cuisine Category</p>
+                <p class="text-[0.6rem] uppercase tracking-widest font-bold text-[#9A7B5A] mb-2">Cuisine Category</p>
                 <div class="space-y-2.5">
                     <button class="sidebar-cat-btn category-btn w-full text-left px-3 py-2 rounded-xl text-[0.75rem] font-bold bg-[#C67C4E] text-white border-none cursor-pointer transition-all" onclick="filterCategory('all', this)">
-                        🌟 All Categories
+                         All Categories
                     </button>
                     <div>
-                        <p class="text-[0.55rem] uppercase font-bold text-[#9A7B5A]/60 mb-1 pl-1">🌏 Asia</p>
+                        <p class="text-[0.55rem] uppercase font-bold text-[#9A7B5A]/60 mb-1 pl-1"> Asia</p>
                         <div class="flex flex-col gap-0.5">
                             @foreach(['indonesia' => '🇮🇩 Indonesia', 'malaysian' => '🇲🇾 Malaysian', 'chinese' => '🇨🇳 Chinese', 'japanese' => '🇯🇵 Japanese', 'korean' => '🇰🇷 Korean', 'thailand' => '🇹🇭 Thai', 'indian' => '🇮🇳 Indian'] as $catVal => $catLabel)
                             <button class="sidebar-cat-btn category-btn w-full text-left px-3 py-1.5 rounded-lg text-[0.72rem] font-medium bg-transparent text-[#7A6248] hover:bg-[#C67C4E]/8 hover:text-[#C67C4E] border-none cursor-pointer transition-all" onclick="filterCategory('{{ $catVal }}', this)">
@@ -364,7 +364,7 @@
                         </div>
                     </div>
                     <div>
-                        <p class="text-[0.55rem] uppercase font-bold text-[#9A7B5A]/60 mb-1 pl-1">🌍 Western</p>
+                        <p class="text-[0.55rem] uppercase font-bold text-[#9A7B5A]/60 mb-1 pl-1">Western</p>
                         <div class="flex flex-col gap-0.5">
                             @foreach(['italian' => '🇮🇹 Italian', 'american' => '🇺🇸 American', 'french' => '🇫🇷 French', 'british' => '🇬🇧 British'] as $catVal => $catLabel)
                             <button class="sidebar-cat-btn category-btn w-full text-left px-3 py-1.5 rounded-lg text-[0.72rem] font-medium bg-transparent text-[#7A6248] hover:bg-[#C67C4E]/8 hover:text-[#C67C4E] border-none cursor-pointer transition-all" onclick="filterCategory('{{ $catVal }}', this)">
@@ -374,9 +374,9 @@
                         </div>
                     </div>
                     <div>
-                        <p class="text-[0.55rem] uppercase font-bold text-[#9A7B5A]/60 mb-1 pl-1">🍰 Others</p>
+                        <p class="text-[0.55rem] uppercase font-bold text-[#9A7B5A]/60 mb-1 pl-1"> Others</p>
                         <button class="sidebar-cat-btn category-btn w-full text-left px-3 py-1.5 rounded-lg text-[0.72rem] font-medium bg-transparent text-[#7A6248] hover:bg-[#C67C4E]/8 hover:text-[#C67C4E] border-none cursor-pointer transition-all" onclick="filterCategory('dessert', this)">
-                            🧁 Dessert
+                            Dessert
                         </button>
                     </div>
                 </div>
@@ -384,7 +384,7 @@
 
             {{-- ── Status Halal ── --}}
             <div class="p-4">
-                <p class="text-[0.6rem] uppercase tracking-widest font-bold text-[#9A7B5A] mb-2">☪️ Halal Status</p>
+                <p class="text-[0.6rem] uppercase tracking-widest font-bold text-[#9A7B5A] mb-2">Halal Status</p>
                 <div class="flex flex-col gap-0.5">
                     <label class="flex items-center gap-2.5 px-2.5 py-2 rounded-xl cursor-pointer hover:bg-[#F5EFE6] transition-all">
                         <input type="radio" name="halal-sidebar" value="all" checked onchange="filterHalal('all', this)" class="accent-[#C67C4E] w-3.5 h-3.5 shrink-0">
@@ -392,18 +392,18 @@
                     </label>
                     <label class="flex items-center gap-2.5 px-2.5 py-2 rounded-xl cursor-pointer hover:bg-[#F5EFE6] transition-all">
                         <input type="radio" name="halal-sidebar" value="halal" onchange="filterHalal('halal', this)" class="accent-[#C67C4E] w-3.5 h-3.5 shrink-0">
-                        <span class="text-[0.75rem] font-medium text-[#2C1810]">🟢 Halal Only</span>
+                        <span class="text-[0.75rem] font-medium text-[#2C1810]"> Halal Only</span>
                     </label>
                     <label class="flex items-center gap-2.5 px-2.5 py-2 rounded-xl cursor-pointer hover:bg-[#F5EFE6] transition-all">
                         <input type="radio" name="halal-sidebar" value="nonhalal" onchange="filterHalal('nonhalal', this)" class="accent-[#C67C4E] w-3.5 h-3.5 shrink-0">
-                        <span class="text-[0.75rem] font-medium text-[#2C1810]">🔴 Non-Halal</span>
+                        <span class="text-[0.75rem] font-medium text-[#2C1810]"> Non-Halal</span>
                     </label>
                 </div>
             </div>
 
             {{-- ── Range Harga ── --}}
             <div class="p-4">
-                <p class="text-[0.6rem] uppercase tracking-widest font-bold text-[#9A7B5A] mb-2">💰 Price Range</p>
+                <p class="text-[0.6rem] uppercase tracking-widest font-bold text-[#9A7B5A] mb-2"> Price Range</p>
                 <div class="space-y-2">
                     <div class="flex gap-2">
                         <div class="flex-1">
@@ -429,7 +429,7 @@
 
             {{-- ── Rating Minimum ── --}}
             <div class="p-4">
-                <p class="text-[0.6rem] uppercase tracking-widest font-bold text-[#9A7B5A] mb-2">⭐ Minimum Rating</p>
+                <p class="text-[0.6rem] uppercase tracking-widest font-bold text-[#9A7B5A] mb-2"> Minimum Rating</p>
                 <div class="flex flex-col gap-0.5">
                     <button class="rating-filter-btn w-full text-left flex items-center gap-1.5 px-3 py-2 rounded-xl text-[0.72rem] font-semibold border-none cursor-pointer transition-all bg-white text-white" onclick="filterByRating(0, this)">🌟 All Ratings</button>
                     <button class="rating-filter-btn w-full text-left flex items-center gap-1.5 px-3 py-2 rounded-xl text-[0.72rem] font-medium border-none cursor-pointer transition-all bg-transparent text-[#7A6248] hover:bg-[#F5EFE6]" onclick="filterByRating(3, this)">⭐⭐⭐ 3.0+ &amp; Up</button>
@@ -441,13 +441,13 @@
 
             {{-- ── Urutkan Berdasarkan ── --}}
             <div class="p-4">
-                <p class="text-[0.6rem] uppercase tracking-widest font-bold text-[#9A7B5A] mb-2">↕️ Sort By</p>
+                <p class="text-[0.6rem] uppercase tracking-widest font-bold text-[#9A7B5A] mb-2">Sort By</p>
                 <select id="sort-select" onchange="applyFilters()"
                     class="w-full px-3 py-2 border border-[#E8DDD2] rounded-xl text-[0.75rem] font-medium text-[#2C1810] focus:border-[#C67C4E] outline-none transition-all bg-white cursor-pointer">
                     <option value="default">Default</option>
-                    <option value="rating-desc">⭐ Highest Rating</option>
-                    <option value="price-asc">💰 Lowest Price</option>
-                    <option value="price-desc">💎 Highest Price</option>
+                    <option value="rating-desc">Highest Rating</option>
+                    <option value="price-asc"> Lowest Price</option>
+                    <option value="price-desc"> Highest Price</option>
                 </select>
             </div>
 
@@ -537,7 +537,7 @@
 
     <!-- Active Details Banner -->
     <div id="tracker-banner" class="mt-6 p-4 bg-white border border-[#F5EADF] rounded-2xl flex items-center gap-3 shadow-sm">
-        <span id="tracker-banner-icon" class="text-2xl animate-bounce">🍳</span>
+        <span id="tracker-banner-icon" class="text-2xl animate-bounce"></span>
         <div class="flex-1 min-w-0">
             <div id="tracker-banner-title" class="text-xs font-bold text-[#2C1810]">Contacting Chef...</div>
             <div id="tracker-banner-desc" class="text-[0.68rem] text-[#7A6248] truncate">Your order has been submitted and is awaiting confirmation from the chef.</div>
@@ -565,7 +565,7 @@
                         @if($recipe->image_path)
                             <img src="{{ asset('storage/' . $recipe->image_path) }}" alt="{{ $recipe->title }}" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
                         @else
-                            <div class="w-full h-full flex items-center justify-center text-5xl bg-cs-orange/5 text-cs-orange">🍽️</div>
+                            <div class="w-full h-full flex items-center justify-center text-5xl bg-cs-orange/5 text-cs-orange"></div>
                         @endif
                         <x-price-display :item="$recipe" :viewerCurrency="$viewerCurrency" size="md" color="text-[#D4A574]" class="absolute bottom-3 right-3 bg-[#2C1810]/85 backdrop-blur-md px-3 py-1 rounded-full border border-[#E8DDD2]" />
                     </div>
@@ -573,7 +573,7 @@
                         <div>
                             <div class="flex items-center gap-2 mb-2 justify-between">
                                 <span class="text-[0.7rem] text-cs-orange font-bold uppercase tracking-wider">Chef {{ $recipe->cooker->name }}</span>
-                                <span class="text-xs bg-[#F5EFE6] border border-slate-100 text-slate-500 font-semibold px-2 py-0.5 rounded-full capitalize">🍽️ {{ $recipe->category }}</span>
+                                <span class="text-xs bg-[#F5EFE6] border border-slate-100 text-slate-500 font-semibold px-2 py-0.5 rounded-full capitalize"> {{ $recipe->category }}</span>
                             </div>
                             <h3 class="text-base font-bold text-[#2C1810] mb-1 line-clamp-1">{{ $recipe->title }}</h3>
                             <p class="text-xs text-[#7A6248] line-clamp-2 mb-3 leading-relaxed">{{ $recipe->description }}</p>
@@ -595,7 +595,7 @@
         </div>
     @else
         <div class="text-center py-10 bg-white border border-[#E8DDD2] rounded-2xl text-[#7A6248]">
-            <span class="text-3xl mb-1 block">🥘</span>
+            <span class="text-3xl mb-1 block"></span>
             <p class="text-sm font-semibold text-[#2C1810]">No 4-5 star recommended menus available at the moment.</p>
         </div>
     @endif
@@ -605,7 +605,7 @@
 <div class="mb-10 animate-fadeInUp [animation-delay:0.12s]" id="all-foods-section">
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5">
         <div>
-            <h2 class="text-xl sm:text-2xl font-bold text-[#2C1810] flex items-center gap-2">🍽️ Explore All Foods</h2>
+            <h2 class="text-xl sm:text-2xl font-bold text-[#2C1810] flex items-center gap-2">Explore All Foods</h2>
             <p class="text-xs text-[#7A6248]">Use filters on the left sidebar to instantly narrow your search.</p>
         </div>
         {{-- Active filter pills --}}
@@ -639,10 +639,10 @@
     {{-- Tab Switcher --}}
     <div class="flex border-b border-[#E8DDD2] mb-5">
         <button class="marketplace-tab-btn border-b-2 border-[#C67C4E] text-[#C67C4E] text-sm font-bold px-5 py-3 cursor-pointer transition-all bg-transparent" onclick="switchMarketplaceTab('services-tab', this, null)">
-            🍽️ Cooking Services &amp; Menu ({{ $services->count() }})
+             Cooking Services &amp; Menu ({{ $services->count() }})
         </button>
         <button class="marketplace-tab-btn border-b-2 border-transparent text-[#7A6248] text-sm font-semibold px-5 py-3 cursor-pointer transition-all bg-transparent hover:text-[#2C1810]" onclick="switchMarketplaceTab('recipes-tab', this, null)">
-            🥘 Secret Recipes ({{ $recipes->count() }})
+            Secret Recipes ({{ $recipes->count() }})
         </button>
     </div>
 
@@ -664,7 +664,7 @@
                             @if($item->image_path)
                                 <img src="{{ asset('storage/' . $item->image_path) }}" alt="{{ $item->title }}" class="w-full h-full object-cover">
                             @else
-                                <div class="w-full h-full flex items-center justify-center text-2xl sm:text-3xl bg-cs-orange/5 text-cs-orange">🍽️</div>
+                                <div class="w-full h-full flex items-center justify-center text-2xl sm:text-3xl bg-cs-orange/5 text-cs-orange"></div>
                             @endif
                             <x-price-display :item="$item" :viewerCurrency="$viewerCurrency" size="sm" color="text-[#D4A574]" class="absolute bottom-1.5 right-1.5 bg-[#2C1810]/85 backdrop-blur-md px-1.5 py-0.5 rounded-full" />
                         </div>
@@ -693,7 +693,7 @@
             </div>
         @else
             <div class="text-center py-10 bg-white border border-[#E8DDD2] rounded-2xl text-[#7A6248]">
-                <span class="text-3xl mb-1 block">🍽️</span>
+                <span class="text-3xl mb-1 block"></span>
                 <p class="text-sm font-semibold text-[#2C1810]">No food menus found.</p>
             </div>
         @endif
@@ -717,7 +717,7 @@
                             @if($item->image_path)
                                 <img src="{{ asset('storage/' . $item->image_path) }}" alt="{{ $item->title }}" class="w-full h-full object-cover">
                             @else
-                                <div class="w-full h-full flex items-center justify-center text-2xl sm:text-3xl bg-cs-orange/5 text-cs-orange">🥘</div>
+                                <div class="w-full h-full flex items-center justify-center text-2xl sm:text-3xl bg-cs-orange/5 text-cs-orange"></div>
                             @endif
                             <x-price-display :item="$item" :viewerCurrency="$viewerCurrency" size="sm" color="text-[#D4A574]" class="absolute bottom-1.5 right-1.5 bg-[#2C1810]/85 backdrop-blur-md px-1.5 py-0.5 rounded-full" />
                         </div>
@@ -746,7 +746,7 @@
             </div>
         @else
             <div class="text-center py-10 bg-white border border-[#E8DDD2] rounded-2xl text-[#7A6248]">
-                <span class="text-3xl mb-1 block">🥘</span>
+                <span class="text-3xl mb-1 block"></span>
                 <p class="text-sm font-semibold text-[#2C1810]">No secret recipes found.</p>
             </div>
         @endif
@@ -764,7 +764,7 @@
 <div id="recipes-section-container" class="mb-10 animate-fadeInUp [animation-delay:0.09s]">
     <div class="flex items-center justify-between mb-5">
         <div>
-            <h2 class="text-xl sm:text-2xl font-bold text-[#2C1810] flex items-center gap-2">🥘 Selected Cooker Secret Recipes</h2>
+            <h2 class="text-xl sm:text-2xl font-bold text-[#2C1810] flex items-center gap-2">Selected Cooker Secret Recipes</h2>
             <p class="text-xs text-[#7A6248]">Learn secret steps to cook delicious dishes directly from trusted chefs.</p>
         </div>
         <a href="{{ route('foods.index') }}" class="px-4 py-2 bg-white border border-[#E8DDD2] text-[#2C1810] hover:border-[#C67C4E] text-xs font-semibold rounded-xl no-underline transition-colors shadow-sm shrink-0">View All →</a>
@@ -780,7 +780,7 @@
                         @if($item->image_path)
                             <img src="{{ asset('storage/' . $item->image_path) }}" alt="{{ $item->title }}" class="w-full h-full object-cover">
                         @else
-                            <div class="w-full h-full flex items-center justify-center text-2xl sm:text-3xl bg-cs-orange/5 text-cs-orange">🥘</div>
+                            <div class="w-full h-full flex items-center justify-center text-2xl sm:text-3xl bg-cs-orange/5 text-cs-orange"></div>
                         @endif
                         <x-price-display :item="$item" :viewerCurrency="$viewerCurrency" size="sm" color="text-[#D4A574]" class="absolute bottom-1.5 right-1.5 bg-[#2C1810]/85 backdrop-blur-md px-1.5 py-0.5 rounded-full" />
                     </div>
@@ -805,7 +805,7 @@
         </div>
     @else
         <div class="text-center py-10 bg-white border border-[#E8DDD2] rounded-2xl text-[#7A6248]">
-            <span class="text-3xl mb-1 block">🥘</span>
+            <span class="text-3xl mb-1 block"></span>
             <p class="text-sm font-semibold text-[#2C1810]">No secret recipes found.</p>
         </div>
     @endif
@@ -815,7 +815,7 @@
 <div id="cookers-grid-container" class="mb-10 animate-fadeInUp [animation-delay:0.18s]">
     <div class="flex items-center justify-between mb-5">
         <div>
-            <h2 class="text-xl sm:text-2xl font-bold text-[#2C1810] flex items-center gap-2">👨‍🍳 Top Cookers</h2>
+            <h2 class="text-xl sm:text-2xl font-bold text-[#2C1810] flex items-center gap-2">Top Cookers</h2>
             <p class="text-xs text-[#7A6248]">Experienced chefs with the best recipe sales and reviews.</p>
         </div>
         <a href="{{ route('cookers.index') }}" class="px-4 py-2 bg-white border border-[#E8DDD2] text-[#2C1810] hover:border-[#C67C4E] text-xs font-semibold rounded-xl no-underline transition-colors shadow-sm shrink-0">View All →</a>
@@ -860,7 +860,7 @@
         </div>
     @else
         <div class="text-center py-10 bg-white border border-[#E8DDD2] rounded-2xl text-[#7A6248]">
-            <span class="text-3xl mb-1 block">👨‍🍳</span>
+            <span class="text-3xl mb-1 block"></span>
             <p class="text-sm font-semibold text-[#2C1810]">No cookers registered yet.</p>
         </div>
     @endif
@@ -870,8 +870,8 @@
 <div class="animate-fadeInUp [animation-delay:0.24s]" id="transaction-section">
     <div class="flex items-center justify-between border-b border-[#E8DDD2] mb-6 pb-2">
         <div class="flex gap-2 flex-wrap">
-            <button class="tab-btn bg-transparent border-none text-[#7A6248] text-sm font-semibold px-4 py-2 cursor-pointer rounded-lg transition-all hover:text-[#2C1810] hover:bg-cs-bg-primary active" onclick="switchTab(event, 'purchased-recipes')">🥘 Purchased Recipes ({{ count($purchasedRecipes) }})</button>
-            <button class="tab-btn bg-transparent border-none text-[#7A6248] text-sm font-semibold px-4 py-2 cursor-pointer rounded-lg transition-all hover:text-[#2C1810] hover:bg-cs-bg-primary" onclick="switchTab(event, 'cooking-orders')">📦 Service Orders ({{ count($serviceOrders) }})</button>
+            <button class="tab-btn bg-transparent border-none text-[#7A6248] text-sm font-semibold px-4 py-2 cursor-pointer rounded-lg transition-all hover:text-[#2C1810] hover:bg-cs-bg-primary active" onclick="switchTab(event, 'purchased-recipes')">Purchased Recipes ({{ count($purchasedRecipes) }})</button>
+            <button class="tab-btn bg-transparent border-none text-[#7A6248] text-sm font-semibold px-4 py-2 cursor-pointer rounded-lg transition-all hover:text-[#2C1810] hover:bg-cs-bg-primary" onclick="switchTab(event, 'cooking-orders')">Service Orders ({{ count($serviceOrders) }})</button>
         </div>
     </div>
 
@@ -884,7 +884,7 @@
                         @if($recipe->image_path)
                             <img src="{{ asset('storage/' . $recipe->image_path) }}" alt="{{ $recipe->title }}" class="w-full h-32 object-cover bg-cs-bg-primary">
                         @else
-                            <div class="w-full h-32 flex items-center justify-center text-3xl bg-cs-orange/4 text-cs-orange">🍽️</div>
+                            <div class="w-full h-32 flex items-center justify-center text-3xl bg-cs-orange/4 text-cs-orange"></div>
                         @endif
                         <div class="p-4">
                             <div class="text-[0.7rem] text-cs-orange mb-1 font-semibold">Chef {{ $recipe->cooker->name }}</div>
@@ -897,7 +897,7 @@
             </div>
         @else
             <div class="text-center py-12 bg-white border border-[#E8DDD2] rounded-2xl text-[#7A6248] shadow-sm">
-                <div class="text-4xl mb-3">🥘</div>
+                <div class="text-4xl mb-3"></div>
                 <div class="font-bold text-sm text-[#2C1810]">No purchased recipes yet.</div>
                 <p class="mt-1 text-xs max-w-sm mx-auto">Buy recipes from our popular cookers to see complete cooking steps!</p>
             </div>
@@ -930,7 +930,7 @@
                                 <td class="p-4 text-[#2C1810]">
                                     <div class="text-xs font-bold">{{ $order->service->title }}</div>
                                     @if($order->notes)
-                                        <div class="text-[0.68rem] text-[#7A6248] mt-0.5">📝 "{{ $order->notes }}"</div>
+                                        <div class="text-[0.68rem] text-[#7A6248] mt-0.5"> "{{ $order->notes }}"</div>
                                     @endif
                                 </td>
                                 <td class="p-4 font-bold text-xs text-cs-orange">{{ $order->formatted_price }}</td>
@@ -964,7 +964,7 @@
             </div>
         @else
             <div class="text-center py-12 bg-white border border-[#E8DDD2] rounded-2xl text-[#7A6248] shadow-sm">
-                <div class="text-4xl mb-3">📦</div>
+                <div class="text-4xl mb-3"></div>
                 <div class="font-bold text-sm text-[#2C1810]">No cooking services ordered yet.</div>
                 <p class="mt-1 text-xs max-w-sm mx-auto">Order the best chef services from your favorite cooker profiles!</p>
             </div>

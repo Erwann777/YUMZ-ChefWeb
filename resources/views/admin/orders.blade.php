@@ -5,7 +5,7 @@
 @section('content')
 <div class="flex items-center justify-between mb-6 flex-wrap gap-4 anim-in">
     <div>
-        <h1 class="text-2xl font-bold text-cs-text-primary">📦 Order Management</h1>
+        <h1 class="text-2xl font-bold text-cs-text-primary">Order Management</h1>
         <p class="text-cs-text-secondary text-sm">Monitor and manage all service orders across the platform</p>
     </div>
 </div>
@@ -20,10 +20,10 @@
     >
     <select name="status" class="px-3 py-2.5 bg-white border border-admin-border rounded-lg text-cs-text-primary text-sm font-sans outline-none cursor-pointer transition-all focus:border-admin-accent" onchange="this.form.submit()">
         <option value="">All Status</option>
-        <option value="pending" {{ ($statusFilter ?? '') === 'pending' ? 'selected' : '' }}>⏳ Pending</option>
-        <option value="confirmed" {{ ($statusFilter ?? '') === 'confirmed' ? 'selected' : '' }}>✅ Confirmed</option>
-        <option value="completed" {{ ($statusFilter ?? '') === 'completed' ? 'selected' : '' }}>🎉 Completed</option>
-        <option value="cancelled" {{ ($statusFilter ?? '') === 'cancelled' ? 'selected' : '' }}>❌ Cancelled</option>
+        <option value="pending" {{ ($statusFilter ?? '') === 'pending' ? 'selected' : '' }}>Pending</option>
+        <option value="confirmed" {{ ($statusFilter ?? '') === 'confirmed' ? 'selected' : '' }}>Confirmed</option>
+        <option value="completed" {{ ($statusFilter ?? '') === 'completed' ? 'selected' : '' }}>Completed</option>
+        <option value="cancelled" {{ ($statusFilter ?? '') === 'cancelled' ? 'selected' : '' }}>Cancelled</option>
     </select>
     <button type="submit" class="btn btn-primary btn-sm">Search</button>
     @if($search || $statusFilter)
@@ -91,7 +91,6 @@
                 @empty
                     <tr>
                         <td colspan="7" class="px-5 py-12 text-center text-cs-text-secondary">
-                            <div class="text-4xl mb-3">📦</div>
                             <div>No orders found</div>
                         </td>
                     </tr>

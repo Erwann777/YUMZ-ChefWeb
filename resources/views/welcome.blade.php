@@ -6,200 +6,57 @@
 
 @section('content')
 {{-- ═══════════════════════════════════════════════════
-    SECTION 1: HERO
-═══════════════════════════════════════════════════ --}}
-<section
-    id="hero"
-    class="
-    relative
-    min-h-screen
-    flex
-    items-center
-    overflow-hidden
-    "
->
+{{-- SECTION 1: HERO --}}
+<section id="hero" class="relative min-h-screen flex items-center overflow-hidden">
 
     <!-- Background Mobile -->
-    <div
-        class="
-        absolute
-        inset-0
-        md:hidden
-        bg-cover
-        bg-center
-        bg-no-repeat
-        "
-        style="
-            background-image: url('{{ asset('images/landing/gemini2.png') }}');
-        "
-    ></div>
+    <div class="absolute inset-0 md:hidden bg-cover bg-center bg-no-repeat"
+         style="background-image: url('{{ asset('images/landing/gemini2.png') }}');"></div>
 
     <!-- Background Tablet & Desktop -->
-    <div
-        class="
-        absolute
-        inset-0
-        hidden
-        md:block
-        bg-cover
-        bg-center
-        bg-no-repeat
-        "
-        style="
-            background-image: url('{{ asset('images/landing/gemini.png') }}');
-        "
-    ></div>
+    <div class="absolute inset-0 hidden md:block bg-cover bg-center bg-no-repeat"
+         style="background-image: url('{{ asset('images/landing/gemini.png') }}');"></div>
 
     <!-- Overlay Gelap -->
-    <div
-        class="
-        absolute
-        inset-0
-        bg-black/20
-        "
-    ></div>
+    <div class="absolute inset-0 bg-black/20"></div>
 
     <!-- Gradient untuk membantu readability -->
-    <div
-        class="
-        absolute
-        inset-0
-        bg-gradient-to-r
-        from-black
-        via-black/75
-        to-black/20
-        "
-    ></div>
+    <div class="absolute inset-0 bg-gradient-to-r from-black via-black/75 to-black/20"></div>
 
     <!-- Khusus mobile gradient lebih kuat -->
-    <div
-        class="
-        absolute
-        inset-0
-        md:hidden
-        bg-black/20
-        "
-    ></div>
+    <div class="absolute inset-0 md:hidden bg-black/20"></div>
 
-    <div
-        class="
-        relative
-        z-10
-        max-w-7xl
-        mx-auto
-        px-6
-        lg:px-10
-        w-full
-        "
-    >
+    <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 w-full">
+        <div class="max-w-3xl text-center md:text-left">
 
-        <div
-            class="
-            max-w-3xl
-            text-center
-            md:text-left
-            "
-        >
-
-            <div
-                class="
-                uppercase
-                tracking-[0.3em]
-                text-[#C67C4E]
-                text-xs
-                md:text-sm
-                mb-6
-                "
-            >
+            <div class="uppercase tracking-[0.3em] text-[#C67C4E] text-xs md:text-sm mb-6 mt-12">
                 Taste of the Neighborhood
             </div>
 
-            <h1
-                class="
-                font-['Playfair_Display']
-                text-white
-                font-bold
-                leading-[1.05]
-                text-4xl
-                sm:text-5xl
-                md:text-6xl
-                lg:text-8xl
-                "
-            >
+            <h1 class="font-['Playfair_Display'] text-white font-bold leading-[1.05] text-4xl sm:text-5xl md:text-6xl lg:text-8xl">
                 From Their
-
-                <span class="text-[#C67C4E] block">
-                    Kitchen
-                </span>
-
+                <span class="text-[#C67C4E] block">Kitchen</span>
                 To Your Table
             </h1>
 
-            <p
-                class="
-                mt-8
-                text-gray-200
-                text-base
-                sm:text-lg
-                leading-8
-                max-w-xl
-                mx-auto
-                md:mx-0
-                "
-            >
-                Discover authentic homemade dishes crafted by talented local
-                cookers. Experience recipes passed through generations and
-                prepared with passion.
+            <p class="mt-8 text-gray-200 text-base sm:text-lg leading-8 max-w-xl mx-auto md:mx-0">
+                Discover authentic homemade dishes crafted by talented local cookers.
+                Experience recipes passed through generations and prepared with passion.
             </p>
 
-            <div
-                class="
-                flex
-                gap-4
-                mt-10
-                flex-wrap
-                justify-center
-                md:justify-start
-                "
-            >
-
-                <a
-                    href="{{ route('register') }}"
-                    class="
-                    px-8
-                    py-4
-                    bg-[#C67C4E]
-                    rounded-lg
-                    text-white
-                    font-semibold
-                    hover:bg-[#d78d5d]
-                    transition
-                    "
-                >
+            <div class="flex gap-4 mt-10 flex-wrap justify-center md:justify-start">
+                <a href="{{ route('register') }}"
+                   class="px-8 py-4 bg-[#C67C4E] rounded-lg text-white font-semibold hover:bg-[#d78d5d] transition">
                     Browse Dishes
                 </a>
 
-                <a
-                    href="#cookers"
-                    class="
-                    px-8
-                    py-4
-                    border
-                    border-white
-                    rounded-lg
-                    text-white
-                    hover:bg-white
-                    hover:text-black
-                    transition
-                    "
-                >
+                <a href="#cookers"
+                   class="px-8 py-4 border border-white rounded-lg text-white hover:bg-white hover:text-black transition">
                     Meet Cookers
                 </a>
-
             </div>
 
         </div>
-
     </div>
 
 </section>
@@ -333,7 +190,7 @@
             </div>
         @else
             <div class="text-center py-12 px-8 text-[#7A6B5D]">
-                <div class="text-5xl mb-4">👨‍🍳</div>
+                <div class="text-5xl mb-4"></div>
                 <p>Cookers are getting ready! Check back soon for amazing home cooks.</p>
             </div>
         @endif
@@ -351,7 +208,7 @@
 
         <!-- Sub-section 1: Cooking Services -->
         <div class="border-b border-[#E8DDD2] pb-2.5 mb-6 flex items-center justify-between">
-            <h3 class="font-['Playfair_Display',Georgia,serif] text-xl font-bold text-[#2C1810] m-0 flex items-center gap-2">🍽️ Cooking Services &amp; Menu Offerings</h3>
+            <h3 class="font-['Playfair_Display',Georgia,serif] text-xl font-bold text-[#2C1810] m-0 flex items-center gap-2">Cooking Services &amp; Menu Offerings</h3>
             @auth
                 <a href="{{ route('dashboard') }}" class="text-xs font-semibold text-[#C67C4E] hover:text-[#d78d5d] transition-colors no-underline flex items-center gap-1">View All &rarr;</a>
             @else
@@ -365,7 +222,7 @@
                         @if($service->image_path)
                             <img src="{{ asset('storage/' . $service->image_path) }}" alt="{{ $service->title }}" class="w-full h-[200px] object-cover bg-[#EDE5DC]">
                         @else
-                            <div class="w-full h-[200px] flex items-center justify-center text-5xl bg-[#EDE5DC]">🍽️</div>
+                            <div class="w-full h-[200px] flex items-center justify-center text-5xl bg-[#EDE5DC]"></div>
                         @endif
                         <div class="p-5 pt-5 pb-6 flex-1 flex flex-col">
                             <div class="flex items-center gap-2 mb-3">
@@ -394,14 +251,14 @@
             </div>
         @else
             <div class="text-center py-12 px-8 text-[#7A6B5D] bg-[#F5F0EB] rounded-2xl mb-16">
-                <div class="text-4xl mb-3">🍽️</div>
+                <div class="text-4xl mb-3"></div>
                 <p class="text-sm font-semibold">No cooking services registered yet.</p>
             </div>
         @endif
 
         <!-- Sub-section 2: Secret Recipes -->
         <div class="border-b border-[#E8DDD2] pb-2.5 mb-6 flex items-center justify-between">
-            <h3 class="font-['Playfair_Display',Georgia,serif] text-xl font-bold text-[#2C1810] m-0 flex items-center gap-2">🥘 Secret Culinary Recipes</h3>
+            <h3 class="font-['Playfair_Display',Georgia,serif] text-xl font-bold text-[#2C1810] m-0 flex items-center gap-2"> Secret Culinary Recipes</h3>
             @auth
                 <a href="{{ route('dashboard') }}" class="text-xs font-semibold text-[#C67C4E] hover:text-[#d78d5d] transition-colors no-underline flex items-center gap-1">View All &rarr;</a>
             @else
@@ -415,7 +272,7 @@
                           @if($recipe->image_path)
                               <img src="{{ asset('storage/' . $recipe->image_path) }}" alt="{{ $recipe->title }}" class="w-full h-[200px] object-cover bg-[#EDE5DC]">
                           @else
-                              <div class="w-full h-[200px] flex items-center justify-center text-5xl bg-[#EDE5DC]">🥘</div>
+                              <div class="w-full h-[200px] flex items-center justify-center text-5xl bg-[#EDE5DC]"></div>
                           @endif
                           <div class="p-5 pt-5 pb-6 flex-1 flex flex-col">
                               <div class="flex items-center gap-2 mb-3">
@@ -444,7 +301,7 @@
             </div>
         @else
             <div class="text-center py-12 px-8 text-[#7A6B5D] bg-[#F5F0EB] rounded-2xl">
-                <div class="text-4xl mb-3">🥘</div>
+                <div class="text-4xl mb-3"></div>
                 <p class="text-sm font-semibold">New secret recipes will be coming soon from our cookers!</p>
             </div>
         @endif
@@ -490,9 +347,9 @@
                         Our cookers are preparing something extraordinary. Every week, we highlight a special recipe that tells a story — of heritage, creativity, and the love poured into every dish. Stay tuned for our first feature!
                     </p>
                     <div class="flex items-center gap-[0.85rem] pt-6 border-t border-[#EDE5DA]">
-                        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#C67C4E] to-[#D4A574] flex items-center justify-center text-[1.25rem]">🍳</div>
+                        
                         <div>
-                            <strong class="block text-[0.95rem] text-white">CookSpace Team</strong>
+                            <strong class="block text-[0.95rem] text-white">Yumz Team</strong>
                             <span class="text-[0.78rem] text-white/55">Curating the best for you</span>
                         </div>
                     </div>

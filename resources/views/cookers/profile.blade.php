@@ -111,7 +111,7 @@
             <span class="text-xl leading-none">{{ $cooker->getCountryFlag() }}</span>
         </div>
         <div class="flex items-center gap-2 flex-wrap">
-            <div class="inline-flex items-center gap-1 text-[0.75rem] text-cs-orange bg-cs-orange-glow px-2.5 py-0.5 rounded-full border border-cs-orange/20 font-semibold">👨‍🍳 Cooker</div>
+            <div class="inline-flex items-center gap-1 text-[0.75rem] text-cs-orange bg-cs-orange-glow px-2.5 py-0.5 rounded-full border border-cs-orange/20 font-semibold"> Cooker</div>
             <div class="inline-flex items-center gap-1 text-[0.68rem] text-[#5D3A1A] bg-[#F5EFE6] px-2 py-0.5 rounded-full border border-[#E0D5C8] font-medium">
                 {{ $cooker->getCountryFlag() }} {{ $cooker->getCountryName() }}
             </div>
@@ -166,7 +166,7 @@
                     @csrf
                     <button type="submit"
                         class="w-full flex items-center justify-center gap-2 px-5 py-2.5 bg-gradient-to-r from-[#2C1810] to-[#3D2B1E] text-white text-sm font-semibold rounded-xl shadow-md hover:shadow-lg hover:scale-[1.02] transition-all duration-200 border-none cursor-pointer">
-                        💬 Chat with Cooker
+                         Chat with Cooker
                     </button>
                 </form>
             @endif
@@ -176,7 +176,7 @@
 
 <!-- Cooking Services Section -->
 <div class="page-section-title animate-fadeInUp [animation-delay:0.05s] opacity-0">
-    🍽️ Food Menu & Cooking Services
+     Food Menu & Cooking Services
 </div>
 
 @if($services->count() > 0)
@@ -202,7 +202,7 @@
                     @if($service->image_path)
                         <img src="{{ $service->getImageUrl() }}" alt="{{ $service->title }}" class="w-full h-full object-cover">
                     @else
-                        <div class="w-full h-full flex items-center justify-center text-3xl bg-cs-orange/5 text-cs-orange">🍽️</div>
+                        <div class="w-full h-full flex items-center justify-center text-3xl bg-cs-orange/5 text-cs-orange"></div>
                     @endif
                     <x-price-display :item="$service" :viewerCurrency="$viewerCurrency" size="sm" color="text-[#D4A574]" class="absolute bottom-1.5 right-1.5 bg-[#2C1810]/85 backdrop-blur-md px-1.5 py-0.5 rounded-full" />
                 </div>
@@ -210,7 +210,7 @@
                 <div class="p-2 sm:p-3 flex-1 flex flex-col justify-between">
                     <div>
                         <div class="flex items-center gap-1 mb-1">
-                            <span class="text-[0.55rem] sm:text-[0.62rem] text-amber-500">⭐</span>
+                            <span class="text-[0.55rem] sm:text-[0.62rem] text-amber-500"></span>
                             <span class="text-[0.55rem] sm:text-[0.62rem] font-bold text-[#2C1810]">{{ number_format($service->averageRating(), 1) }}</span>
                             <span class="text-[0.55rem] sm:text-[0.62rem] text-[#9A7B5A]">({{ $service->reviews()->count() }})</span>
                         </div>
@@ -234,14 +234,14 @@
     </div>
 @else
     <div class="text-center py-12 bg-[#FBF7F3] border border-[#EDE5DA] rounded-2xl text-[#7A6248]">
-        <span class="text-3xl mb-1 block">🍽️</span>
+        <span class="text-3xl mb-1 block"></span>
         <p class="text-sm font-semibold text-[#2C1810]">No cooking services available from this chef yet.</p>
     </div>
 @endif
 
 <!-- Recipes Section -->
 <div class="page-section-title mt-10 animate-fadeInUp [animation-delay:0.12s] opacity-0">
-    🥘 Secret Recipes (Unlock & Secrets)
+     Secret Recipes (Unlock & Secrets)
 </div>
 
 @if($recipes->count() > 0)
@@ -267,7 +267,7 @@
                     @if($recipe->image_path)
                         <img src="{{ asset('storage/' . $recipe->image_path) }}" alt="{{ $recipe->title }}" class="w-full h-full object-cover">
                     @else
-                        <div class="w-full h-full flex items-center justify-center text-3xl bg-cs-orange/5 text-cs-orange">🥘</div>
+                        <div class="w-full h-full flex items-center justify-center text-3xl bg-cs-orange/5 text-cs-orange"></div>
                     @endif
                     <x-price-display :item="$recipe" :viewerCurrency="$viewerCurrency" size="sm" color="text-[#D4A574]" class="absolute bottom-1.5 right-1.5 bg-[#2C1810]/85 backdrop-blur-md px-1.5 py-0.5 rounded-full" />
                 </div>
@@ -275,7 +275,7 @@
                 <div class="p-2 sm:p-3 flex-1 flex flex-col justify-between">
                     <div>
                         <div class="flex items-center gap-1 mb-1">
-                            <span class="text-[0.55rem] sm:text-[0.62rem] text-amber-500">⭐</span>
+                            <span class="text-[0.55rem] sm:text-[0.62rem] text-amber-500"></span>
                             <span class="text-[0.55rem] sm:text-[0.62rem] font-bold text-[#2C1810]">{{ number_format($recipe->averageRating(), 1) }}</span>
                             <span class="text-[0.55rem] sm:text-[0.62rem] text-[#9A7B5A]">({{ $recipe->reviews()->count() }})</span>
                         </div>
@@ -305,7 +305,7 @@
     </div>
 @else
     <div class="text-center py-12 bg-[#FBF7F3] border border-[#EDE5DA] rounded-2xl text-[#7A6248] mb-12">
-        <span class="text-3xl mb-1 block">🥘</span>
+        <span class="text-3xl mb-1 block"></span>
         <p class="text-sm font-semibold text-[#2C1810]">No secret recipes available from this chef yet.</p>
     </div>
 @endif

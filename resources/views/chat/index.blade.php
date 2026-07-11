@@ -481,7 +481,7 @@ html, body { height: 100%; overflow: hidden; }
     $partnerName = $hasRoom ? $partner->name : '';
     $partnerAvatar = ($hasRoom && $partner->profile_photo_path) ? $partner->getProfilePhotoUrl() : null;
     $partnerInitials = $hasRoom ? $partner->getInitials() : '';
-    $partnerRole = $hasRoom ? ($partner->isCooker() ? '👨‍🍳 Cooker' : '🧑 Customer') : '';
+    $partnerRole = $hasRoom ? ($partner->isCooker() ? ' Cooker' : ' Customer') : '';
     $partnerProfileUrl = ($hasRoom && $user->isCustomer() && $partner->isCooker()) ? route('cookers.show', $partner) : null;
 @endphp
 
@@ -490,7 +490,7 @@ html, body { height: 100%; overflow: hidden; }
     {{-- ═══════════════ SIDEBAR ═══════════════ --}}
     <div class="mt-4 s-panel {{ $hasRoom ? 'hide-mobile' : '' }}" id="s-panel">
         <div class="s-header">
-            <span style="font-size:1.3rem;">💬</span>
+            <span style="font-size:1.3rem;"></span>
             <span class="s-header-title">Messages</span>
         </div>
         <div class="s-search">
@@ -724,7 +724,7 @@ html, body { height: 100%; overflow: hidden; }
 
     {{-- Welcome panel --}}
     <div class="c-panel c-welcome" id="c-welcome" style="display: {{ $hasRoom ? 'none' : 'flex' }};">
-        <div class="big-icon">🍳</div>
+        <div class="big-icon"></div>
         <h2>Your messages</h2>
         <p>Pick a conversation from the left to start chatting</p>
     </div>

@@ -29,7 +29,7 @@
     <a href="{{ route('cookers.show', $cooker) }}" class="inline-flex items-center gap-[0.4rem] text-[0.82rem] text-[#7A6248] hover:text-cs-orange transition-colors duration-200 mb-6 no-underline anim-in">← Chef Profile {{ $cooker->name }}</a>
 
     <div class="mb-6 anim-in">
-        <h1 class="text-[1.5rem] font-bold text-[#2C1810] mb-[0.3rem]">📦 Order Cooking Service</h1>
+        <h1 class="text-[1.5rem] font-bold text-[#2C1810] mb-[0.3rem]">Order Cooking Service</h1>
     </div>
 
     {{-- Service summary card --}}
@@ -74,7 +74,7 @@
 
             @if($conversionInfo && (float)auth()->user()->wallet_balance < $conversionInfo['converted_amount'])
             <div class="text-xs text-red-500 bg-red-50 border border-red-100 rounded-xl px-4 py-3 flex items-center gap-2">
-                <span>💸</span>
+                
                 <span>Insufficient balance. <a href="{{ route('wallet') }}" class="font-semibold text-red-600 hover:underline">Top-up wallet →</a></span>
             </div>
             @endif
@@ -105,7 +105,7 @@
                 {{ $insufficient ? 'disabled' : '' }}
                 style="{{ $insufficient ? 'opacity:0.5;cursor:not-allowed;' : '' }}"
                 onclick="return confirm('Confirm Order:\n\nService: {{ addslashes($service->title) }}\nPrice: {{ addslashes($confirmPrice) }}\nYour Balance: {{ addslashes($confirmBalance) }}\n\nVirtual Wallet Transaction (Simulation)\nContinue?')">
-                📦 Confirm Order — {{ $confirmPrice }}
+                 Confirm Order — {{ $confirmPrice }}
             </button>
         </form>
     </div>

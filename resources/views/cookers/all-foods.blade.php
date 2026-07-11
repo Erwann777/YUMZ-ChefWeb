@@ -205,7 +205,7 @@
         @endif
     @else
         <div class="text-center py-12 bg-[#FBF7F3] border border-[#EDE5DA] rounded-2xl text-[#7A6248]">
-            <span class="text-3xl mb-1 block">🍽️</span>
+            <span class="text-3xl mb-1 block"></span>
             <p class="text-sm font-semibold text-[#2C1810]">No food menus found.</p>
         </div>
     @endif
@@ -231,7 +231,7 @@
                         @if($item->image_path)
                             <img src="{{ asset('storage/' . $item->image_path) }}" alt="{{ $item->title }}" class="w-full h-full object-cover">
                         @else
-                            <div class="w-full h-full flex items-center justify-center text-2xl sm:text-3xl bg-cs-orange/5 text-cs-orange">🥘</div>
+                            <div class="w-full h-full flex items-center justify-center text-2xl sm:text-3xl bg-cs-orange/5 text-cs-orange"></div>
                         @endif
                         <div class="absolute bottom-1.5 right-1.5 bg-[#2C1810]/85 backdrop-blur-md px-1.5 py-0.5 rounded-full flex items-center gap-0.5">
                             <span class="opacity-75 leading-none text-[0.6rem]">{{ $item->cooker->getCountryFlag() }}</span>
@@ -290,7 +290,7 @@
         @endif
     @else
         <div class="text-center py-12 bg-[#FBF7F3] border border-[#EDE5DA] rounded-2xl text-[#7A6248]">
-            <span class="text-3xl mb-1 block">🥘</span>
+            <span class="text-3xl mb-1 block"></span>
             <p class="text-sm font-semibold text-[#2C1810]">No secret recipes found.</p>
         </div>
     @endif

@@ -43,7 +43,7 @@
 
                         <!-- Photo Edit Icon Overlay -->
                         <div class="absolute inset-0 bg-black/40 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center text-white text-xs font-semibold">
-                            Change Photo 📸
+                            Change Photo 
                         </div>
                     </div>
 
@@ -61,11 +61,11 @@
                         bg-blue-500/12 text-blue-600 border border-blue-500/20
                     @endif">
                     @if($user->isCooker())
-                        👨‍🍳 Cooker
+                        Cooker
                     @elseif($user->isAdmin())
-                        🛡️ Admin
+                        Admin
                     @else
-                        🛒 Customer
+                        Customer
                     @endif
                 </span>
 
@@ -94,16 +94,16 @@
 
             <!-- Stats/Activity Card -->
             <div class="bg-white border border-[#E8DDD2] rounded-3xl p-5 shadow-[0_2px_12px_rgba(44,24,16,0.03)]">
-                <h4 class="text-xs font-bold text-[#2C1810] uppercase tracking-wider mb-3.5 pb-2 border-b border-[#E8DDD2]">📊 Account Activity</h4>
+                <h4 class="text-xs font-bold text-[#2C1810] uppercase tracking-wider mb-3.5 pb-2 border-b border-[#E8DDD2]">Account Activity</h4>
                 
                 @if($user->isCustomer())
                     <div class="flex flex-col gap-3">
                         <div class="flex justify-between items-center bg-[#F5EFE6]/50 p-2.5 rounded-xl border border-slate-100">
-                            <span class="text-xs text-[#7A6248]">🥘 Purchased Recipes</span>
+                            <span class="text-xs text-[#7A6248]">Purchased Recipes</span>
                             <span class="text-sm font-bold text-[#2C1810]">{{ $recipePurchasesCount }}</span>
                         </div>
                         <div class="flex justify-between items-center bg-[#F5EFE6]/50 p-2.5 rounded-xl border border-slate-100">
-                            <span class="text-xs text-[#7A6248]">📦 Cooking Services Ordered</span>
+                            <span class="text-xs text-[#7A6248]">Cooking Services Ordered</span>
                             <span class="text-sm font-bold text-[#2C1810]">{{ $serviceOrdersCount }}</span>
                         </div>
                     </div>
@@ -112,15 +112,15 @@
                 @if($user->isCooker())
                     <div class="flex flex-col gap-3">
                         <div class="flex justify-between items-center bg-[#C67C4E]/5 p-2.5 rounded-xl border border-[#C67C4E]/10">
-                            <span class="text-xs text-[#7A6248]">🥘 My Recipes</span>
+                            <span class="text-xs text-[#7A6248]">My Recipes</span>
                             <span class="text-sm font-bold text-[#C67C4E]">{{ $recipesCount }}</span>
                         </div>
                         <div class="flex justify-between items-center bg-[#C67C4E]/5 p-2.5 rounded-xl border border-[#C67C4E]/10">
-                            <span class="text-xs text-[#7A6248]">👨‍🍳 My Services</span>
+                            <span class="text-xs text-[#7A6248]">My Services</span>
                             <span class="text-sm font-bold text-[#C67C4E]">{{ $servicesCount }}</span>
                         </div>
                         <div class="flex justify-between items-center bg-[#C67C4E]/5 p-2.5 rounded-xl border border-[#C67C4E]/10">
-                            <span class="text-xs text-[#7A6248]">📦 Orders Received</span>
+                            <span class="text-xs text-[#7A6248]">Orders Received</span>
                             <span class="text-sm font-bold text-[#C67C4E]">{{ $ordersCount }}</span>
                         </div>
                     </div>
@@ -131,7 +131,7 @@
         <!-- Main Form: Edit Details -->
         <div class="md:col-span-2">
             <div class="bg-white border border-[#E8DDD2] rounded-3xl p-6 sm:p-8 shadow-[0_2px_12px_rgba(44,24,16,0.03)]">
-                <h2 class="text-xl font-bold text-[#2C1810] mb-1">👤 Personal Detail Information</h2>
+                <h2 class="text-xl font-bold text-[#2C1810] mb-1">Personal Detail Information</h2>
                 <p class="text-xs text-[#7A6248] mb-6">Update your profile to build a trusted identity on CookSpace.</p>
 
                 <form action="{{ route('profile.update') }}" method="POST" class="flex flex-col gap-5">
@@ -176,7 +176,7 @@
                     </div>
 
                     <div class="border-t border-[#E8DDD2] pt-4 mt-2">
-                        <h3 class="text-sm font-bold text-[#2C1810] mb-1">🔑 Change Password (Optional)</h3>
+                        <h3 class="text-sm font-bold text-[#2C1810] mb-1">Change Password (Optional)</h3>
                         <p class="text-[0.7rem] text-[#7A6248] mb-4">Leave blank if you do not want to change your account password.</p>
                         
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -197,7 +197,7 @@
                     </div>
 
                     <!-- Submit Button -->
-                    <button type="submit" class="self-start mt-4 px-8 py-3 bg-[#C67C4E] text-white font-semibold text-sm rounded-xl hover:bg-[#B06A3E] transition-colors shadow-sm cursor-pointer border-none">
+                    <button type="submit" class="self-center mt-4 px-8 py-3 bg-[#C67C4E] text-white font-semibold text-sm rounded-xl hover:bg-[#B06A3E] transition-colors shadow-sm cursor-pointer border-none">
                         Save Changes
                     </button>
                 </form>

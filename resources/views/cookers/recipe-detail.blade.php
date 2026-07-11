@@ -123,12 +123,12 @@
                 
                 <!-- Category Badge -->
                 <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-white text-slate-700 border border-slate-200 capitalize">
-                    🗺️ {{ $recipe->category }}
+                    {{ $recipe->category }}
                 </span>
 
                 <!-- Avg Rating -->
                 <span class="text-xs font-bold px-2.5 py-0.5 rounded-full bg-amber-50 text-amber-700 border border-amber-200 flex items-center gap-1">
-                    ⭐ {{ number_format($recipe->averageRating(), 1) }} ({{ $reviews->count() }} Reviews)
+                     {{ number_format($recipe->averageRating(), 1) }} ({{ $reviews->count() }} Reviews)
                 </span>
             </div>
         </div>
@@ -180,7 +180,7 @@
                 @if($userPurchase && $userPurchase->rating)
                     <!-- Display existing rating -->
                     <h3 class="text-sm font-bold text-[#2C1810] mb-2 flex items-center gap-1.5">
-                        ⭐ Your Review
+                         Your Review
                     </h3>
                     <div class="flex items-center gap-1 mb-2">
                         @for($i = 1; $i <= 5; $i++)
@@ -191,7 +191,7 @@
                     <p class="text-xs text-[#7A6248] italic">"{{ $userPurchase->review ?? 'No written comment.' }}"</p>
                 @else
                     <!-- Input rating form -->
-                    <h3 class="text-sm font-bold text-[#2C1810] mb-1">⭐ Rate This Food</h3>
+                    <h3 class="text-sm font-bold text-[#2C1810] mb-1"> Rate This Food</h3>
                     <p class="text-[0.7rem] text-[#7A6248] mb-4">Share your review to help other customers choose.</p>
 
                     <form action="{{ route('recipes.rate', $recipe) }}" method="POST" class="m-0 flex flex-col gap-4">

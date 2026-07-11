@@ -123,12 +123,12 @@
                 
                 <!-- Category Badge -->
                 <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-white text-slate-700 border border-slate-200 capitalize">
-                    🗺️ {{ $service->category }}
+                    {{ $service->category }}
                 </span>
 
                 <!-- Avg Rating -->
                 <span class="text-xs font-bold px-2.5 py-0.5 rounded-full bg-amber-50 text-amber-700 border border-amber-200 flex items-center gap-1">
-                    ⭐ {{ number_format($service->averageRating(), 1) }} ({{ $reviews->count() }} Reviews)
+                    {{ number_format($service->averageRating(), 1) }} ({{ $reviews->count() }} Reviews)
                 </span>
             </div>
         </div>
@@ -155,7 +155,7 @@
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
         <!-- Left details (span 2) -->
         <div class="md:col-span-2">
-            <h3 class="text-base font-bold text-[#2C1810] mb-3">📋 Food / Service Description</h3>
+            <h3 class="text-base font-bold text-[#2C1810] mb-3">Food / Service Description</h3>
             <div class="desc-block">
                 {{ $service->description }}
             </div>
@@ -195,7 +195,7 @@
                     <a href="{{ route('services.order', [$cooker, $service]) }}"
                         class="block w-full text-center py-3 rounded-xl text-sm font-bold text-white cursor-pointer transition-all duration-300 no-underline shadow-[0_4px_14px_rgba(198,124,78,0.25)] hover:-translate-y-0.5 hover:shadow-[0_8px_25px_rgba(198,124,78,0.35)]"
                         style="background: linear-gradient(135deg, #C67C4E, #B06A3E);">
-                        📦 Order Service Now
+                         Order Service Now
                     </a>
                 @else
                     <div class="text-xs text-[#9A7B5A] italic bg-[#F5EFE6] border border-slate-100 rounded-xl p-3">
@@ -241,7 +241,7 @@
     <!-- SECTION: Review Pelanggan Lain -->
     <div>
         <h3 class="text-base font-bold text-[#2C1810] mb-4 flex items-center gap-1.5">
-            💬 Customer Reviews ({{ $reviews->count() }})
+             Customer Reviews ({{ $reviews->count() }})
         </h3>
 
         @if($reviews->count() > 0)
@@ -282,7 +282,7 @@
             </div>
         @else
             <div class="text-center py-8 bg-[#FBF7F3] border border-[#EDE5DA] rounded-2xl text-[#7A6248] shadow-sm">
-                <span class="text-2xl mb-1 block">💬</span>
+                <span class="text-2xl mb-1 block"></span>
                 <p class="text-xs">No reviews for this service yet. Be the first to leave a review!</p>
             </div>
         @endif

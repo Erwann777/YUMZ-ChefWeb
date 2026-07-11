@@ -5,7 +5,7 @@
 @section('content')
 <div class="flex items-center justify-between mb-6 flex-wrap gap-4 anim-in">
     <div>
-        <h1 class="text-2xl font-bold text-cs-text-primary">👥 User Management</h1>
+        <h1 class="text-2xl font-bold text-cs-text-primary">User Management</h1>
         <p class="text-cs-text-secondary text-sm">Manage all CookSpace users</p>
     </div>
 </div>
@@ -75,8 +75,8 @@
                         <td class="px-5 py-3 text-sm text-cs-text-secondary border-b border-admin-border last:border-b-0 max-sm:hidden">{{ $u->created_at->format('d M Y') }}</td>
                         <td class="px-5 py-3 text-sm text-cs-text-secondary border-b border-admin-border last:border-b-0">
                             <div class="flex items-center gap-1.5">
-                                <a href="{{ route('admin.users.show', $u) }}" class="btn btn-ghost btn-sm">👁️ View</a>
-                                <a href="{{ route('admin.users.edit', $u) }}" class="btn btn-ghost btn-sm" id="edit-user-{{ $u->id }}">✏️ Edit</a>
+                                <a href="{{ route('admin.users.show', $u) }}" class="btn btn-ghost btn-sm"> View</a>
+                                <a href="{{ route('admin.users.edit', $u) }}" class="btn btn-ghost btn-sm" id="edit-user-{{ $u->id }}"> Edit</a>
                                 @if($u->id !== $user->id)
                                     <form action="{{ route('admin.users.delete', $u) }}" method="POST" class="inline" onsubmit="return confirm('Are you sure you want to delete {{ $u->name }}?')">
                                         @csrf

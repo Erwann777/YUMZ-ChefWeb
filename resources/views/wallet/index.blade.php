@@ -18,7 +18,7 @@
 
         {{-- Wallet Card --}}
         <div class="relative overflow-hidden rounded-3xl mb-8 p-7 text-white shadow-2xl"
-             style="background: linear-gradient(135deg, #C67C4E 0%, #8B4513 50%, #6B2F0A 100%)">
+             style="background: linear-gradient(135deg, #3cdd41ff 0%, #13c531ff 50%, #18a539ff 100%)">
             <!-- Background pattern -->
             <div class="absolute inset-0 opacity-10">
                 <div class="absolute top-0 right-0 w-64 h-64 bg-white rounded-full -translate-y-32 translate-x-32"></div>
@@ -35,9 +35,7 @@
                         </div>
                         <div class="text-sm opacity-60 mt-1">Your Virtual Balance</div>
                     </div>
-                    <div class="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center text-3xl backdrop-blur-sm">
-                        💰
-                    </div>
+                    
                 </div>
                 <div class="flex gap-4 text-sm">
                     <div class="bg-white/15 rounded-xl px-4 py-2">
@@ -105,8 +103,8 @@
                             placeholder="Enter amount" min="1" step="any" required>
 
                         <button type="submit"
-                            class="w-full py-3 bg-gradient-to-r from-[#C67C4E] to-[#A0522D] text-white rounded-xl text-sm font-semibold hover:shadow-md transition-all hover:-translate-y-0.5">
-                            💰 Top-Up Now
+                            class="w-full py-3 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-xl text-sm font-semibold hover:shadow-md transition-all hover:-translate-y-0.5">
+                            Top-Up Now
                         </button>
                         <p class="text-[0.65rem] text-[#94a3b8] mt-2 text-center">Simulation only — not a real transaction</p>
                     </form>
@@ -150,7 +148,6 @@
         <div class="bg-white rounded-2xl shadow-sm border border-[#F0E8DE] overflow-hidden">
             <div class="px-6 py-5 border-b border-[#F0E8DE] flex items-center justify-between">
                 <div class="flex items-center gap-2">
-                    <div class="w-8 h-8 bg-[#FDF5EE] rounded-lg flex items-center justify-center">📋</div>
                     <h3 class="font-semibold text-[#2C1810]">Transaction History</h3>
                 </div>
                 <span class="text-xs text-[#94a3b8]">{{ $transactions->total() }} transactions</span>
@@ -158,7 +155,7 @@
 
             @if($transactions->isEmpty())
             <div class="py-16 text-center">
-                <div class="text-5xl mb-3">📭</div>
+                <div class="text-5xl mb-3"></div>
                 <div class="text-[#5D3A1A] font-medium">No transactions yet</div>
                 <div class="text-sm text-[#94a3b8] mt-1">Start buying recipes or ordering cooker services!</div>
                 <a href="{{ route('foods.index') }}"
@@ -171,11 +168,6 @@
                 @foreach($transactions as $tx)
                 <div class="px-6 py-4 hover:bg-[#FAFAF9] transition-colors">
                     <div class="flex items-start gap-4">
-                        {{-- Icon --}}
-                        <div class="w-10 h-10 rounded-xl flex items-center justify-center text-lg shrink-0
-                            {{ $tx->type === 'credit' ? 'bg-green-50' : 'bg-red-50' }}">
-                            {{ $tx->type === 'credit' ? '⬆️' : '⬇️' }}
-                        </div>
                         {{-- Details --}}
                         <div class="flex-1 min-w-0">
                             <div class="flex items-center gap-2 mb-0.5">

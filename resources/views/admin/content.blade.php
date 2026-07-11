@@ -5,14 +5,14 @@
 @section('content')
 <div class="flex items-center justify-between mb-6 flex-wrap gap-4 anim-in">
     <div>
-        <h1 class="text-2xl font-bold text-cs-text-primary">🍽️ Content Management</h1>
+        <h1 class="text-2xl font-bold text-cs-text-primary">Content Management</h1>
         <p class="text-cs-text-secondary text-sm">Moderate recipes and cooking services across the platform</p>
     </div>
 </div>
 
 <div class="flex items-center gap-2 mb-5 anim-in anim-d1">
-    <a href="{{ route('admin.content', ['tab' => 'recipes']) }}" class="px-4 py-2 rounded-lg text-sm font-medium border transition-all {{ $tab === 'recipes' ? 'bg-admin-accent/10 border-admin-accent/30 text-admin-accent' : 'bg-white border-admin-border text-cs-text-secondary hover:bg-slate-50/50' }}">🥘 Recipes</a>
-    <a href="{{ route('admin.content', ['tab' => 'services']) }}" class="px-4 py-2 rounded-lg text-sm font-medium border transition-all {{ $tab === 'services' ? 'bg-admin-accent/10 border-admin-accent/30 text-admin-accent' : 'bg-white border-admin-border text-cs-text-secondary hover:bg-slate-50/50' }}">🍽️ Services</a>
+    <a href="{{ route('admin.content', ['tab' => 'recipes']) }}" class="px-4 py-2 rounded-lg text-sm font-medium border transition-all {{ $tab === 'recipes' ? 'bg-admin-accent/10 border-admin-accent/30 text-admin-accent' : 'bg-white border-admin-border text-cs-text-secondary hover:bg-slate-50/50' }}">Recipes</a>
+    <a href="{{ route('admin.content', ['tab' => 'services']) }}" class="px-4 py-2 rounded-lg text-sm font-medium border transition-all {{ $tab === 'services' ? 'bg-admin-accent/10 border-admin-accent/30 text-admin-accent' : 'bg-white border-admin-border text-cs-text-secondary hover:bg-slate-50/50' }}">Services</a>
 </div>
 
 <form method="GET" action="{{ route('admin.content') }}" class="flex items-center gap-2.5 flex-wrap mb-5 anim-in anim-d1">
@@ -88,7 +88,7 @@
                             </td>
                         </tr>
                     @empty
-                        <tr><td colspan="6" class="px-5 py-12 text-center text-cs-text-secondary"><div class="text-4xl mb-3">🥘</div>No recipes found</td></tr>
+                        <tr><td colspan="6" class="px-5 py-12 text-center text-cs-text-secondary"><div class="text-4xl mb-3"></div>No recipes found</td></tr>
                     @endforelse
                 </tbody>
             </table>
@@ -136,7 +136,7 @@
                             </td>
                         </tr>
                     @empty
-                        <tr><td colspan="6" class="px-5 py-12 text-center text-cs-text-secondary"><div class="text-4xl mb-3">🍽️</div>No services found</td></tr>
+                        <tr><td colspan="6" class="px-5 py-12 text-center text-cs-text-secondary"><div class="text-4xl mb-3"></div>No services found</td></tr>
                     @endforelse
                 </tbody>
             </table>
