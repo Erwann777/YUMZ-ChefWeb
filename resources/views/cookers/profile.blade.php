@@ -157,6 +157,8 @@
                     data-following="{{ $isFollowingNow ? '1' : '0' }}"
                     data-label-follow=" Follow Cooker"
                     data-label-unfollow=" Unfollow"
+                    data-class-follow="bg-gradient-to-r from-[#C67C4E] to-[#b56b3f] text-white border-transparent hover:scale-[1.02]"
+                    data-class-unfollow="bg-[#7A6B5D] text-white border-[#7A6B5D] hover:bg-[#5C4D40] hover:border-[#5C4D40]"
                     data-btn-variant="pill"
                     onclick="toggleFollow(this, {{ $cooker->id }}, this.dataset.followUrl)"
                     class="w-full flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 border border-solid cursor-pointer shadow-md hover:shadow-lg

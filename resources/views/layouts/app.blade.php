@@ -636,9 +636,43 @@ window._followCsrf = '{{ csrf_token() }}';
 
 async function toggleFollow(btn, cookerId, url) {
     if (!cookerId || !url) return;
-    btn.disabled = true;
-    const prev = btn.innerHTML;
-    btn.innerHTML = '<span style="display:inline-block;width:14px;height:14px;border:2px solid currentColor;border-top-color:transparent;border-radius:50%;animation:spin .6s linear infinite;vertical-align:middle;"></span>';
+
+    if (btn.dataset.transitioning === 'true') return;
+    btn.dataset.transitioning = 'true';
+
+    const currentFollowing = btn.dataset.following === '1';
+    const nextFollowing = !currentFollowing;
+
+    // Save previous state for rollback
+    const prevStates = [];
+    document.querySelectorAll('[data-follow-cooker="' + cookerId + '"]').forEach(el => {
+        prevStates.push({
+            el: el,
+            following: el.dataset.following,
+            innerHTML: el.innerHTML,
+            className: el.className
+        });
+    });
+
+    const prevCounters = [];
+    document.querySelectorAll('[data-followers-count="' + cookerId + '"]').forEach(el => {
+        prevCounters.push({
+            el: el,
+            textContent: el.textContent
+        });
+    });
+
+    // ── Apply Optimistic Updates ──
+    document.querySelectorAll('[data-follow-cooker="' + cookerId + '"]').forEach(el => {
+        el.dataset.following = nextFollowing ? '1' : '0';
+        _applyFollowState(el, nextFollowing);
+    });
+
+    document.querySelectorAll('[data-followers-count="' + cookerId + '"]').forEach(el => {
+        const currentCount = parseInt(el.textContent.trim()) || 0;
+        const newCount = nextFollowing ? currentCount + 1 : Math.max(0, currentCount - 1);
+        el.textContent = newCount + (el.dataset.suffix || '');
+    });
 
     try {
         const res  = await fetch(url, {
@@ -652,52 +686,81 @@ async function toggleFollow(btn, cookerId, url) {
         const data = await res.json();
         if (!res.ok || !data.success) throw new Error(data.message || 'Error');
 
-        /* ── Update every follow btn that belongs to this cooker ── */
-        document.querySelectorAll('[data-follow-cooker="' + cookerId + '"]').forEach(el => {
-            el.dataset.following = data.following ? '1' : '0';
-            _applyFollowState(el, data.following);
-        });
-
-        /* ── Update any followers counter visible for this cooker ── */
+        // Optional: synchronize final count from server to ensure correctness
         document.querySelectorAll('[data-followers-count="' + cookerId + '"]').forEach(el => {
             el.textContent = data.followers_count + (el.dataset.suffix || '');
         });
 
     } catch (err) {
-        btn.innerHTML = prev;
-        console.error('[Follow]', err);
+        console.error('[Follow Error - Rolling back]', err);
+        
+        // Rollback states on error
+        prevStates.forEach(state => {
+            state.el.dataset.following = state.following;
+            state.el.innerHTML = state.innerHTML;
+            state.el.className = state.className;
+        });
+
+        prevCounters.forEach(counter => {
+            counter.el.textContent = counter.textContent;
+        });
+
+        alert(err.message || 'Gagal mengubah status ikuti.');
     } finally {
-        btn.disabled = false;
+        btn.dataset.transitioning = 'false';
     }
 }
 
 function _applyFollowState(btn, following) {
+    const classFollow = btn.dataset.classFollow;
+    const classUnfollow = btn.dataset.classUnfollow;
+
     if (following) {
         btn.innerHTML = btn.dataset.labelUnfollow || ' Unfollow';
-        btn.className = btn.className
-            .replace(/bg-gradient-to-r\s+from-\[#C67C4E\]\s+to-\[#b56b3f\]/g, '')
-            .replace(/bg-white/g, '')
-            .replace(/text-\[#C67C4E\]/g, '')
-            .replace(/border-\[#C67C4E\]/g, '')
-            .replace(/hover:bg-\[#C67C4E\]/g, '')
-            .replace(/hover:text-white/g, '')
-            .trim();
-        if (!btn.className.includes('bg-[#7A6B5D]')) {
-            btn.className += ' bg-[#7A6B5D] text-white border-[#7A6B5D] hover:bg-[#5C4D40] hover:border-[#5C4D40]';
+        if (classFollow && classUnfollow) {
+            classFollow.split(/\s+/).forEach(c => {
+                if (c.trim()) btn.classList.remove(c.trim());
+            });
+            classUnfollow.split(/\s+/).forEach(c => {
+                if (c.trim()) btn.classList.add(c.trim());
+            });
+        } else {
+            btn.className = btn.className
+                .replace(/bg-gradient-to-r\s+from-\[#C67C4E\]\s+to-\[#b56b3f\]/g, '')
+                .replace(/bg-white/g, '')
+                .replace(/text-\[#C67C4E\]/g, '')
+                .replace(/border-\[#C67C4E\]/g, '')
+                .replace(/hover:bg-\[#C67C4E\]/g, '')
+                .replace(/hover:text-white/g, '')
+                .trim();
+            btn.className = btn.className.replace(/text-white/g, '').trim();
+            if (!btn.className.includes('bg-[#7A6B5D]')) {
+                btn.className += ' bg-[#7A6B5D] text-white border-[#7A6B5D] hover:bg-[#5C4D40] hover:border-[#5C4D40]';
+            }
         }
     } else {
         btn.innerHTML = btn.dataset.labelFollow || ' Follow';
-        btn.className = btn.className
-            .replace(/bg-\[#7A6B5D\]/g, '')
-            .replace(/border-\[#7A6B5D\]/g, '')
-            .replace(/hover:bg-\[#5C4D40\]/g, '')
-            .replace(/hover:border-\[#5C4D40\]/g, '')
-            .trim();
-        const baseClass = btn.dataset.btnVariant === 'pill'
-            ? 'bg-white text-[#C67C4E] border-[#C67C4E] hover:bg-[#C67C4E] hover:text-white'
-            : 'bg-white text-[#C67C4E] border-[#C67C4E] hover:bg-[#C67C4E] hover:text-white';
-        if (!btn.className.includes('text-[#C67C4E]')) {
-            btn.className += ' ' + baseClass;
+        if (classFollow && classUnfollow) {
+            classUnfollow.split(/\s+/).forEach(c => {
+                if (c.trim()) btn.classList.remove(c.trim());
+            });
+            classFollow.split(/\s+/).forEach(c => {
+                if (c.trim()) btn.classList.add(c.trim());
+            });
+        } else {
+            btn.className = btn.className
+                .replace(/bg-\[#7A6B5D\]/g, '')
+                .replace(/border-\[#7A6B5D\]/g, '')
+                .replace(/hover:bg-\[#5C4D40\]/g, '')
+                .replace(/hover:border-\[#5C4D40\]/g, '')
+                .replace(/text-white/g, '')
+                .trim();
+            const baseClass = btn.dataset.btnVariant === 'pill'
+                ? 'bg-white text-[#C67C4E] border-[#C67C4E] hover:bg-[#C67C4E] hover:text-white'
+                : 'bg-white text-[#C67C4E] border-[#C67C4E] hover:bg-[#C67C4E] hover:text-white';
+            if (!btn.className.includes('text-[#C67C4E]')) {
+                btn.className += ' ' + baseClass;
+            }
         }
     }
 }
