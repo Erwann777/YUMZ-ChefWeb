@@ -697,11 +697,11 @@ html, body { height: 100%; overflow: hidden; }
                     <button class="att-btn" id="att-btn" onclick="toggleAtt()" title="Attach">+</button>
                     <div class="att-popup" id="att-popup">
                         <label class="att-opt">
-                            <span class="att-ic"></span><span>Photo</span>
+                            <span class=""></span><span>Photo</span>
                             <input type="file" id="img-input" accept="image/*" onchange="handleFile(this,'image')">
                         </label>
                         <label class="att-opt">
-                            <span class="att-ic"></span><span>Video</span>
+                            <span class=""></span><span>Video</span>
                             <input type="file" id="vid-input" accept="video/*" onchange="handleFile(this,'video')">
                         </label>
                     </div>
