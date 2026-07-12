@@ -213,7 +213,7 @@
                 <a href="{{ route('cookers.index') }}"  class="nav-link">Cookers</a>
                 <a href="{{ route('welcome') }}#stories"  class="nav-link">Stories</a>
                 <a href="{{ route('welcome') }}#feedback" class="nav-link">Contact</a>
-                @if(!Auth::user()->isCooker())
+                @if(Auth::user()->isCustomer())
                     <a href="{{ route('dashboard') }}" class="nav-link nav-link-accent">Dashboard</a>
                 @endif
                 @if(Auth::user()->isCooker())
@@ -276,10 +276,10 @@
                                 <span class="text-xs">{{ Auth::user()->getFormattedWalletBalance() }}</span>
                             </a>
                         </div>
+                        @if(Auth::user()->isCustomer())
                         <a href="{{ route('wallet') }}" class="flex items-center gap-2.5 px-4 py-2.5 text-[#2C1810] hover:bg-[#F5EFE6] text-sm no-underline transition-colors block">
                             <span class="text-base"></span> My Wallet
                         </a>
-                        @if(Auth::user()->isCustomer())
                         <a href="{{ route('dashboard') }}?tab=orders#transaction-section" class="flex items-center gap-2.5 px-4 py-2.5 text-[#2C1810] hover:bg-[#F5EFE6] text-sm no-underline transition-colors block">
                             <span class="text-base"></span> My Orders
                         </a>
@@ -307,7 +307,8 @@
                     </div>
                 </div>
 
-            
+
+            @if(!Auth::user()->isAdmin())
             <!-- Messages + Notification wrapper (desktop) -->
             <div id="notif-bell-wrapper" class="relative flex items-center gap-2">
 
@@ -350,6 +351,7 @@
                 </div>
 
             </div><!-- /notif-bell-wrapper -->
+            @endif
             </div><!-- /desktop auth wrapper -->
             @else
                 <a href="{{ route('login') }}"
@@ -374,6 +376,7 @@
          Tidak bisa tertimpa oleh layer apapun
     ═════════════════════════════════════════════════════ -->
     @auth
+    @if(!Auth::user()->isAdmin())
    <div id="mobile-nav-icons" class="fixed top-3 z-[9999] flex items-center gap-2">
     <!-- Messages link mobile -->
     <a href="{{ route('chat.index') }}"
@@ -413,6 +416,7 @@
             </div>
         </div>
     </div>
+    @endif
     @endauth
 
     <button
@@ -441,7 +445,7 @@
                     <a href="{{ route('cookers.index') }}"  class="mobile-link text-white/85 text-sm font-medium py-2 px-3 rounded-lg hover:bg-white/8 hover:text-white text-center transition-all">Cookers</a>
                     <a href="{{ route('welcome') }}#stories"  class="mobile-link text-white/85 text-sm font-medium py-2 px-3 rounded-lg hover:bg-white/8 hover:text-white text-center transition-all">Stories</a>
                     <a href="{{ route('welcome') }}#feedback" class="mobile-link text-white/85 text-sm font-medium py-2 px-3 rounded-lg hover:bg-white/8 hover:text-white text-center transition-all">Contact</a>
-                    @if(!Auth::user()->isCooker())
+                    @if(Auth::user()->isCustomer())
                         <a href="{{ route('dashboard') }}" class="mobile-link text-[#e8a87c] text-sm font-semibold py-2 px-3 rounded-lg hover:bg-[#C67C4E]/15 text-center transition-all">Dashboard</a>
                     @endif
                     @if(Auth::user()->isCooker())
@@ -490,10 +494,10 @@
                     </div>
                     <!-- Action Buttons -->
                     <div class="flex flex-col gap-2">
+                        @if(Auth::user()->isCustomer())
                         <a href="{{ route('wallet') }}" class="flex items-center justify-center gap-2 py-2.5 border border-[#C67C4E]/30 bg-[#C67C4E]/10 rounded-lg text-[#e8a87c] hover:bg-[#C67C4E]/20 transition-all text-sm font-medium no-underline">
                             My Wallet
                         </a>
-                        @if(Auth::user()->isCustomer())
                         <a href="{{ route('dashboard') }}?tab=orders#transaction-section" class="mobile-link flex items-center justify-center gap-2 py-2.5 border border-white/15 rounded-lg text-white/85 hover:bg-white/8 hover:text-white transition-all text-sm font-medium no-underline">
                             My Orders
                         </a>

@@ -16,6 +16,9 @@ class DashboardController extends Controller
         if ($user && $user->isCooker()) {
             return redirect()->route('cooker.dashboard');
         }
+        if ($user && $user->role === 'admin') {
+            return redirect()->route('admin.dashboard');
+        }
         $search = $request->input('search');
         $viewerCurrency = strtoupper($user?->currency ?? 'IDR');
 

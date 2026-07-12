@@ -18,6 +18,10 @@ class ChatController extends Controller
     {
         $user = Auth::user();
 
+        if ($user->isAdmin()) {
+            abort(403, 'Admin tidak dapat mengakses fitur pesan.');
+        }
+
         $relation = $user->isCooker() ? 'cooker_id' : 'customer_id';
         $with     = $user->isCooker() ? ['customer', 'messages' => fn($q) => $q->latest()->limit(1)]
                                       : ['cooker',   'messages' => fn($q) => $q->latest()->limit(1)];

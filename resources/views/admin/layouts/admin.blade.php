@@ -55,12 +55,6 @@
                 <span class="w-5 text-center text-base"></span>
                 <span>Activity Log</span>
             </a>
-
-            <div class="text-[0.65rem] font-semibold uppercase tracking-wider text-cs-text-muted px-3 pt-4 pb-1.5">Quick Links</div>
-            <a href="/" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm font-medium transition-all text-cs-text-secondary hover:bg-admin-bg hover:text-cs-text-primary" id="nav-site">
-                <span class="w-5 text-center text-base"></span>
-                <span>View Site</span>
-            </a>
         </nav>
 
         <div class="p-4 border-t border-admin-border">
