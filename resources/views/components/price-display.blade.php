@@ -1,4 +1,4 @@
-﻿{{--
+{{--
     Price Display Component
     Props:
       $item           — Eloquent model with ->price and ->currency
@@ -15,8 +15,8 @@
     $size       = $size ?? 'md';
     $extraClass = $class ?? '';
     
-    // 1. Ubah warna default harga utama menjadi putih ('text-white')
-    $textColor  = $color ?? 'text-white';
+    // Default color is the warm brand accent orange '#C67C4E'
+    $textColor  = $color ?? 'text-[#C67C4E]';
 
     $block = $cs->formatWithConversion($amount, $currency, $viewer);
 
@@ -26,18 +26,22 @@
         default => 'text-sm font-bold ' . $textColor,
     };
     
-    // 2. Tambahkan warna hijau neon ('text-[#00FF00]') langsung ke class harga bawah
+    // Choose a readable sub-price color based on text context
+    $subColor = 'text-[#7A6B5D]'; // Default dark muted brown for light backgrounds
+    if ($textColor === 'text-[#D4A574]' || $textColor === 'text-white') {
+        $subColor = 'text-[#D4A574]/80'; // Muted gold/white for dark overlay backgrounds
+    }
+
     $subClass = match($size) {
-        'sm'    => 'text-[0.55rem] text-[#00FF00]',
-        'lg'    => 'text-xs text-[#00FF00]',
-        default => 'text-[0.62rem] text-[#00FF00]',
+        'sm'    => 'text-[0.55rem] ' . $subColor,
+        'lg'    => 'text-xs ' . $subColor,
+        default => 'text-[0.62rem] ' . $subColor,
     };
 @endphp
 
 <div class="price-display {{ $extraClass }}">
     <span class="{{ $primaryClass }}">{{ $block['primary'] }}</span>
     @if(!$block['same_currency'] && $block['original'])
-        {{-- 3. Hapus class warna lama 'text-[#9A7B5A]' agar warna neon dari $subClass tidak tertimpa --}}
         <span class="{{ $subClass }} block leading-tight mt-0.5">
             ≈ {{ $block['original'] }} original
         </span>
