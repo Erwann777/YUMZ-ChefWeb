@@ -62,7 +62,6 @@
             <div class="lg:col-span-1">
                 <div class="bg-white rounded-2xl shadow-sm border border-[#F0E8DE] p-6 h-full">
                     <div class="flex items-center gap-2 mb-4">
-                        <div class="w-8 h-8 bg-[#FDF5EE] rounded-lg flex items-center justify-center"></div>
                         <h3 class="font-semibold text-[#2C1810]">Simulate Top-Up</h3>
                     </div>
                     @if(session('success'))
@@ -115,7 +114,6 @@
             <div class="lg:col-span-2">
                 <div class="bg-white rounded-2xl shadow-sm border border-[#F0E8DE] p-6 h-full">
                     <div class="flex items-center gap-2 mb-4">
-                        <div class="w-8 h-8 bg-[#FDF5EE] rounded-lg flex items-center justify-center"></div>
                         <h3 class="font-semibold text-[#2C1810]">Current Exchange Rates</h3>
                         <span class="ml-auto text-[0.65rem] text-[#94a3b8] bg-[#F8F4F0] px-2 py-1 rounded-full">1h Cache</span>
                     </div>

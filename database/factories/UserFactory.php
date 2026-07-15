@@ -42,4 +42,69 @@ class UserFactory extends Factory
             'email_verified_at' => null,
         ]);
     }
+
+    /**
+     * Customer role state.
+     */
+    public function customer(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'role'           => 'customer',
+            'country'        => 'ID',
+            'currency'       => 'IDR',
+            'wallet_balance' => 10000000.00,
+        ]);
+    }
+
+    /**
+     * Cooker role state.
+     */
+    public function cooker(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'role'           => 'cooker',
+            'country'        => 'ID',
+            'currency'       => 'IDR',
+            'wallet_balance' => 0.00,
+        ]);
+    }
+
+    /**
+     * Admin role state.
+     */
+    public function admin(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'role'           => 'admin',
+            'country'        => 'ID',
+            'currency'       => 'IDR',
+            'wallet_balance' => 0.00,
+        ]);
+    }
+
+    /**
+     * Singapore customer state (SGD currency).
+     */
+    public function singaporeCustomer(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'role'           => 'customer',
+            'country'        => 'SG',
+            'currency'       => 'SGD',
+            'wallet_balance' => 1000.00,
+        ]);
+    }
+
+    /**
+     * Malaysia customer state (MYR currency).
+     */
+    public function malaysiaCustomer(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'role'           => 'customer',
+            'country'        => 'MY',
+            'currency'       => 'MYR',
+            'wallet_balance' => 3000.00,
+        ]);
+    }
 }

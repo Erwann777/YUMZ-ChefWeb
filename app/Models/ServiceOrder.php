@@ -2,11 +2,14 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ServiceOrder extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'customer_id', 'service_id', 'cooker_id',
         'status', 'notes', 'total_price',
@@ -36,11 +39,11 @@ class ServiceOrder extends Model
     public function getStatusBadgeAttribute(): string
     {
         return match ($this->status) {
-            'pending' => '',
-            'confirmed' => '',
-            'completed' => '',
-            'cancelled' => '',
-            default => '',
+            'pending'   => 'pending',
+            'confirmed' => 'confirmed',
+            'completed' => 'completed',
+            'cancelled' => 'cancelled',
+            default     => 'unknown',
         };
     }
 

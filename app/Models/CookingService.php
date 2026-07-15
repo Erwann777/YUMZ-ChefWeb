@@ -2,12 +2,15 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class CookingService extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'cooker_id', 'title', 'description', 'price', 'is_available',
         'image_path', 'category', 'is_halal', 'currency',

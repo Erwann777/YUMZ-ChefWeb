@@ -57,7 +57,7 @@ class RegisterController extends Controller
                 'amount'         => $initialBalance,
                 'currency'       => $currency,
                 'reference_type' => 'initial_credit',
-                'description'    => ' Saldo awal virtual wallet (Simulasi)',
+                'description'    => 'Initial virtual wallet balance (Simulation)',
             ]);
 
             return $user;
