@@ -152,7 +152,7 @@
                                     <div class="text-[0.45rem] sm:text-[0.55rem] text-[#9A7B5A] mt-0.5 font-medium">({{ $cooker->cooking_services_count }} Services, {{ $cooker->recipes_count }} Recipes)</div>
                                 </div>
                                 <div>
-                                    <div class="font-bold text-[0.8rem] sm:text-[1rem] text-[#2C1810]">{{ $cooker->followers_count ?? $cooker->followers()->count() }}</div>
+                                    <div class="font-bold text-[0.8rem] sm:text-[1rem] text-[#2C1810]" data-followers-count="{{ $cooker->id }}">{{ $cooker->followers_count ?? $cooker->followers()->count() }}</div>
                                     <div class="text-[0.52rem] sm:text-[0.7rem] text-[#7A6B5D] uppercase tracking-[0.05em] font-semibold">Followers</div>
                                 </div>
                             </div>
@@ -622,6 +622,7 @@
         {{-- Bottom bar --}}
         <div class="border-t border-white/[0.08] pt-4 flex flex-col sm:flex-row justify-between items-center gap-1 text-center text-[0.75rem] text-white/35">
             <span>&copy; {{ date('Y') }} YUMZ. All rights reserved.</span>
+            <span class="mt-2 sm:mt-0"><a href="javascript:void(0)" onclick="openCookiePreferenceModal()" class="text-white/40 hover:text-[#D4A574] no-underline transition-colors">Cookie Preferences</a></span>
         </div>
     </div>
 </footer>

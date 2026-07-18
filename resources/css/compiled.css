@@ -1166,6 +1166,9 @@
   .shrink-0 {
     flex-shrink: 0;
   }
+  .flex-grow {
+    flex-grow: 1;
+  }
   .grow {
     flex-grow: 1;
   }
@@ -3126,9 +3129,6 @@
   .cs-title {
     color: #2C1810;
   }
-  .text-\[\#00FF00\] {
-    color: #00FF00;
-  }
   .text-\[\#2B241C\] {
     color: #2B241C;
   }
@@ -3404,6 +3404,9 @@
   }
   .capitalize {
     text-transform: capitalize;
+  }
+  .lowercase {
+    text-transform: lowercase;
   }
   .uppercase {
     text-transform: uppercase;
@@ -4838,6 +4841,11 @@
   .sm\:col-span-3 {
     @media (width >= 40rem) {
       grid-column: span 3 / span 3;
+    }
+  }
+  .sm\:mt-0 {
+    @media (width >= 40rem) {
+      margin-top: calc(var(--spacing) * 0);
     }
   }
   .sm\:mt-4 {
