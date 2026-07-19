@@ -1504,7 +1504,7 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
         <div class="cookie-modal-footer">
             <button onclick="saveCookiePreferences()" class="cookie-btn cookie-btn-primary" style="flex:2;">Save Preferences</button>
-            <button onclick="acceptAllCookies()" class="cookie-btn cookie-btn-secondary" style="flex:1;">Allow All</button>
+            <button onclick="acceptAllCookies()" class="cookie-btn cookie-btn-secondary" style="flex:1;background-color:#C67C4E;">Allow All</button>
         </div>
     </div>
 </div>
