@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 
 class ChatController extends Controller
 {
+    // ===================== [READ] =====================
     public function index()
     {
         $user = Auth::user();
@@ -42,6 +43,7 @@ class ChatController extends Controller
         return view('chat.index', compact('user', 'rooms', 'unreadRoomIds'));
     }
 
+    // ===================== [READ] =====================
     public function show(ChatRoom $room)
     {
         $user = Auth::user();
@@ -87,6 +89,7 @@ class ChatController extends Controller
         return view('chat.index', compact('user', 'room', 'partner', 'rooms', 'unreadRoomIds'));
     }
 
+    // ===================== [CREATE] =====================
     public function startChat(User $cooker)
     {
         $user = Auth::user();
@@ -97,6 +100,7 @@ class ChatController extends Controller
         return redirect()->route('chat.show', $room);
     }
 
+    // ===================== [CREATE] =====================
     public function sendMessage(Request $request, ChatRoom $room)
     {
         $user = Auth::user();
@@ -146,6 +150,7 @@ class ChatController extends Controller
         return response()->json($this->msgToArray($message, $user));
     }
 
+    // ===================== [DELETE] =====================
     public function deleteMessage(ChatMessage $message)
     {
         $user = Auth::user();
@@ -158,6 +163,7 @@ class ChatController extends Controller
         return response()->json(['success' => true, 'id' => $message->id]);
     }
 
+    // ===================== [UPDATE] =====================
     public function editMessage(Request $request, ChatMessage $message)
     {
         $user = Auth::user();
@@ -175,6 +181,7 @@ class ChatController extends Controller
         return response()->json(['success' => true, 'id' => $message->id, 'message' => $message->message, 'edited_at' => $message->edited_at->format('H:i')]);
     }
 
+    // ===================== [READ] =====================
     public function getMessages(Request $request, ChatRoom $room)
     {
         $user = Auth::user();

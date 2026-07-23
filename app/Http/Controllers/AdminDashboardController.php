@@ -94,6 +94,7 @@ class AdminDashboardController extends Controller
         ]);
     }
 
+    // ===================== [READ] =====================
     /**
      * User management page.
      */
@@ -129,6 +130,7 @@ class AdminDashboardController extends Controller
         ]);
     }
 
+    // ===================== [READ] =====================
     /**
      * Show user detail page.
      */
@@ -149,6 +151,7 @@ class AdminDashboardController extends Controller
         ]);
     }
 
+    // ===================== [READ] =====================
     /**
      * Show edit user form.
      */
@@ -160,6 +163,7 @@ class AdminDashboardController extends Controller
         ]);
     }
 
+    // ===================== [UPDATE] =====================
     /**
      * Update a user.
      */
@@ -206,6 +210,7 @@ class AdminDashboardController extends Controller
         return redirect()->route('admin.users')->with('success', "User {$targetUser->name} successfully updated.");
     }
 
+    // ===================== [UPDATE] =====================
     /**
      * Toggle user suspension status.
      */
@@ -233,6 +238,7 @@ class AdminDashboardController extends Controller
         return back()->with('success', "User {$targetUser->name} has been {$action}.");
     }
 
+    // ===================== [DELETE] =====================
     /**
      * Delete a user.
      */
@@ -259,6 +265,7 @@ class AdminDashboardController extends Controller
         return redirect()->route('admin.users')->with('success', "User {$name} successfully deleted.");
     }
 
+    // ===================== [READ] =====================
     /**
      * All service orders.
      */
@@ -288,6 +295,7 @@ class AdminDashboardController extends Controller
         ]);
     }
 
+    // ===================== [UPDATE] =====================
     /**
      * Update order status (admin override).
      */
@@ -317,6 +325,7 @@ class AdminDashboardController extends Controller
         return back()->with('success', "Order #{$order->id} status updated to " . ucfirst($newStatus) . '.');
     }
 
+    // ===================== [READ] =====================
     /**
      * Content management (recipes & services).
      */
@@ -368,6 +377,7 @@ class AdminDashboardController extends Controller
         ]);
     }
 
+    // ===================== [UPDATE] =====================
     /**
      * Toggle recipe publish status.
      */
@@ -387,6 +397,7 @@ class AdminDashboardController extends Controller
         return back()->with('success', "Recipe \"{$recipe->title}\" has been {$status}.");
     }
 
+    // ===================== [UPDATE] =====================
     /**
      * Toggle service availability.
      */
@@ -406,6 +417,7 @@ class AdminDashboardController extends Controller
         return back()->with('success', "Service \"{$service->title}\" has been {$status}.");
     }
 
+    // ===================== [DELETE] =====================
     /**
      * Delete a recipe (admin).
      */
@@ -427,6 +439,7 @@ class AdminDashboardController extends Controller
         return back()->with('success', "Recipe \"{$title}\" has been deleted.");
     }
 
+    // ===================== [DELETE] =====================
     /**
      * Delete a service (admin).
      */
@@ -448,6 +461,7 @@ class AdminDashboardController extends Controller
         return back()->with('success', "Service \"{$title}\" has been deleted.");
     }
 
+    // ===================== [READ] =====================
     /**
      * Wallet transactions audit.
      */
@@ -486,6 +500,7 @@ class AdminDashboardController extends Controller
         ]);
     }
 
+    // ===================== [READ] =====================
     /**
      * Activity log page.
      */

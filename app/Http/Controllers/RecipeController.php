@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Storage;
 
 class RecipeController extends Controller
 {
+    // ===================== [READ] =====================
     public function create()
     {
         return view('cooker.recipes.create', [
@@ -17,6 +18,7 @@ class RecipeController extends Controller
         ]);
     }
 
+    // ===================== [CREATE] =====================
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -54,6 +56,7 @@ class RecipeController extends Controller
         return redirect()->route('cooker.dashboard')->with('success', "Recipe \"{$recipe->title}\" uploaded successfully!");
     }
 
+    // ===================== [READ] =====================
     public function edit(Recipe $recipe)
     {
         if ($recipe->cooker_id !== Auth::id()) {
@@ -66,6 +69,7 @@ class RecipeController extends Controller
         ]);
     }
 
+    // ===================== [UPDATE] =====================
     public function update(Request $request, Recipe $recipe)
     {
         if ($recipe->cooker_id !== Auth::id()) {
@@ -107,6 +111,7 @@ class RecipeController extends Controller
         return redirect()->route('cooker.dashboard')->with('success', "Recipe \"{$recipe->title}\" updated successfully!");
     }
 
+    // ===================== [DELETE] =====================
     public function destroy(Request $request, Recipe $recipe)
     {
         if ($recipe->cooker_id !== Auth::id()) {

@@ -13,6 +13,7 @@ class CookingServiceController extends Controller
     /**
     * Display the services dashboard for customers.
     */
+    // ===================== [READ] =====================
     public function index()
     {
         // Hot services (rating 4-5 and high sales)
@@ -79,6 +80,7 @@ class CookingServiceController extends Controller
             'cookers' => $cookers,
         ]);
     }
+    // ===================== [READ] =====================
     public function create()
     {
         return view('cooker.services.create', [
@@ -86,6 +88,7 @@ class CookingServiceController extends Controller
         ]);
     }
 
+    // ===================== [CREATE] =====================
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -119,6 +122,7 @@ class CookingServiceController extends Controller
         return redirect()->route('cooker.dashboard')->with('success', "Service \"{$service->title}\" created successfully!");
     }
 
+    // ===================== [READ] =====================
     public function edit(CookingService $service)
     {
         if ($service->cooker_id !== Auth::id()) {
@@ -131,6 +135,7 @@ class CookingServiceController extends Controller
         ]);
     }
 
+    // ===================== [UPDATE] =====================
     public function update(Request $request, CookingService $service)
     {
         if ($service->cooker_id !== Auth::id()) {
@@ -168,6 +173,7 @@ class CookingServiceController extends Controller
         return redirect()->route('cooker.dashboard')->with('success', "Service \"{$service->title}\" updated successfully!");
     }
 
+    // ===================== [DELETE] =====================
     public function destroy(Request $request, CookingService $service)
     {
         if ($service->cooker_id !== Auth::id()) {

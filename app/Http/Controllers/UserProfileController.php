@@ -10,6 +10,7 @@ use Illuminate\Validation\Rule;
 
 class UserProfileController extends Controller
 {
+    // ===================== [READ] =====================
     /**
      * Show the user's profile page.
      */
@@ -47,6 +48,7 @@ class UserProfileController extends Controller
         ));
     }
 
+    // ===================== [UPDATE] =====================
     /**
      * Update the user's profile data.
      */
@@ -77,6 +79,7 @@ class UserProfileController extends Controller
             ->with('success', 'Profile successfully updated! ');
     }
 
+    // ===================== [UPDATE] =====================
     /**
      * Upload/update the user's profile photo.
      */
